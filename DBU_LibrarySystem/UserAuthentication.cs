@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +13,7 @@ namespace DBU_LibrarySystem
         public UserAuthentication()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
         }
     }
 }
