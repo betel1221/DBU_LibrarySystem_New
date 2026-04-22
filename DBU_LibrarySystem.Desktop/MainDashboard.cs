@@ -1,5 +1,5 @@
-using System;
 using System.Windows.Forms;
+using DBU_LibrarySystem.Utilities;
 
 namespace DBU_LibrarySystem
 {
@@ -13,6 +13,8 @@ namespace DBU_LibrarySystem
             // Load the default user control
             LoadUserControl(new ucBookManagement());
             HighlightButton(button1); // BookManagement button
+            
+            this.Load += (s, e) => ThemeHelper.ApplyTheme(this);
         }
 
         private void LoadUserControl(UserControl uc)

@@ -1,0 +1,6 @@
+@DBU_LibrarySystem.API_HostAddress = http://localhost:5191
+
+GET {{DBU_LibrarySystem.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
