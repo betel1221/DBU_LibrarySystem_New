@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -18,6 +18,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DBU_LibrarySystem.API\DBU_LibrarySystem.API.csproj" />
+    <ProjectReference Include="..\DBU_LibrarySystem.DataLayer\DBU_LibrarySystem.DataLayer.csproj" />
   </ItemGroup>
 
 </Project>

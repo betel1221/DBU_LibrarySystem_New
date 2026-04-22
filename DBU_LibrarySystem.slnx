@@ -1,2 +1,5 @@
 <Solution>
+  <Project Path="DBU_LibrarySystem.API/DBU_LibrarySystem.API.csproj" />
+  <Project Path="DBU_LibrarySystem.DataLayer/DBU_LibrarySystem.DataLayer.csproj" />
+  <Project Path="DBU_LibrarySystem.Desktop/DBU_LibrarySystem.Desktop.csproj" />
 </Solution>

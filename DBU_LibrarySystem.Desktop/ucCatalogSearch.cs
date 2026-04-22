@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using DBU_LibrarySystem.Utilities;
 
 namespace DBU_LibrarySystem
 {
@@ -8,6 +9,7 @@ namespace DBU_LibrarySystem
         public ucCatalogSearch()
         {
             InitializeComponent();
+            ThemeHelper.ApplyTheme(this);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

@@ -13,21 +13,21 @@ namespace DBU_LibrarySystem
             this.WindowState = FormWindowState.Maximized;
             this.Resize += (s, e) => CenterComponents();
             this.Load += (s, e) => {
-                CenterComponents();
                 ThemeHelper.ApplyTheme(this);
+                CenterComponents();
+                // Override panel1 to be the background (darker)
+                this.BackColor = ThemeHelper.BackgroundColor;
+                panel1.Visible = false; // We use the form background instead for a cleaner glass look
             };
         }
 
         private void CenterComponents()
         {
-            if (panel1 != null && label1 != null && panel2 != null)
+            if (panel2 != null)
             {
-                // Center the title in the top bar
-                label1.Left = (panel1.Width - label1.Width) / 2;
-                
-                // Center the login box in the remaining form area
+                // Center the login box in the middle of the screen
                 panel2.Left = (this.ClientSize.Width - panel2.Width) / 2;
-                panel2.Top = ((this.ClientSize.Height + panel1.Height) - panel2.Height) / 2;
+                panel2.Top = (this.ClientSize.Height - panel2.Height) / 2;
             }
         }
 
