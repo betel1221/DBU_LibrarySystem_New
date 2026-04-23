@@ -1,4 +1,5 @@
 using System.Windows.Forms;
+using DBU_LibrarySystem.Utilities;
 
 namespace DBU_LibrarySystem
 {
@@ -7,6 +8,7 @@ namespace DBU_LibrarySystem
         public ucReports()
         {
             InitializeComponent();
+            ThemeHelper.ApplyTheme(this);
         }
     }
 }
