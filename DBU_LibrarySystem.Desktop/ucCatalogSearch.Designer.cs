@@ -23,6 +23,7 @@ namespace DBU_LibrarySystem
             txtSearch = new System.Windows.Forms.TextBox();
             cmbFilter = new System.Windows.Forms.ComboBox();
             btnSearch = new System.Windows.Forms.Button();
+            lblSearchBy = new System.Windows.Forms.Label();
             dataGridView1 = new System.Windows.Forms.DataGridView();
             
             panelList.SuspendLayout();
@@ -51,24 +52,32 @@ namespace DBU_LibrarySystem
             txtSearch.BackColor = System.Drawing.Color.FromArgb(232, 240, 254);
             txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txtSearch.Font = new System.Drawing.Font("Segoe UI", 12F);
-            txtSearch.Location = new System.Drawing.Point(20, 25);
+            txtSearch.Location = new System.Drawing.Point(20, 35);
             txtSearch.Size = new System.Drawing.Size(300, 30);
-            txtSearch.Text = "fikr";
+            txtSearch.Text = "";
+            txtSearch.PlaceholderText = "Type keywords here...";
             
             // Filter Dropdown
             cmbFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             cmbFilter.Font = new System.Drawing.Font("Segoe UI", 12F);
-            cmbFilter.Items.AddRange(new object[] { "By Title", "By Author", "By ISBN" });
+            cmbFilter.Items.AddRange(new object[] { "By Title", "By Author", "By ISBN", "By Category", "By Year" });
             cmbFilter.SelectedIndex = 0;
-            cmbFilter.Location = new System.Drawing.Point(340, 25);
+            cmbFilter.Location = new System.Drawing.Point(340, 35);
             cmbFilter.Size = new System.Drawing.Size(200, 30);
+            
+            // lblSearchBy
+            lblSearchBy.AutoSize = true;
+            lblSearchBy.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            lblSearchBy.ForeColor = System.Drawing.Color.Gray;
+            lblSearchBy.Location = new System.Drawing.Point(340, 10);
+            lblSearchBy.Text = "SELECT SEARCH CRITERIA:";
             
             // Search Button
             btnSearch.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
             btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnSearch.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnSearch.ForeColor = System.Drawing.Color.White;
-            btnSearch.Location = new System.Drawing.Point(560, 20);
+            btnSearch.Location = new System.Drawing.Point(560, 30);
             btnSearch.Size = new System.Drawing.Size(150, 40);
             btnSearch.Text = "Search";
             btnSearch.Click += btnSearch_Click;
@@ -79,7 +88,7 @@ namespace DBU_LibrarySystem
             btnReserve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnReserve.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnReserve.ForeColor = System.Drawing.Color.White;
-            btnReserve.Location = new System.Drawing.Point(720, 20);
+            btnReserve.Location = new System.Drawing.Point(720, 30);
             btnReserve.Size = new System.Drawing.Size(150, 40);
             btnReserve.Text = "Reserve Now";
             btnReserve.Click += btnReserve_Click;
@@ -106,16 +115,21 @@ namespace DBU_LibrarySystem
             colISBN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             
             colISBN.HeaderText = "ISBN";
             colTitle.HeaderText = "Title";
             colAuthor.HeaderText = "Author";
+            colCategory.HeaderText = "Category";
+            colYear.HeaderText = "Year";
             colStatus.HeaderText = "Status";
             
-            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colISBN, colTitle, colAuthor, colStatus });
+            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colISBN, colTitle, colAuthor, colCategory, colYear, colStatus });
             
             panelList.Controls.Add(txtSearch);
+            panelList.Controls.Add(lblSearchBy);
             panelList.Controls.Add(cmbFilter);
             panelList.Controls.Add(btnSearch);
             panelList.Controls.Add(btnReserve);
@@ -137,10 +151,13 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.ComboBox cmbFilter;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnReserve;
+        private System.Windows.Forms.Label lblSearchBy;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn colISBN;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn colAuthor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCategory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colYear;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
     }
 }

@@ -54,12 +54,17 @@ namespace DBU_LibrarySystem
             txtSearch.PlaceholderText = "Search title or author...";
             txtSearch.Size = new System.Drawing.Size(300, 30);
             
-            cmbFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cmbFilter.Font = new System.Drawing.Font("Segoe UI", 12F);
-            cmbFilter.Items.AddRange(new object[] { "By Title", "By Author", "By ISBN" });
+            cmbFilter.Items.AddRange(new object[] { "By Title", "By Author", "By ISBN", "By Category", "By Year" });
             cmbFilter.SelectedIndex = 0;
             cmbFilter.Location = new System.Drawing.Point(350, 70);
             cmbFilter.Size = new System.Drawing.Size(200, 30);
+            
+            lblSearchBy = new System.Windows.Forms.Label();
+            lblSearchBy.AutoSize = true;
+            lblSearchBy.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            lblSearchBy.ForeColor = System.Drawing.Color.Gray;
+            lblSearchBy.Location = new System.Drawing.Point(350, 50);
+            lblSearchBy.Text = "SELECT SEARCH CRITERIA:";
             
             btnSearch.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
             btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -72,6 +77,7 @@ namespace DBU_LibrarySystem
             
             panelSearch.Controls.Add(lblSearchTitle);
             panelSearch.Controls.Add(txtSearch);
+            panelSearch.Controls.Add(lblSearchBy);
             panelSearch.Controls.Add(cmbFilter);
             panelSearch.Controls.Add(btnSearch);
             
@@ -89,6 +95,7 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.Label lblSearchTitle;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.ComboBox cmbFilter;
+        private System.Windows.Forms.Label lblSearchBy;
         private System.Windows.Forms.Button btnSearch;
     }
 }

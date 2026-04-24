@@ -12,13 +12,56 @@ namespace DBU_LibrarySystem
             ThemeHelper.ApplyTheme(this);
         }
 
+        private void cmbSearchMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbFilter.Items.Clear();
+            if (cmbSearchMode.SelectedItem?.ToString() == "Members")
+            {
+                cmbFilter.Items.AddRange(new object[] { "By Name", "By Member ID" });
+            }
+            else
+            {
+                cmbFilter.Items.AddRange(new object[] { "By Title", "By Author", "By ISBN", "By Category", "By Year" });
+            }
+            cmbFilter.SelectedIndex = 0;
+        }
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
-            if(!string.IsNullOrEmpty(txtSearch.Text))
+            string query = txtSearch.Text.Trim();
+            string mode = cmbSearchMode.SelectedItem?.ToString();
+            string filter = cmbFilter.SelectedItem?.ToString();
+
+            if (mode == "Members")
             {
-                dataGridView1.Rows.Add("Book", "978-0131103627", "The C Programming Language", "Available");
-                dataGridView1.Rows.Add("Member", "M-001", "John Doe", "Active");
+                var members = (filter == "By Name") 
+                    ? Services.LibraryManager.SearchMembers(name: query)
+                    : Services.LibraryManager.SearchMembers(id: query);
+
+                foreach (var m in members)
+                {
+                    dataGridView1.Rows.Add("Member", m.UserId, m.Name, m.IsApproved ? "Approved" : "Pending");
+                }
+            }
+            else
+            {
+                System.Collections.Generic.List<Models.Book> books;
+                if (filter == "By Author") books = Services.LibraryManager.SearchBooks(author: query);
+                else if (filter == "By ISBN") books = Services.LibraryManager.SearchBooks(isbn: query);
+                else if (filter == "By Category") books = Services.LibraryManager.SearchBooks(category: query);
+                else if (filter == "By Year")
+                {
+                    int.TryParse(query, out int year);
+                    books = Services.LibraryManager.SearchBooks(year: year > 0 ? year : (int?)null);
+                }
+                else books = Services.LibraryManager.SearchBooks(title: query);
+
+                foreach (var b in books)
+                {
+                    int availableCount = b.Copies?.Count(c => c.Status == "Available") ?? 0;
+                    dataGridView1.Rows.Add("Book", b.ISBN, $"{b.Title} ({b.Category})", availableCount > 0 ? "Available" : "Stock Out");
+                }
             }
         }
     }

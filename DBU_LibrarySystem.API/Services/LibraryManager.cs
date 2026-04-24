@@ -38,18 +38,54 @@ namespace DBU_LibrarySystem.Services
         }
 
         // --- SEARCH ---
-        public static List<Book> SearchBooks(string query)
+        public static List<Book> SearchBooks(string title = null, string author = null, string category = null, string isbn = null, int? year = null)
         {
             using (var db = new LibraryContext())
             {
-                query = query.ToLower();
-                return db.Books
-                         .Include(b => b.Copies)
-                         .Where(b => b.Title.ToLower().Contains(query) || 
-                                     b.Author.ToLower().Contains(query) || 
-                                     b.Category.ToLower().Contains(query) || 
-                                     b.ISBN.Contains(query))
-                         .ToList();
+                var query = db.Books.Include(b => b.Copies).AsQueryable();
+
+                if (!string.IsNullOrEmpty(title))
+                    query = query.Where(b => b.Title.ToLower().Contains(title.ToLower()));
+                
+                if (!string.IsNullOrEmpty(author))
+                    query = query.Where(b => b.Author.ToLower().Contains(author.ToLower()));
+                
+                if (!string.IsNullOrEmpty(category))
+                    query = query.Where(b => b.Category.ToLower().Contains(category.ToLower()));
+                
+                if (!string.IsNullOrEmpty(isbn))
+                    query = query.Where(b => b.ISBN.Contains(isbn));
+
+                if (year.HasValue)
+                    query = query.Where(b => b.YearOfPublication == year.Value);
+
+                return query.ToList();
+            }
+        }
+        public static List<User> SearchMembers(string name = null, string id = null)
+        {
+            using (var db = new LibraryContext())
+            {
+                var query = db.Users.Where(u => u.Role == "Student").AsQueryable();
+
+                if (!string.IsNullOrEmpty(name))
+                    query = query.Where(u => u.Name.ToLower().Contains(name.ToLower()));
+                
+                if (!string.IsNullOrEmpty(id))
+                    query = query.Where(u => u.UserId.Contains(id));
+
+                return query.ToList();
+            }
+        }
+
+        public static (int totalBooks, int activeMembers, int borrowedBooks) GetLibraryStats()
+        {
+            using (var db = new LibraryContext())
+            {
+                int total = db.Books.Count();
+                int members = db.Users.Count(u => u.Role == "Student" && u.IsApproved);
+                int borrowed = db.BookCopies.Count(c => c.Status == "Borrowed");
+                return (total, members, borrowed);
             }
         }
 
