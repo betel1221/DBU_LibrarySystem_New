@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using DBU_LibrarySystem.Services;
@@ -15,7 +16,55 @@ namespace DBU_LibrarySystem
         {
             InitializeComponent();
             ThemeHelper.ApplyTheme(this);
+            SetupGridAtRuntime(); // FORCE REBUILD
             LoadRealData();
+        }
+
+        private void SetupGridAtRuntime()
+        {
+            dataGridView1.Columns.Clear();
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+
+            // 1. ISBN
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "ISBN", DataPropertyName = "ISBN" });
+            // 2. Title
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Title", DataPropertyName = "Title" });
+            // 3. Author
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Author", DataPropertyName = "Author" });
+            // 4. Category
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Category", DataPropertyName = "Category" });
+            // 5. Year
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Year", DataPropertyName = "Year" });
+            // 6. Qty
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Qty" });
+            
+            // 7. Edit Button
+            var editBtn = new DataGridViewButtonColumn
+            {
+                HeaderText = "✏️",
+                Text = "✏️",
+                UseColumnTextForButtonValue = true,
+                FlatStyle = FlatStyle.Flat
+            };
+            dataGridView1.Columns.Add(editBtn);
+
+            // 8. Delete Button
+            var delBtn = new DataGridViewButtonColumn
+            {
+                HeaderText = "🗑️",
+                Text = "🗑️",
+                UseColumnTextForButtonValue = true,
+                FlatStyle = FlatStyle.Flat
+            };
+            dataGridView1.Columns.Add(delBtn);
+
+            // Style Headers
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(44, 127, 184);
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1.EnableHeadersVisualStyles = false;
         }
 
         private void LoadRealData()
@@ -59,7 +108,6 @@ namespace DBU_LibrarySystem
 
                 LibraryManager.AddOrUpdateBook(book);
 
-                // Update copies only if adding new
                 if (txtISBN.ReadOnly == false && int.TryParse(txtQty.Text, out int qty))
                 {
                     for (int i = 1; i <= qty; i++)
@@ -82,8 +130,8 @@ namespace DBU_LibrarySystem
             string isbn = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
             string title = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
 
-            // Edit Action
-            if (e.ColumnIndex == colEdit.Index)
+            // Check if column 6 (Edit) or 7 (Delete) was clicked
+            if (e.ColumnIndex == 6) // Edit
             {
                 txtISBN.Text = isbn;
                 txtTitle.Text = title;
@@ -94,12 +142,9 @@ namespace DBU_LibrarySystem
 
                 txtISBN.ReadOnly = true;
                 btnAdd.Text = "Save Changes";
-                
-                // Scroll to top
                 panelCreate.Focus();
             }
-            // Delete Action
-            else if (e.ColumnIndex == colDelete.Index)
+            else if (e.ColumnIndex == 7) // Delete
             {
                 var res = MessageBox.Show($"Are you sure you want to delete '{title}'?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (res == DialogResult.Yes)
