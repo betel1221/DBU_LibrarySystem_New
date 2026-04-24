@@ -30,10 +30,10 @@ namespace DBU_LibrarySystem
             panel3 = new System.Windows.Forms.Panel();
             panel5 = new System.Windows.Forms.Panel();
             dataGridView1 = new System.Windows.Forms.DataGridView();
-            ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            Author = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             button8 = new System.Windows.Forms.Button();
             panel4 = new System.Windows.Forms.Panel();
             button7 = new System.Windows.Forms.Button();
@@ -304,7 +304,7 @@ namespace DBU_LibrarySystem
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { ID, Title, Author, Stock });
+            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colID, colTitle, colAuthor, colStock });
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.Location = new System.Drawing.Point(19, 70);
             dataGridView1.Name = "dataGridView1";
@@ -313,29 +313,29 @@ namespace DBU_LibrarySystem
             dataGridView1.Size = new System.Drawing.Size(987, 230);
             dataGridView1.TabIndex = 5;
             // 
-            // ID
+            // colID
             // 
-            ID.HeaderText = "ISBN";
-            ID.Name = "ID";
-            ID.ReadOnly = true;
+            colID.HeaderText = "ISBN";
+            colID.Name = "colID";
+            colID.ReadOnly = true;
             // 
-            // Title
+            // colTitle
             // 
-            Title.HeaderText = "Title";
-            Title.Name = "Title";
-            Title.ReadOnly = true;
+            colTitle.HeaderText = "Title";
+            colTitle.Name = "colTitle";
+            colTitle.ReadOnly = true;
             // 
-            // Author
+            // colAuthor
             // 
-            Author.HeaderText = "Author";
-            Author.Name = "Author";
-            Author.ReadOnly = true;
+            colAuthor.HeaderText = "Author";
+            colAuthor.Name = "colAuthor";
+            colAuthor.ReadOnly = true;
             // 
-            // Stock
+            // colStock
             // 
-            Stock.HeaderText = "Stock available";
-            Stock.Name = "Stock";
-            Stock.ReadOnly = true;
+            colStock.HeaderText = "Stock available";
+            colStock.Name = "colStock";
+            colStock.ReadOnly = true;
             // 
             // BookManagement
             // 
@@ -382,9 +382,9 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Title;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Author;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Stock;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAuthor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStock;
     }
 }
