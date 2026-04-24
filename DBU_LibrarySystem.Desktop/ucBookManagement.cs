@@ -57,10 +57,10 @@ namespace DBU_LibrarySystem
                     YearOfPublication = int.Parse(txtYear.Text)
                 };
 
-                LibraryManager.AddBook(book);
+                LibraryManager.AddOrUpdateBook(book);
 
-                // Add copies
-                if (int.TryParse(txtQty.Text, out int qty))
+                // Update copies only if adding new
+                if (txtISBN.ReadOnly == false && int.TryParse(txtQty.Text, out int qty))
                 {
                     for (int i = 1; i <= qty; i++)
                     {
@@ -68,7 +68,7 @@ namespace DBU_LibrarySystem
                     }
                 }
 
-                MessageBox.Show("Book added successfully!");
+                MessageBox.Show("Book saved successfully!");
                 LoadRealData();
                 ClearFields();
             }
@@ -93,9 +93,7 @@ namespace DBU_LibrarySystem
                 txtQty.Text = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
 
                 txtISBN.ReadOnly = true;
-                btnAdd.Enabled = false;
-                btnUpdate.Enabled = true;
-                btnDelete.Enabled = true;
+                btnAdd.Text = "Save Changes";
                 
                 // Scroll to top
                 panelCreate.Focus();
@@ -113,36 +111,6 @@ namespace DBU_LibrarySystem
             }
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var book = new DBU_LibrarySystem.Models.Book
-                {
-                    ISBN = txtISBN.Text.Trim(),
-                    Title = txtTitle.Text.Trim(),
-                    Author = txtAuthor.Text.Trim(),
-                    Category = cmbCategory.SelectedItem?.ToString() ?? "Other",
-                    YearOfPublication = int.Parse(txtYear.Text)
-                };
-
-                LibraryManager.UpdateBook(book);
-                MessageBox.Show("Book updated successfully!");
-                LoadRealData();
-                ClearFields();
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            string isbn = txtISBN.Text.Trim();
-            if (string.IsNullOrEmpty(isbn)) return;
-            LibraryManager.DeleteBook(isbn);
-            LoadRealData();
-            ClearFields();
-        }
-
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearFields();
@@ -157,9 +125,7 @@ namespace DBU_LibrarySystem
             txtYear.Clear();
             txtQty.Clear();
             txtISBN.ReadOnly = false;
-            btnAdd.Enabled = true;
-            btnUpdate.Enabled = false;
-            btnDelete.Enabled = false;
+            btnAdd.Text = "Save Book";
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

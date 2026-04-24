@@ -17,9 +17,27 @@ namespace DBU_LibrarySystem.Services
         {
             using (var db = new LibraryContext())
             {
-                if (db.Books.Any(b => b.ISBN == book.ISBN))
-                    throw new Exception("Book with this ISBN already exists.");
                 db.Books.Add(book);
+                db.SaveChanges();
+            }
+        }
+
+        public static void AddOrUpdateBook(Book book)
+        {
+            using (var db = new LibraryContext())
+            {
+                var existing = db.Books.Find(book.ISBN);
+                if (existing != null)
+                {
+                    existing.Title = book.Title;
+                    existing.Author = book.Author;
+                    existing.Category = book.Category;
+                    existing.YearOfPublication = book.YearOfPublication;
+                }
+                else
+                {
+                    db.Books.Add(book);
+                }
                 db.SaveChanges();
             }
         }
