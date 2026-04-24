@@ -22,6 +22,8 @@ namespace DBU_LibrarySystem
             txtISBN = new System.Windows.Forms.TextBox();
             txtTitle = new System.Windows.Forms.TextBox();
             txtAuthor = new System.Windows.Forms.TextBox();
+            txtCategory = new System.Windows.Forms.TextBox();
+            txtYear = new System.Windows.Forms.TextBox();
             txtQty = new System.Windows.Forms.TextBox();
             btnAdd = new System.Windows.Forms.Button();
             panelList = new System.Windows.Forms.Panel();
@@ -30,6 +32,8 @@ namespace DBU_LibrarySystem
             colISBN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             
             panelCreate.SuspendLayout();
@@ -50,7 +54,7 @@ namespace DBU_LibrarySystem
             panelCreate.BackColor = System.Drawing.Color.White;
             panelCreate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelCreate.Location = new System.Drawing.Point(34, 80);
-            panelCreate.Size = new System.Drawing.Size(900, 160);
+            panelCreate.Size = new System.Drawing.Size(900, 200);
             panelCreate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             
             labelSubtitle.AutoSize = true;
@@ -72,10 +76,20 @@ namespace DBU_LibrarySystem
             txtAuthor.Font = new System.Drawing.Font("Segoe UI", 12F);
             txtAuthor.Location = new System.Drawing.Point(510, 50);
             txtAuthor.PlaceholderText = "Author";
-            txtAuthor.Size = new System.Drawing.Size(200, 30);
+            txtAuthor.Size = new System.Drawing.Size(180, 30);
+
+            txtCategory.Font = new System.Drawing.Font("Segoe UI", 12F);
+            txtCategory.Location = new System.Drawing.Point(710, 50);
+            txtCategory.PlaceholderText = "Category";
+            txtCategory.Size = new System.Drawing.Size(150, 30);
+
+            txtYear.Font = new System.Drawing.Font("Segoe UI", 12F);
+            txtYear.Location = new System.Drawing.Point(20, 100);
+            txtYear.PlaceholderText = "Year";
+            txtYear.Size = new System.Drawing.Size(100, 30);
 
             txtQty.Font = new System.Drawing.Font("Segoe UI", 12F);
-            txtQty.Location = new System.Drawing.Point(730, 50);
+            txtQty.Location = new System.Drawing.Point(140, 100);
             txtQty.PlaceholderText = "Qty";
             txtQty.Size = new System.Drawing.Size(100, 30);
             
@@ -83,8 +97,8 @@ namespace DBU_LibrarySystem
             btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnAdd.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnAdd.ForeColor = System.Drawing.Color.White;
-            btnAdd.Location = new System.Drawing.Point(20, 100);
-            btnAdd.Size = new System.Drawing.Size(250, 40);
+            btnAdd.Location = new System.Drawing.Point(260, 100);
+            btnAdd.Size = new System.Drawing.Size(200, 40);
             btnAdd.Text = "Add Book";
             btnAdd.Click += btnAdd_Click;
             
@@ -92,13 +106,15 @@ namespace DBU_LibrarySystem
             panelCreate.Controls.Add(txtISBN);
             panelCreate.Controls.Add(txtTitle);
             panelCreate.Controls.Add(txtAuthor);
+            panelCreate.Controls.Add(txtCategory);
+            panelCreate.Controls.Add(txtYear);
             panelCreate.Controls.Add(txtQty);
             panelCreate.Controls.Add(btnAdd);
             
             panelList.BackColor = System.Drawing.Color.White;
             panelList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panelList.Location = new System.Drawing.Point(34, 260);
-            panelList.Size = new System.Drawing.Size(900, 340);
+            panelList.Location = new System.Drawing.Point(34, 300);
+            panelList.Size = new System.Drawing.Size(900, 300);
             panelList.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
             
             btnRefresh.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
@@ -122,14 +138,16 @@ namespace DBU_LibrarySystem
             dataGridView1.ColumnHeadersHeight = 40;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.Location = new System.Drawing.Point(20, 70);
-            dataGridView1.Size = new System.Drawing.Size(860, 250);
+            dataGridView1.Size = new System.Drawing.Size(860, 210);
             dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
             
             colISBN.HeaderText = "ISBN";
             colTitle.HeaderText = "Book Title";
             colAuthor.HeaderText = "Author";
-            colQty.HeaderText = "Quantity Available";
-            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colISBN, colTitle, colAuthor, colQty });
+            colCategory.HeaderText = "Category";
+            colYear.HeaderText = "Year";
+            colQty.HeaderText = "Qty";
+            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colISBN, colTitle, colAuthor, colCategory, colYear, colQty });
             
             panelList.Controls.Add(btnRefresh);
             panelList.Controls.Add(dataGridView1);
@@ -152,6 +170,8 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.TextBox txtISBN;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.TextBox txtAuthor;
+        private System.Windows.Forms.TextBox txtCategory;
+        private System.Windows.Forms.TextBox txtYear;
         private System.Windows.Forms.TextBox txtQty;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Panel panelList;
@@ -160,6 +180,8 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.DataGridViewTextBoxColumn colISBN;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn colAuthor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCategory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colYear;
         private System.Windows.Forms.DataGridViewTextBoxColumn colQty;
     }
 }

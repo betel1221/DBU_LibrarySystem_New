@@ -7,13 +7,16 @@ namespace DBU_LibrarySystem
 {
     public partial class MainDashboard : Form
     {
-        public MainDashboard()
+        private DBU_LibrarySystem.Models.User _currentUser;
+        public MainDashboard(DBU_LibrarySystem.Models.User user)
         {
             InitializeComponent();
+            _currentUser = user;
             this.WindowState = FormWindowState.Maximized;
 
             this.Load += (s, e) => {
                 ThemeHelper.ApplyTheme(this);
+                if (lblWelcome != null) lblWelcome.Text = $"Welcome, Admin {_currentUser.Name}";
                 // Load default
                 LoadUserControl(new ucBookManagement());
                 HighlightButton(button1);

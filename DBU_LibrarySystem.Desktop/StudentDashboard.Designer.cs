@@ -24,6 +24,7 @@ namespace DBU_LibrarySystem
             panelSidebarContainer = new System.Windows.Forms.Panel();
             panel2 = new System.Windows.Forms.Panel();
             
+            button3 = new System.Windows.Forms.Button();
             button2 = new System.Windows.Forms.Button();
             button1 = new System.Windows.Forms.Button();
             panelContainer = new System.Windows.Forms.Panel();
@@ -78,7 +79,8 @@ namespace DBU_LibrarySystem
             panel2.BackColor = System.Drawing.Color.White;
             panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle; // Simulating small drop shadow border
             panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            panel2.Size = new System.Drawing.Size(240, 150);
+            panel2.Size = new System.Drawing.Size(240, 200);
+            panel2.Controls.Add(button3);
             panel2.Controls.Add(button2);
             panel2.Controls.Add(button1);
             
@@ -105,6 +107,18 @@ namespace DBU_LibrarySystem
             button2.Text = "🔍 Search Catalog";
             button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             button2.Click += button2_Click;
+
+            // button3
+            button3.Cursor = System.Windows.Forms.Cursors.Hand;
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            button3.Font = new System.Drawing.Font("Segoe UI", 11F);
+            button3.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            button3.Location = new System.Drawing.Point(10, 130);
+            button3.Size = new System.Drawing.Size(220, 45);
+            button3.Text = "🔔 Notifications";
+            button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            button3.Click += button3_Click;
             
             // panelContainer
             panelContainer.BackColor = System.Drawing.Color.FromArgb(240, 242, 245);
@@ -134,6 +148,7 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelSidebarContainer;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panelContainer;

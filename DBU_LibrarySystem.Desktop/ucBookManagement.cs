@@ -19,7 +19,7 @@ namespace DBU_LibrarySystem
             var books = LibraryManager.SearchBooks("");
             foreach (var b in books)
             {
-                dataGridView1.Rows.Add(b.ISBN, b.Title, b.Author, b.Category, "", b.Copies?.Count ?? 0);
+                dataGridView1.Rows.Add(b.ISBN, b.Title, b.Author, b.Category, b.YearOfPublication, b.Copies?.Count ?? 0);
             }
         }
 
@@ -30,13 +30,16 @@ namespace DBU_LibrarySystem
                 string isbn = txtISBN.Text.Trim();
                 string title = txtTitle.Text.Trim();
                 string author = txtAuthor.Text.Trim();
-                int qty;
+                string category = txtCategory.Text.Trim();
+                int year, qty;
 
                 if (string.IsNullOrEmpty(isbn) || string.IsNullOrEmpty(title) || string.IsNullOrEmpty(author))
                 {
                     MessageBox.Show("Please fill all required fields.");
                     return;
                 }
+
+                if (!int.TryParse(txtYear.Text.Trim(), out year)) year = DateTime.Now.Year;
 
                 if (!int.TryParse(txtQty.Text.Trim(), out qty) || qty <= 0)
                 {
@@ -49,7 +52,8 @@ namespace DBU_LibrarySystem
                     ISBN = isbn,
                     Title = title,
                     Author = author,
-                    Category = "General" // Default for now
+                    Category = string.IsNullOrEmpty(category) ? "General" : category,
+                    YearOfPublication = year
                 };
 
                 LibraryManager.AddBook(book);
@@ -67,6 +71,8 @@ namespace DBU_LibrarySystem
                 txtISBN.Clear();
                 txtTitle.Clear();
                 txtAuthor.Clear();
+                txtCategory.Clear();
+                txtYear.Clear();
                 txtQty.Clear();
             }
             catch (Exception ex)

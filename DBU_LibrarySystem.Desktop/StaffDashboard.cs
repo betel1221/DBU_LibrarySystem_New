@@ -6,13 +6,16 @@ namespace DBU_LibrarySystem
 {
     public partial class StaffDashboard : Form
     {
-        public StaffDashboard()
+        private DBU_LibrarySystem.Models.User _currentUser;
+        public StaffDashboard(DBU_LibrarySystem.Models.User user)
         {
             InitializeComponent();
+            _currentUser = user;
             this.WindowState = FormWindowState.Maximized;
 
             this.Load += (s, e) => {
                 ThemeHelper.ApplyTheme(this);
+                if (lblWelcome != null) lblWelcome.Text = $"Welcome, Librarian {_currentUser.Name}";
                 // Load default
                 LoadUserControl(new ucStaffCirculation());
                 HighlightButton(button1);

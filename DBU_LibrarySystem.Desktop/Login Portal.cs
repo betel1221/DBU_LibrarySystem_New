@@ -54,15 +54,15 @@ namespace DBU_LibrarySystem
                     
                     if (role == "Student")
                     {
-                        dashboard = new StudentDashboard();
+                        dashboard = new StudentDashboard(AuthManager.CurrentUser);
                     }
                     else if (role == "Librarian")
                     {
-                        dashboard = new StaffDashboard();
+                        dashboard = new StaffDashboard(AuthManager.CurrentUser);
                     }
                     else if (role == "Admin")
                     {
-                        dashboard = new MainDashboard();
+                        dashboard = new MainDashboard(AuthManager.CurrentUser);
                     }
 
                     if (dashboard != null)

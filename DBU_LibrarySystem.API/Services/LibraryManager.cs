@@ -54,16 +54,21 @@ namespace DBU_LibrarySystem.Services
         }
 
         // --- RESERVATION ---
-        public static void ReserveBook(string userId, string isbn)
+        public static bool ReserveBook(string userId, string isbn)
         {
             using (var db = new LibraryContext())
             {
+                // Check if student exists and is approved
+                var user = db.Users.FirstOrDefault(u => u.UserId == userId);
+                if (user == null) throw new Exception("Member ID not found.");
+                if (!user.IsApproved) throw new Exception("Student registration is not yet approved.");
+
                 // Check if student has reached max limit of combined active borrows + pending reservations
                 int activeCount = db.Transactions.Count(t => t.UserId == userId && t.Status == "Active");
-                int reservedCount = db.Reservations.Count(r => r.UserId == userId && r.Status == "Pending");
+                int reservedCount = db.Reservations.Count(r => r.UserId == userId && (r.Status == "Pending" || r.Status == "Ready"));
                 if (activeCount + reservedCount >= MaxBorrowLimit)
                 {
-                    throw new Exception("Borrow limit reached! Cannot reserve more books.");
+                    throw new Exception($"Borrow limit reached! You can only have {MaxBorrowLimit} active books/reservations.");
                 }
 
                 // Find available copy
@@ -78,7 +83,7 @@ namespace DBU_LibrarySystem.Services
                     CopyId = availableCopy.CopyId,
                     ReservationDate = DateTime.Now,
                     ExpiryDate = DateTime.Now.AddDays(2), // 48 hrs to pick up
-                    Status = "Ready" // Or Pending if they just reserve a title, but we reserved a specific copy
+                    Status = "Ready" 
                 };
                 db.Reservations.Add(reservation);
 
@@ -91,6 +96,7 @@ namespace DBU_LibrarySystem.Services
                 });
 
                 db.SaveChanges();
+                return true;
             }
         }
 

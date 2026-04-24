@@ -58,7 +58,7 @@ namespace DBU_LibrarySystem
             
             txtIssueBook.Font = new System.Drawing.Font("Segoe UI", 12F);
             txtIssueBook.Location = new System.Drawing.Point(220, 60);
-            txtIssueBook.PlaceholderText = "Book ISBN";
+            txtIssueBook.PlaceholderText = "Book Copy ID";
             txtIssueBook.Size = new System.Drawing.Size(180, 30);
             
             btnIssue.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
@@ -88,7 +88,7 @@ namespace DBU_LibrarySystem
             
             txtReturnBook.Font = new System.Drawing.Font("Segoe UI", 12F);
             txtReturnBook.Location = new System.Drawing.Point(20, 60);
-            txtReturnBook.PlaceholderText = "Book ISBN";
+            txtReturnBook.PlaceholderText = "Book Copy ID";
             txtReturnBook.Size = new System.Drawing.Size(180, 30);
             
             btnReturn.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);

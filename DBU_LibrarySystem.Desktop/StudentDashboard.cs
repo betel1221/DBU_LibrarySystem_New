@@ -6,15 +6,19 @@ namespace DBU_LibrarySystem
 {
     public partial class StudentDashboard : Form
     {
-        public StudentDashboard()
+        private DBU_LibrarySystem.Models.User _currentUser;
+        public StudentDashboard(DBU_LibrarySystem.Models.User user)
         {
             InitializeComponent();
+            _currentUser = user;
             this.WindowState = FormWindowState.Maximized;
 
             this.Load += (s, e) => {
                 ThemeHelper.ApplyTheme(this);
                 // Load default
-                LoadUserControl(new ucMyHistory());
+                var history = new ucMyHistory();
+                LoadUserControl(history);
+                history.LoadUserHistory(_currentUser.UserId);
                 HighlightButton(button1);
             };
         }
@@ -40,7 +44,7 @@ namespace DBU_LibrarySystem
 
         private void HighlightButton(Button activeBtn)
         {
-            Button[] btns = { button1, button2 };
+            Button[] btns = { button1, button2, button3 };
             foreach (var b in btns)
             {
                 b.BackColor = Color.Transparent;
@@ -53,13 +57,23 @@ namespace DBU_LibrarySystem
 
         private void button1_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new ucMyHistory());
+            var history = new ucMyHistory();
+            LoadUserControl(history);
+            history.LoadUserHistory(_currentUser.UserId);
             HighlightButton((Button)sender);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             LoadUserControl(new ucCatalogSearch());
+            HighlightButton((Button)sender);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var notes = new ucNotifications();
+            LoadUserControl(notes);
+            notes.LoadNotifications(_currentUser.UserId);
             HighlightButton((Button)sender);
         }
 
