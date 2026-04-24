@@ -79,6 +79,7 @@ namespace DBU_LibrarySystem
             btnAdd.Location = new System.Drawing.Point(20, 100);
             btnAdd.Size = new System.Drawing.Size(250, 40);
             btnAdd.Text = "Add Member";
+            btnAdd.Click += btnAdd_Click;
             
             panelCreate.Controls.Add(labelSubtitle);
             panelCreate.Controls.Add(txtID);
@@ -99,6 +100,7 @@ namespace DBU_LibrarySystem
             btnRefresh.Location = new System.Drawing.Point(20, 15);
             btnRefresh.Size = new System.Drawing.Size(200, 40);
             btnRefresh.Text = "Refresh List";
+            btnRefresh.Click += btnRefresh_Click;
             
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
