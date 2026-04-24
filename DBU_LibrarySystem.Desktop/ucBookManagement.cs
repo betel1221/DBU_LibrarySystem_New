@@ -71,7 +71,9 @@ namespace DBU_LibrarySystem
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                string msg = ex.Message;
+                if (ex.InnerException != null) msg += "\nInner: " + ex.InnerException.Message;
+                MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
