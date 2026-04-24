@@ -26,6 +26,9 @@ namespace DBU_LibrarySystem
             txtYear = new System.Windows.Forms.TextBox();
             txtQty = new System.Windows.Forms.TextBox();
             btnAdd = new System.Windows.Forms.Button();
+            btnUpdate = new System.Windows.Forms.Button();
+            btnDelete = new System.Windows.Forms.Button();
+            btnClear = new System.Windows.Forms.Button();
             panelList = new System.Windows.Forms.Panel();
             btnRefresh = new System.Windows.Forms.Button();
             dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -98,9 +101,36 @@ namespace DBU_LibrarySystem
             btnAdd.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnAdd.ForeColor = System.Drawing.Color.White;
             btnAdd.Location = new System.Drawing.Point(260, 100);
-            btnAdd.Size = new System.Drawing.Size(200, 40);
+            btnAdd.Size = new System.Drawing.Size(140, 40);
             btnAdd.Text = "Add Book";
             btnAdd.Click += btnAdd_Click;
+
+            btnUpdate.BackColor = System.Drawing.Color.FromArgb(255, 193, 7); // Amber
+            btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnUpdate.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            btnUpdate.ForeColor = System.Drawing.Color.Black;
+            btnUpdate.Location = new System.Drawing.Point(410, 100);
+            btnUpdate.Size = new System.Drawing.Size(140, 40);
+            btnUpdate.Text = "Update Book";
+            btnUpdate.Click += btnUpdate_Click;
+
+            btnDelete.BackColor = System.Drawing.Color.FromArgb(220, 53, 69); // Red
+            btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnDelete.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            btnDelete.ForeColor = System.Drawing.Color.White;
+            btnDelete.Location = new System.Drawing.Point(560, 100);
+            btnDelete.Size = new System.Drawing.Size(140, 40);
+            btnDelete.Text = "Delete Book";
+            btnDelete.Click += btnDelete_Click;
+
+            btnClear.BackColor = System.Drawing.Color.FromArgb(108, 117, 125); // Gray
+            btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnClear.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            btnClear.ForeColor = System.Drawing.Color.White;
+            btnClear.Location = new System.Drawing.Point(710, 100);
+            btnClear.Size = new System.Drawing.Size(140, 40);
+            btnClear.Text = "Clear";
+            btnClear.Click += btnClear_Click;
             
             panelCreate.Controls.Add(labelSubtitle);
             panelCreate.Controls.Add(txtISBN);
@@ -110,6 +140,9 @@ namespace DBU_LibrarySystem
             panelCreate.Controls.Add(txtYear);
             panelCreate.Controls.Add(txtQty);
             panelCreate.Controls.Add(btnAdd);
+            panelCreate.Controls.Add(btnUpdate);
+            panelCreate.Controls.Add(btnDelete);
+            panelCreate.Controls.Add(btnClear);
             
             panelList.BackColor = System.Drawing.Color.White;
             panelList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -130,6 +163,9 @@ namespace DBU_LibrarySystem
             dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.BackgroundColor = System.Drawing.Color.White;
             dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+            dataGridView1.CellClick += dataGridView1_CellClick;
             cellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             cellStyle.BackColor = System.Drawing.Color.LightGray;
             cellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
@@ -174,6 +210,9 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.TextBox txtYear;
         private System.Windows.Forms.TextBox txtQty;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Panel panelList;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.DataGridView dataGridView1;

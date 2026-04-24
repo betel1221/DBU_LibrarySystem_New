@@ -24,6 +24,36 @@ namespace DBU_LibrarySystem.Services
             }
         }
 
+        public static void UpdateBook(Book book)
+        {
+            using (var db = new LibraryContext())
+            {
+                var existing = db.Books.FirstOrDefault(b => b.ISBN == book.ISBN);
+                if (existing == null) throw new Exception("Book not found.");
+                
+                existing.Title = book.Title;
+                existing.Author = book.Author;
+                existing.Category = book.Category;
+                existing.YearOfPublication = book.YearOfPublication;
+                
+                db.SaveChanges();
+            }
+        }
+
+        public static void DeleteBook(string isbn)
+        {
+            using (var db = new LibraryContext())
+            {
+                var book = db.Books.Include(b => b.Copies).FirstOrDefault(b => b.ISBN == isbn);
+                if (book == null) throw new Exception("Book not found.");
+                
+                // Also remove copies and related data if needed
+                db.BookCopies.RemoveRange(book.Copies);
+                db.Books.Remove(book);
+                db.SaveChanges();
+            }
+        }
+
         public static void AddBookCopy(string isbn, string copyId)
         {
             using (var db = new LibraryContext())
@@ -236,6 +266,18 @@ namespace DBU_LibrarySystem.Services
                           .ToList();
             }
         }
+        public static List<Reservation> GetUserReservations(string userId)
+        {
+            using (var db = new LibraryContext())
+            {
+                return db.Reservations
+                          .Include(r => r.BookCopy)
+                          .ThenInclude(c => c.Book)
+                          .Where(r => r.UserId == userId && r.Status == "Active")
+                          .ToList();
+            }
+        }
+
         public static void SettleFine(int transactionId)
         {
             using (var db = new LibraryContext())

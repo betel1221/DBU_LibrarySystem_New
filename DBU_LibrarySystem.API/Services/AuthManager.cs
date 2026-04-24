@@ -13,7 +13,19 @@ namespace DBU_LibrarySystem.Services
         {
             using (var db = new LibraryContext())
             {
-                var user = db.Users.FirstOrDefault(u => u.UserId == userId && u.Password == password);
+                // Ensure default users exist if database is fresh
+                if (!db.Users.Any())
+                {
+                    db.Users.Add(new User { UserId = "admin", Name = "System Admin", Role = "Admin", Password = "admin", IsApproved = true });
+                    db.Users.Add(new User { UserId = "lib", Name = "Main Librarian", Role = "Librarian", Password = "lib", IsApproved = true });
+                    db.Users.Add(new User { UserId = "std1", Name = "Alice Student", Role = "Student", Password = "student", IsApproved = true });
+                    db.Users.Add(new User { UserId = "std2", Name = "Bob Smith", Role = "Student", Password = "password123", IsApproved = true });
+                    db.Users.Add(new User { UserId = "std3", Name = "Charlie Davis", Role = "Student", Password = "password123", IsApproved = false });
+                    db.Users.Add(new User { UserId = "staff1", Name = "John Staff", Role = "Librarian", Password = "staff", IsApproved = true });
+                    db.SaveChanges();
+                }
+
+                var user = db.Users.FirstOrDefault(u => u.UserId.ToLower() == userId.ToLower() && u.Password == password);
                 if (user != null)
                 {
                     if (user.Role == "Student" && !user.IsApproved)
