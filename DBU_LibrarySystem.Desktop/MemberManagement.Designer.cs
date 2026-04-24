@@ -1,4 +1,4 @@
-﻿namespace DBU_LibrarySystem
+namespace DBU_LibrarySystem
 {
     partial class MemberManagement
     {
@@ -50,7 +50,7 @@
             button8 = new Button();
             dataGridView1 = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
-            Name = new DataGridViewTextBoxColumn();
+            colName = new DataGridViewTextBoxColumn();
             Email = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -303,7 +303,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, Name, Email });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, colName, Email });
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.Location = new Point(19, 86);
             dataGridView1.Name = "dataGridView1";
@@ -320,12 +320,12 @@
             ID.Name = "ID";
             ID.ReadOnly = true;
             // 
-            // Name
+            // colName
             // 
-            Name.HeaderText = "Name";
-            Name.MinimumWidth = 8;
-            Name.Name = "Name";
-            Name.ReadOnly = true;
+            colName.HeaderText = "Name";
+            colName.MinimumWidth = 8;
+            colName.Name = "colName";
+            colName.ReadOnly = true;
             // 
             // Email
             // 
@@ -378,8 +378,8 @@
         private Button button7;
         private DataGridView dataGridView1;
         private Button button8;
-        private DataGridViewTextBoxColumn ID;
-        private DataGridViewTextBoxColumn Name;
-        private DataGridViewTextBoxColumn Email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colEmail;
     }
 }

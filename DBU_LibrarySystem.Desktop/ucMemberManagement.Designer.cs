@@ -190,23 +190,6 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.Panel panelList;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colEmail;
-        }
 
-        private System.Windows.Forms.Label labelTitle;
-        private System.Windows.Forms.Panel panelCreate;
-        private System.Windows.Forms.Label labelSubtitle;
-        private System.Windows.Forms.TextBox txtID;
-        private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Panel panelList;
-        private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colEmail;
     }
 }

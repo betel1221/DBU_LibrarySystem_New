@@ -24,8 +24,6 @@ namespace DBU_LibrarySystem
             cmbFilter = new System.Windows.Forms.ComboBox();
             btnSearch = new System.Windows.Forms.Button();
             dataGridView1 = new System.Windows.Forms.DataGridView();
-            colDetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            colAvailability = new System.Windows.Forms.DataGridViewTextBoxColumn();
             
             panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
