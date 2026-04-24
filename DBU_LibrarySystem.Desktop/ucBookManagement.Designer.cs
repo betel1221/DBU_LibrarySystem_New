@@ -160,16 +160,18 @@ namespace DBU_LibrarySystem
             
             btnRefresh.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
             btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnRefresh.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            btnRefresh.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnRefresh.ForeColor = System.Drawing.Color.White;
+            btnRefresh.Location = new System.Drawing.Point(20, 15);
+            btnRefresh.Size = new System.Drawing.Size(120, 35);
             btnRefresh.Text = "Refresh List";
             btnRefresh.Click += btnRefresh_Click;
 
             lblSearch.Text = "Quick Search:";
-            lblSearch.Location = new System.Drawing.Point(240, 20);
+            lblSearch.Location = new System.Drawing.Point(160, 20);
             lblSearch.AutoSize = true;
 
-            txtSearch.Location = new System.Drawing.Point(340, 18);
+            txtSearch.Location = new System.Drawing.Point(260, 18);
             txtSearch.Size = new System.Drawing.Size(250, 30);
             txtSearch.PlaceholderText = "Search ISBN or Title...";
             txtSearch.TextChanged += txtSearch_TextChanged;
@@ -180,7 +182,6 @@ namespace DBU_LibrarySystem
             dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
-            dataGridView1.CellClick += dataGridView1_CellClick;
             cellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             cellStyle.BackColor = System.Drawing.Color.LightGray;
             cellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
@@ -194,21 +195,29 @@ namespace DBU_LibrarySystem
             dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
             
             colISBN.HeaderText = "ISBN";
+            colISBN.FillWeight = 80;
             colTitle.HeaderText = "Book Title";
+            colTitle.FillWeight = 150;
             colAuthor.HeaderText = "Author";
+            colAuthor.FillWeight = 100;
             colCategory.HeaderText = "Category";
+            colCategory.FillWeight = 80;
             colYear.HeaderText = "Year";
+            colYear.FillWeight = 50;
             colQty.HeaderText = "Qty";
+            colQty.FillWeight = 40;
             
             colEdit.HeaderText = "Action";
-            colEdit.Text = "✏️ Edit";
+            colEdit.Text = "✏️";
             colEdit.UseColumnTextForButtonValue = true;
             colEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            colEdit.FillWeight = 50;
             
             colDelete.HeaderText = "Action";
-            colDelete.Text = "🗑️ Delete";
+            colDelete.Text = "🗑️";
             colDelete.UseColumnTextForButtonValue = true;
             colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            colDelete.FillWeight = 50;
 
             dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colISBN, colTitle, colAuthor, colCategory, colYear, colQty, colEdit, colDelete });
             
