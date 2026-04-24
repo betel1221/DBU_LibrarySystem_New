@@ -273,7 +273,7 @@ namespace DBU_LibrarySystem.Services
                 return db.Reservations
                           .Include(r => r.BookCopy)
                           .ThenInclude(c => c.Book)
-                          .Where(r => r.UserId == userId && r.Status == "Active")
+                          .Where(r => r.UserId == userId && (r.Status == "Active" || r.Status == "Ready" || r.Status == "Pending"))
                           .ToList();
             }
         }
