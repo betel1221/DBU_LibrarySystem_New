@@ -179,6 +179,28 @@ namespace DBU_LibrarySystem.Services
             }
         }
 
+        public static decimal CalculateFine(DateTime dueDate, DateTime? returnDate = null)
+        {
+            DateTime effectiveReturnDate = returnDate ?? DateTime.Now;
+            int lateDays = (effectiveReturnDate.Date - dueDate.Date).Days;
+            return lateDays > 0 ? lateDays * FineRatePerDay : 0m;
+        }
+
+        public static List<Transaction> GetActiveBorrows(string userId = null)
+        {
+            using (var db = new LibraryContext())
+            {
+                var query = db.Transactions.Include(t => t.BookCopy).ThenInclude(c => c.Book)
+                                          .Include(t => t.User)
+                                          .Where(t => t.Status == "Active");
+                
+                if (!string.IsNullOrEmpty(userId))
+                    query = query.Where(t => t.UserId == userId);
+
+                return query.ToList();
+            }
+        }
+
         public static decimal ReturnBook(string copyId)
         {
             using (var db = new LibraryContext())
@@ -195,13 +217,8 @@ namespace DBU_LibrarySystem.Services
                 transaction.Status = "Returned";
                 transaction.ReturnDate = DateTime.Now;
 
-                decimal fine = 0m;
-                int lateDays = (DateTime.Now.Date - transaction.DueDate.Date).Days;
-                if (lateDays > 0)
-                {
-                    fine = lateDays * FineRatePerDay;
-                    transaction.FineAmount = fine;
-                }
+                decimal fine = CalculateFine(transaction.DueDate, transaction.ReturnDate);
+                transaction.FineAmount = fine;
 
                 db.SaveChanges();
                 return fine;
@@ -217,6 +234,17 @@ namespace DBU_LibrarySystem.Services
                           .Where(t => t.UserId == userId)
                           .OrderByDescending(t => t.BorrowDate)
                           .ToList();
+            }
+        }
+        public static void SettleFine(int transactionId)
+        {
+            using (var db = new LibraryContext())
+            {
+                var transaction = db.Transactions.FirstOrDefault(t => t.Id == transactionId);
+                if (transaction == null) throw new Exception("Transaction not found.");
+                
+                transaction.IsFinePaid = true;
+                db.SaveChanges();
             }
         }
     }

@@ -19,13 +19,30 @@ namespace DBU_LibrarySystem
             var history = DBU_LibrarySystem.Services.LibraryManager.GetUserHistory(userId);
             foreach (var t in history)
             {
-                string status = t.Status;
-                if (status == "Active" && DateTime.Now > t.DueDate)
-                    status = "⚠️ OVERDUE";
-                
-                string fine = t.FineAmount > 0 ? $"{t.FineAmount:C}" : "✅ None";
-                
-                dataGridView1.Rows.Add(t.BookCopy.Book.Title, t.BorrowDate.ToShortDateString(), t.ReturnDate?.ToShortDateString() ?? "Not Returned", fine);
+                decimal currentFine = t.Status == "Active" 
+                    ? DBU_LibrarySystem.Services.LibraryManager.CalculateFine(t.DueDate) 
+                    : t.FineAmount;
+
+                string statusText = t.Status;
+                if (t.Status == "Active")
+                {
+                    int daysLeft = (t.DueDate.Date - DateTime.Now.Date).Days;
+                    if (daysLeft > 0)
+                        statusText = $"⌛ {daysLeft} Days Left";
+                    else if (daysLeft == 0)
+                        statusText = "🚩 DUE TODAY";
+                    else
+                        statusText = $"⚠️ {Math.Abs(daysLeft)} DAYS OVERDUE";
+                }
+
+                dataGridView1.Rows.Add(
+                    t.BookCopy.Book.Title, 
+                    t.BorrowDate.ToShortDateString(), 
+                    t.DueDate.ToShortDateString(),
+                    t.ReturnDate?.ToShortDateString() ?? "-", 
+                    currentFine > 0 ? currentFine.ToString("N2") : "0.00",
+                    statusText
+                );
             }
         }
     }
