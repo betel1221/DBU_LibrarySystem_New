@@ -20,12 +20,13 @@ namespace DBU_LibrarySystem
             panelStats = new System.Windows.Forms.Panel();
             lblStatsTitle = new System.Windows.Forms.Label();
             btnRefresh = new System.Windows.Forms.Button();
-            btnCollectFine = new System.Windows.Forms.Button();
+            btnSettleBalance = new System.Windows.Forms.Button();
             dataGridView1 = new System.Windows.Forms.DataGridView();
             colMember = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colBook = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colDueDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colFine = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colTransID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             
             panelStats.SuspendLayout();
@@ -63,14 +64,15 @@ namespace DBU_LibrarySystem
             btnRefresh.Text = "Refresh List";
             btnRefresh.Click += btnRefresh_Click;
 
-            btnCollectFine.BackColor = System.Drawing.Color.FromArgb(40, 167, 69);
-            btnCollectFine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnCollectFine.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            btnCollectFine.ForeColor = System.Drawing.Color.White;
-            btnCollectFine.Location = new System.Drawing.Point(190, 60);
-            btnCollectFine.Size = new System.Drawing.Size(180, 35);
-            btnCollectFine.Text = "Mark as Paid";
-            btnCollectFine.Click += btnCollectFine_Click;
+            btnSettleBalance.BackColor = System.Drawing.Color.FromArgb(40, 167, 69);
+            btnSettleBalance.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSettleBalance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnSettleBalance.ForeColor = System.Drawing.Color.White;
+            btnSettleBalance.Location = new System.Drawing.Point(190, 60);
+            btnSettleBalance.Size = new System.Drawing.Size(180, 35);
+            btnSettleBalance.Text = "Settle Balance";
+            btnSettleBalance.Enabled = false; // Disabled by default
+            btnSettleBalance.Click += btnSettleBalance_Click;
 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -79,18 +81,22 @@ namespace DBU_LibrarySystem
             dataGridView1.ColumnHeadersHeight = 35;
             dataGridView1.Location = new System.Drawing.Point(30, 110);
             dataGridView1.Size = new System.Drawing.Size(840, 260);
+            dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
             
             colMember.HeaderText = "Student Name";
             colBook.HeaderText = "Book Title";
             colDueDate.HeaderText = "Due Date";
             colFine.HeaderText = "Accrued Fine ($)";
+            colStatus.HeaderText = "Payment Status";
             colTransID.Visible = false;
 
-            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colMember, colBook, colDueDate, colFine, colTransID });
+            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colMember, colBook, colDueDate, colFine, colStatus, colTransID });
 
             panelStats.Controls.Add(lblStatsTitle);
             panelStats.Controls.Add(btnRefresh);
-            panelStats.Controls.Add(btnCollectFine);
+            panelStats.Controls.Add(btnSettleBalance);
             panelStats.Controls.Add(dataGridView1);
             
             Controls.Add(labelTitle);
@@ -106,12 +112,13 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.Panel panelStats;
         private System.Windows.Forms.Label lblStatsTitle;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.Button btnCollectFine;
+        private System.Windows.Forms.Button btnSettleBalance;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn colMember;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBook;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDueDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFine;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTransID;
     }
 }

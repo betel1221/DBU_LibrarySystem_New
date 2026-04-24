@@ -22,6 +22,12 @@ namespace DBU_LibrarySystem
             txtSearch = new System.Windows.Forms.TextBox();
             cmbFilter = new System.Windows.Forms.ComboBox();
             btnSearch = new System.Windows.Forms.Button();
+            dataGridView1 = new System.Windows.Forms.DataGridView();
+            colISBN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colAvailability = new System.Windows.Forms.DataGridViewTextBoxColumn();
             
             panelSearch.SuspendLayout();
             SuspendLayout();
@@ -81,8 +87,40 @@ namespace DBU_LibrarySystem
             panelSearch.Controls.Add(cmbFilter);
             panelSearch.Controls.Add(btnSearch);
             
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridView1.ColumnHeadersHeight = 40;
+            dataGridView1.Location = new System.Drawing.Point(34, 300);
+            dataGridView1.Size = new System.Drawing.Size(830, 300);
+            dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
+            
+            colISBN.HeaderText = "ISBN";
+            colISBN.MinimumWidth = 100;
+            colISBN.FillWeight = 100;
+            
+            colTitle.HeaderText = "Title";
+            colTitle.MinimumWidth = 200;
+            colTitle.FillWeight = 250;
+            
+            colAuthor.HeaderText = "Author";
+            colAuthor.MinimumWidth = 150;
+            colAuthor.FillWeight = 150;
+            
+            colCategory.HeaderText = "Category";
+            colCategory.MinimumWidth = 120;
+            colCategory.FillWeight = 120;
+            
+            colAvailability.HeaderText = "Availability Status";
+            colAvailability.MinimumWidth = 150;
+            colAvailability.FillWeight = 150;
+            
+            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colISBN, colTitle, colAuthor, colCategory, colAvailability });
+            
             Controls.Add(labelTitle);
             Controls.Add(panelSearch);
+            Controls.Add(dataGridView1);
             
             panelSearch.ResumeLayout(false);
             panelSearch.PerformLayout();
@@ -97,5 +135,11 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.ComboBox cmbFilter;
         private System.Windows.Forms.Label lblSearchBy;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colISBN;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAuthor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCategory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAvailability;
     }
 }

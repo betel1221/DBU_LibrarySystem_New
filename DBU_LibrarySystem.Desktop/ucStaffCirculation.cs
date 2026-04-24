@@ -12,6 +12,35 @@ namespace DBU_LibrarySystem
             InitializeComponent();
             ThemeHelper.ApplyTheme(this);
             LoadActiveLoans();
+            SetupAutoComplete();
+        }
+
+        private void SetupAutoComplete()
+        {
+            var members = Services.LibraryManager.GetAllMembers();
+            var source = new AutoCompleteStringCollection();
+            foreach (var m in members)
+            {
+                source.Add(m.UserId);
+            }
+            txtBMember.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtBMember.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtBMember.AutoCompleteCustomSource = source;
+            
+            // Interaction: Show name when ID is typed
+            txtBMember.TextChanged += (s, e) => {
+                var member = members.FirstOrDefault(m => m.UserId.Equals(txtBMember.Text, StringComparison.OrdinalIgnoreCase));
+                if (member != null)
+                {
+                    lblMemberName.Text = "👤 " + member.Name;
+                    lblMemberName.ForeColor = System.Drawing.Color.FromArgb(40, 167, 69); // Green
+                }
+                else
+                {
+                    lblMemberName.Text = "Enter valid ID...";
+                    lblMemberName.ForeColor = System.Drawing.Color.Gray;
+                }
+            };
         }
 
         private void LoadActiveLoans()

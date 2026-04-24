@@ -60,7 +60,7 @@ namespace DBU_LibrarySystem.Data
 
             // Seed Transactions
             modelBuilder.Entity<Transaction>().HasData(
-                new Transaction { Id = 1, UserId = "std1", CopyId = "1003-C1", BorrowDate = DateTime.Now.AddDays(-10), DueDate = DateTime.Now.AddDays(-3), Status = "Active" },
+                new Transaction { Id = 1, UserId = "std1", CopyId = "1003-C1", BorrowDate = DateTime.Now.AddDays(-40), DueDate = DateTime.Now.AddDays(-30), Status = "Active" }, // Large Fine
                 new Transaction { Id = 2, UserId = "std2", CopyId = "1005-C1", BorrowDate = DateTime.Now.AddDays(-15), DueDate = DateTime.Now.AddDays(-8), Status = "Returned", ReturnDate = DateTime.Now.AddDays(-8), FineAmount = 0 },
                 new Transaction { Id = 3, UserId = "std2", CopyId = "1002-C1", BorrowDate = DateTime.Now.AddDays(-2), DueDate = DateTime.Now.AddDays(12), Status = "Active" },
                 new Transaction { Id = 4, UserId = "std2", CopyId = "1004-C1", BorrowDate = DateTime.Now.AddDays(-5), DueDate = DateTime.Now.AddDays(9), Status = "Active" }

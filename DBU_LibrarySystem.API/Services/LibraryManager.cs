@@ -92,6 +92,14 @@ namespace DBU_LibrarySystem.Services
                 return query.ToList();
             }
         }
+        public static List<User> GetAllMembers()
+        {
+            using (var db = new LibraryContext())
+            {
+                return db.Users.Where(u => u.Role == "Student" || u.Role == "Employee").ToList();
+            }
+        }
+
         public static List<User> SearchMembers(string name = null, string id = null)
         {
             using (var db = new LibraryContext())

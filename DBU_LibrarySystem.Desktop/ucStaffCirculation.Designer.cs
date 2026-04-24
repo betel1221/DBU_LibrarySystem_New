@@ -22,6 +22,7 @@ namespace DBU_LibrarySystem
             panelBorrow = new System.Windows.Forms.Panel();
             lblBorrowTitle = new System.Windows.Forms.Label();
             txtBMember = new System.Windows.Forms.TextBox();
+            lblMemberName = new System.Windows.Forms.Label();
             txtBBook = new System.Windows.Forms.TextBox();
             btnBorrow = new System.Windows.Forms.Button();
 
@@ -63,10 +64,15 @@ namespace DBU_LibrarySystem
             lblBorrowTitle.Location = new System.Drawing.Point(30, 20);
             lblBorrowTitle.Text = "Borrow Book";
             
-            txtBMember.Font = new System.Drawing.Font("Segoe UI", 12F);
-            txtBMember.Location = new System.Drawing.Point(30, 70);
+            txtBMember.Location = new System.Drawing.Point(30, 60);
             txtBMember.PlaceholderText = "Member ID";
             txtBMember.Size = new System.Drawing.Size(350, 30);
+
+            lblMemberName.AutoSize = true;
+            lblMemberName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
+            lblMemberName.ForeColor = System.Drawing.Color.Gray;
+            lblMemberName.Location = new System.Drawing.Point(30, 95);
+            lblMemberName.Text = "Enter valid ID...";
             
             txtBBook.Font = new System.Drawing.Font("Segoe UI", 12F);
             txtBBook.Location = new System.Drawing.Point(30, 110);
@@ -84,6 +90,7 @@ namespace DBU_LibrarySystem
             
             panelBorrow.Controls.Add(lblBorrowTitle);
             panelBorrow.Controls.Add(txtBMember);
+            panelBorrow.Controls.Add(lblMemberName);
             panelBorrow.Controls.Add(txtBBook);
             panelBorrow.Controls.Add(btnBorrow);
 
@@ -165,6 +172,7 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.Panel panelBorrow;
         private System.Windows.Forms.Label lblBorrowTitle;
         private System.Windows.Forms.TextBox txtBMember;
+        private System.Windows.Forms.Label lblMemberName;
         private System.Windows.Forms.TextBox txtBBook;
         private System.Windows.Forms.Button btnBorrow;
         

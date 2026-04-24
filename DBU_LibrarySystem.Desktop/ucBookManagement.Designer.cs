@@ -22,7 +22,7 @@ namespace DBU_LibrarySystem
             txtISBN = new System.Windows.Forms.TextBox();
             txtTitle = new System.Windows.Forms.TextBox();
             txtAuthor = new System.Windows.Forms.TextBox();
-            txtCategory = new System.Windows.Forms.TextBox();
+            cmbCategory = new System.Windows.Forms.ComboBox();
             txtYear = new System.Windows.Forms.TextBox();
             txtQty = new System.Windows.Forms.TextBox();
             btnAdd = new System.Windows.Forms.Button();
@@ -38,6 +38,12 @@ namespace DBU_LibrarySystem
             colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colEdit = new System.Windows.Forms.DataGridViewButtonColumn();
+            colDelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            
+            // Search UI in Management
+            txtSearch = new System.Windows.Forms.TextBox();
+            lblSearch = new System.Windows.Forms.Label();
             
             panelCreate.SuspendLayout();
             panelList.SuspendLayout();
@@ -81,10 +87,12 @@ namespace DBU_LibrarySystem
             txtAuthor.PlaceholderText = "Author";
             txtAuthor.Size = new System.Drawing.Size(180, 30);
 
-            txtCategory.Font = new System.Drawing.Font("Segoe UI", 12F);
-            txtCategory.Location = new System.Drawing.Point(710, 50);
-            txtCategory.PlaceholderText = "Category";
-            txtCategory.Size = new System.Drawing.Size(150, 30);
+            cmbCategory.Font = new System.Drawing.Font("Segoe UI", 12F);
+            cmbCategory.Location = new System.Drawing.Point(710, 50);
+            cmbCategory.Size = new System.Drawing.Size(150, 30);
+            cmbCategory.Items.AddRange(new object[] { "Programming", "Science", "Literature", "Mathematics", "Engineering", "Other" });
+            cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbCategory.SelectedIndex = 0;
 
             txtYear.Font = new System.Drawing.Font("Segoe UI", 12F);
             txtYear.Location = new System.Drawing.Point(20, 100);
@@ -136,7 +144,7 @@ namespace DBU_LibrarySystem
             panelCreate.Controls.Add(txtISBN);
             panelCreate.Controls.Add(txtTitle);
             panelCreate.Controls.Add(txtAuthor);
-            panelCreate.Controls.Add(txtCategory);
+            panelCreate.Controls.Add(cmbCategory);
             panelCreate.Controls.Add(txtYear);
             panelCreate.Controls.Add(txtQty);
             panelCreate.Controls.Add(btnAdd);
@@ -154,10 +162,17 @@ namespace DBU_LibrarySystem
             btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnRefresh.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnRefresh.ForeColor = System.Drawing.Color.White;
-            btnRefresh.Location = new System.Drawing.Point(20, 15);
-            btnRefresh.Size = new System.Drawing.Size(200, 40);
             btnRefresh.Text = "Refresh List";
             btnRefresh.Click += btnRefresh_Click;
+
+            lblSearch.Text = "Quick Search:";
+            lblSearch.Location = new System.Drawing.Point(240, 20);
+            lblSearch.AutoSize = true;
+
+            txtSearch.Location = new System.Drawing.Point(340, 18);
+            txtSearch.Size = new System.Drawing.Size(250, 30);
+            txtSearch.PlaceholderText = "Search ISBN or Title...";
+            txtSearch.TextChanged += txtSearch_TextChanged;
             
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -175,6 +190,7 @@ namespace DBU_LibrarySystem
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.Location = new System.Drawing.Point(20, 70);
             dataGridView1.Size = new System.Drawing.Size(860, 210);
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
             
             colISBN.HeaderText = "ISBN";
@@ -183,9 +199,22 @@ namespace DBU_LibrarySystem
             colCategory.HeaderText = "Category";
             colYear.HeaderText = "Year";
             colQty.HeaderText = "Qty";
-            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colISBN, colTitle, colAuthor, colCategory, colYear, colQty });
+            
+            colEdit.HeaderText = "Action";
+            colEdit.Text = "✏️ Edit";
+            colEdit.UseColumnTextForButtonValue = true;
+            colEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            
+            colDelete.HeaderText = "Action";
+            colDelete.Text = "🗑️ Delete";
+            colDelete.UseColumnTextForButtonValue = true;
+            colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+
+            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colISBN, colTitle, colAuthor, colCategory, colYear, colQty, colEdit, colDelete });
             
             panelList.Controls.Add(btnRefresh);
+            panelList.Controls.Add(lblSearch);
+            panelList.Controls.Add(txtSearch);
             panelList.Controls.Add(dataGridView1);
             
             Controls.Add(labelTitle);
@@ -206,7 +235,7 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.TextBox txtISBN;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.TextBox txtAuthor;
-        private System.Windows.Forms.TextBox txtCategory;
+        private System.Windows.Forms.ComboBox cmbCategory;
         private System.Windows.Forms.TextBox txtYear;
         private System.Windows.Forms.TextBox txtQty;
         private System.Windows.Forms.Button btnAdd;
@@ -222,5 +251,9 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.DataGridViewTextBoxColumn colCategory;
         private System.Windows.Forms.DataGridViewTextBoxColumn colYear;
         private System.Windows.Forms.DataGridViewTextBoxColumn colQty;
+        private System.Windows.Forms.DataGridViewButtonColumn colEdit;
+        private System.Windows.Forms.DataGridViewButtonColumn colDelete;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Label lblSearch;
     }
 }

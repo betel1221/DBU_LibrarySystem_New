@@ -11,6 +11,11 @@ namespace DBU_LibrarySystem
         {
             InitializeComponent();
             ThemeHelper.ApplyTheme(this);
+            
+            // Interaction: Ensure the grid expands properly
+            this.Load += (s, e) => {
+                dataGridView1.Width = this.Width - 70;
+            };
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -34,8 +39,15 @@ namespace DBU_LibrarySystem
             else // By Title
                 results = DBU_LibrarySystem.Services.LibraryManager.SearchBooks(title: query);
 
-            string summary = $"Found {results.Count} matches:\n" + string.Join("\n", results.Select(r => $"{r.Title} by {r.Author} (ISBN: {r.ISBN})"));
-            MessageBox.Show(summary, "Search Results");
+            dataGridView1.Rows.Clear();
+            foreach (var b in results)
+            {
+                int total = b.Copies.Count;
+                int available = b.Copies.Count(c => c.Status == "Available");
+                string availStatus = (available > 0) ? $"✅ {available} / {total} Available" : "❌ Out of Stock";
+
+                dataGridView1.Rows.Add(b.ISBN, b.Title, b.Author, b.Category, availStatus);
+            }
         }
     }
 }
