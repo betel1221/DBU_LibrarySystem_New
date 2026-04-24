@@ -13,8 +13,10 @@ namespace DBU_LibrarySystem
             // Default to empty, should be loaded from Main Form
         }
 
+        private string _currentUserId;
         public void LoadUserHistory(string userId)
         {
+            _currentUserId = userId;
             dataGridView1.Rows.Clear();
             
             // 1. Load Borrows
@@ -50,6 +52,12 @@ namespace DBU_LibrarySystem
                     "⭐ RESERVED"
                 );
             }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_currentUserId))
+                LoadUserHistory(_currentUserId);
         }
     }
 }

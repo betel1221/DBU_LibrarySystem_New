@@ -57,6 +57,7 @@ namespace DBU_LibrarySystem
             btnRefresh.Location = new System.Drawing.Point(20, 20);
             btnRefresh.Size = new System.Drawing.Size(160, 40);
             btnRefresh.Text = "Refresh Records";
+            btnRefresh.Click += btnRefresh_Click;
             
             // DataGridView
             dataGridView1.AllowUserToAddRows = false;
