@@ -99,6 +99,7 @@ namespace DBU_LibrarySystem
             btnCreate.Size = new System.Drawing.Size(250, 40);
             btnCreate.Text = "Create Account";
             btnCreate.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnCreate.Click += btnCreate_Click;
             
             panelCreate.Controls.Add(lblCreateTitle);
             panelCreate.Controls.Add(txtUsername);
@@ -122,6 +123,7 @@ namespace DBU_LibrarySystem
             btnRefresh.Size = new System.Drawing.Size(200, 40);
             btnRefresh.Text = "Refresh User List";
             btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnRefresh.Click += btnRefresh_Click;
             
             // dataGridView1
             dataGridView1.AllowUserToAddRows = false;

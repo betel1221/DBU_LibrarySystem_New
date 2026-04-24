@@ -15,15 +15,40 @@ namespace DBU_LibrarySystem
         private void btnSearch_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
-            if(txtSearch.Text.ToLower().Contains("fikr"))
+            string query = txtSearch.Text.Trim();
+            var results = DBU_LibrarySystem.Services.LibraryManager.SearchBooks(query);
+            
+            foreach (var b in results)
             {
-                dataGridView1.Rows.Add("fikr eske mekabr\nhadis alemayehu", "❌ Issued");
-                dataGridView1.Rows.Add("fikr eske mekabr\nhadis alemayehu", "✅ Available");
-                
-                // Adjust row height to show both lines for details
-                dataGridView1.Rows[0].Height = 60;
-                dataGridView1.Rows[1].Height = 60;
+                int availableCount = b.Copies?.Count(c => c.Status == "Available") ?? 0;
+                string status = availableCount > 0 ? "✅ Available" : "❌ All Copies Borrowed";
+                dataGridView1.Rows.Add(b.ISBN, b.Title, b.Author, status);
             }
+        }
+
+        private void btnReserve_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow == null) return;
+            string isbn = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+
+            // Note: In a real app, we'd get this from a Session or Main Form
+            string studentId = Microsoft.VisualBasic.Interaction.InputBox("Enter your Member ID to reserve:", "Reservation", "");
+            
+            if (string.IsNullOrEmpty(studentId)) return;
+
+            try
+            {
+                if (DBU_LibrarySystem.Services.LibraryManager.ReserveBook(studentId, isbn))
+                {
+                    MessageBox.Show("Book reserved successfully! Please collect it within 24 hours.");
+                    btnSearch_Click(null, null);
+                }
+                else
+                {
+                    MessageBox.Show("Reservation failed. All copies might be reserved or you have reached your limit.");
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 }

@@ -10,14 +10,23 @@ namespace DBU_LibrarySystem
         {
             InitializeComponent();
             ThemeHelper.ApplyTheme(this);
-            LoadDummyData();
+            // Default to empty, should be loaded from Main Form
         }
 
-        private void LoadDummyData()
+        public void LoadUserHistory(string userId)
         {
-            dataGridView1.Rows.Add("mnduban", "2026-01-16", "Still Borrowed", "✅ None");
-            dataGridView1.Rows.Add("aaa", "2026-01-13", "2026-01-14", "✅ None");
-            dataGridView1.Rows.Add("Sememen", "2026-01-13", "Still Borrowed", "✅ None");
+            dataGridView1.Rows.Clear();
+            var history = DBU_LibrarySystem.Services.LibraryManager.GetUserHistory(userId);
+            foreach (var t in history)
+            {
+                string status = t.Status;
+                if (status == "Active" && DateTime.Now > t.DueDate)
+                    status = "⚠️ OVERDUE";
+                
+                string fine = t.FineAmount > 0 ? $"{t.FineAmount:C}" : "✅ None";
+                
+                dataGridView1.Rows.Add(t.BookCopy.Book.Title, t.BorrowDate.ToShortDateString(), t.ReturnDate?.ToShortDateString() ?? "Not Returned", fine);
+            }
         }
     }
 }

@@ -24,8 +24,6 @@ namespace DBU_LibrarySystem
             cmbFilter = new System.Windows.Forms.ComboBox();
             btnSearch = new System.Windows.Forms.Button();
             dataGridView1 = new System.Windows.Forms.DataGridView();
-            colDetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            colAvailability = new System.Windows.Forms.DataGridViewTextBoxColumn();
             
             panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -71,9 +69,20 @@ namespace DBU_LibrarySystem
             btnSearch.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnSearch.ForeColor = System.Drawing.Color.White;
             btnSearch.Location = new System.Drawing.Point(560, 20);
-            btnSearch.Size = new System.Drawing.Size(200, 40);
+            btnSearch.Size = new System.Drawing.Size(150, 40);
             btnSearch.Text = "Search";
             btnSearch.Click += btnSearch_Click;
+
+            // Reserve Button
+            btnReserve = new System.Windows.Forms.Button();
+            btnReserve.BackColor = System.Drawing.Color.FromArgb(255, 165, 0);
+            btnReserve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnReserve.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            btnReserve.ForeColor = System.Drawing.Color.White;
+            btnReserve.Location = new System.Drawing.Point(720, 20);
+            btnReserve.Size = new System.Drawing.Size(150, 40);
+            btnReserve.Text = "Reserve Now";
+            btnReserve.Click += btnReserve_Click;
             
             // DataGridView
             dataGridView1.AllowUserToAddRows = false;
@@ -94,14 +103,22 @@ namespace DBU_LibrarySystem
             rowStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True; // Allows multi-line text
             dataGridView1.RowsDefaultCellStyle = rowStyle;
             
-            colDetails.HeaderText = "Book Details";
-            colAvailability.HeaderText = "Availability";
+            colISBN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             
-            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colDetails, colAvailability });
+            colISBN.HeaderText = "ISBN";
+            colTitle.HeaderText = "Title";
+            colAuthor.HeaderText = "Author";
+            colStatus.HeaderText = "Status";
+            
+            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colISBN, colTitle, colAuthor, colStatus });
             
             panelList.Controls.Add(txtSearch);
             panelList.Controls.Add(cmbFilter);
             panelList.Controls.Add(btnSearch);
+            panelList.Controls.Add(btnReserve);
             panelList.Controls.Add(dataGridView1);
             
             Controls.Add(labelTitle);
@@ -119,8 +136,11 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.ComboBox cmbFilter;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnReserve;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDetails;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colAvailability;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colISBN;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAuthor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
     }
 }

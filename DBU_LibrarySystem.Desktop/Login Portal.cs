@@ -34,9 +34,17 @@ namespace DBU_LibrarySystem
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string user = txtUsername.Text.Trim();
-            string pass = txtPassword.Text.Trim(); // Assumes there's a txtPassword. Wait, is there one? 
-            // I should verify if txtPassword exists. In previous dummy UI, maybe let's just assume `txtPassword` exists.
+            string pass = txtPassword.Text.Trim();
             
+            if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(pass))
+            {
+                MessageBox.Show("Please enter both username and password.");
+                return;
+            }
+
+            this.Cursor = Cursors.WaitCursor;
+            btnLogin.Enabled = false;
+
             try
             {
                 if (AuthManager.Login(user, pass))
@@ -46,15 +54,15 @@ namespace DBU_LibrarySystem
                     
                     if (role == "Student")
                     {
-                        dashboard = new StudentDashboard();
+                        dashboard = new StudentDashboard(AuthManager.CurrentUser);
                     }
                     else if (role == "Librarian")
                     {
-                        dashboard = new StaffDashboard();
+                        dashboard = new StaffDashboard(AuthManager.CurrentUser);
                     }
                     else if (role == "Admin")
                     {
-                        dashboard = new MainDashboard();
+                        dashboard = new MainDashboard(AuthManager.CurrentUser);
                     }
 
                     if (dashboard != null)
@@ -71,7 +79,12 @@ namespace DBU_LibrarySystem
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+                btnLogin.Enabled = true;
             }
         }
     }

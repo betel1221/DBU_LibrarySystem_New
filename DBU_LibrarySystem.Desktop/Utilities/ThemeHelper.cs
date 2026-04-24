@@ -12,7 +12,7 @@ namespace DBU_LibrarySystem.Utilities
         public static Color BackgroundColor = Color.FromArgb(10, 10, 12);  // Near Black
         public static Color SurfaceColor = Color.FromArgb(22, 22, 26);     // Dark Gray/Blue
         public static Color CardColor = Color.FromArgb(30, 30, 38);        // Slightly lighter surface
-        public static Color PrimaryColor = Color.FromArgb(138, 43, 226);   // Blue-Violet (Neon Purple)
+        public static Color PrimaryColor = Color.FromArgb(44, 127, 184);   // Professional Blue
         public static Color AccentColor = Color.FromArgb(0, 242, 255);     // Neon Teal
         public static Color TextPrimary = Color.FromArgb(245, 245, 255);   // Off-white
         public static Color TextSecondary = Color.FromArgb(160, 160, 180); // Muted blue-gray
@@ -58,7 +58,7 @@ namespace DBU_LibrarySystem.Utilities
             {
                 txt.BackColor = SurfaceColor;
                 txt.ForeColor = TextPrimary;
-                txt.BorderStyle = BorderStyle.None;
+                txt.BorderStyle = BorderStyle.FixedSingle;
                 txt.Font = new Font("Segoe UI", 11F);
             }
             else if (c is Label lbl)
@@ -83,27 +83,27 @@ namespace DBU_LibrarySystem.Utilities
         private static void StyleButton(Button btn)
         {
             btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderSize = 0;
-            btn.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btn.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btn.FlatAppearance.BorderSize = 1;
+            btn.FlatAppearance.BorderColor = PrimaryColor;
             btn.Cursor = Cursors.Hand;
 
             if (btn.Name.Contains("logout") || btn.Text.ToLower().Contains("logout"))
             {
                 btn.BackColor = Color.Transparent;
                 btn.ForeColor = DangerColor;
-                btn.FlatAppearance.BorderSize = 1;
                 btn.FlatAppearance.BorderColor = DangerColor;
             }
-            else if (btn.Name.Contains("Add") || btn.Name.Contains("Save"))
+            else if (btn.Name.Contains("Add") || btn.Name.Contains("Save") || btn.Name.Contains("Create"))
             {
                 btn.BackColor = SuccessColor;
                 btn.ForeColor = BackgroundColor;
+                btn.FlatAppearance.BorderColor = SuccessColor;
             }
             else
             {
                 btn.BackColor = PrimaryColor;
                 btn.ForeColor = Color.White;
+                btn.FlatAppearance.BorderColor = PrimaryColor;
             }
 
             SetupButtonAnimation(btn);
@@ -118,7 +118,7 @@ namespace DBU_LibrarySystem.Utilities
             
             grid.DefaultCellStyle.BackColor = CardColor;
             grid.DefaultCellStyle.ForeColor = TextPrimary;
-            grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(60, 138, 43, 226);
+            grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(60, 44, 127, 184);
             grid.DefaultCellStyle.SelectionForeColor = Color.White;
             grid.DefaultCellStyle.Padding = new Padding(10, 5, 10, 5);
 
@@ -137,17 +137,16 @@ namespace DBU_LibrarySystem.Utilities
         private static void SetupButtonAnimation(Button btn)
         {
             Color originalColor = btn.BackColor;
-            Color targetColor = AccentColor;
-            if (btn.BackColor == SuccessColor) targetColor = Color.FromArgb(200, SuccessColor);
+            Color originalFore = btn.ForeColor;
             
             btn.MouseEnter += (s, e) => {
-                btn.BackColor = targetColor;
-                if (btn.ForeColor == Color.White || btn.ForeColor == TextPrimary) btn.ForeColor = BackgroundColor;
+                btn.BackColor = AccentColor;
+                btn.ForeColor = BackgroundColor;
             };
             
             btn.MouseLeave += (s, e) => {
                 btn.BackColor = originalColor;
-                if (btn.ForeColor == BackgroundColor) btn.ForeColor = TextPrimary;
+                btn.ForeColor = originalFore;
             };
         }
 
