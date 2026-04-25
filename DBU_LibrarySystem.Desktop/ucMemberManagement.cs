@@ -27,7 +27,6 @@ namespace DBU_LibrarySystem
                 txtID.PlaceholderText = "Student ID";
                 txtEmail.PlaceholderText = "Student Email";
                 txtDepartment.Visible = true;
-                txtOfficeNumber.Visible = false;
                 txtIDCardPath.Visible = true;
                 btnBrowseID.Visible = true;
             }
@@ -36,7 +35,6 @@ namespace DBU_LibrarySystem
                 txtID.PlaceholderText = "Staff ID";
                 txtEmail.PlaceholderText = "Staff Email/Phone";
                 txtDepartment.Visible = false;
-                txtOfficeNumber.Visible = true;
                 
                 // Hide ID card logic for staff, or keep it. Let's hide it for staff.
                 txtIDCardPath.Visible = false;
@@ -52,7 +50,7 @@ namespace DBU_LibrarySystem
                 dataGridView1.Columns.Add("ID", "Member ID");
                 dataGridView1.Columns.Add("Name", "Full Name");
                 dataGridView1.Columns.Add("Role", "Role");
-                dataGridView1.Columns.Add("DeptOffice", "Dept/Office");
+                dataGridView1.Columns.Add("Department", "Department");
                 dataGridView1.Columns.Add("Contact", "Contact");
             }
 
@@ -66,8 +64,8 @@ namespace DBU_LibrarySystem
 
                 foreach (var m in members)
                 {
-                    string deptOffice = m.Role == "Student" ? m.Department : m.OfficeNumber;
-                    dataGridView1.Rows.Add(m.UserId, m.Name, m.Role, deptOffice ?? "N/A", m.ContactNumber ?? "N/A");
+                    string dept = m.Role == "Student" ? m.Department : "N/A";
+                    dataGridView1.Rows.Add(m.UserId, m.Name, m.Role, dept ?? "N/A", m.ContactNumber ?? "N/A");
                 }
             }
         }
@@ -81,7 +79,6 @@ namespace DBU_LibrarySystem
                 string contact = txtEmail.Text.Trim();
                 string idPath = txtIDCardPath.Text.Trim();
                 string department = txtDepartment.Text.Trim();
-                string officeNumber = txtOfficeNumber.Text.Trim();
                 string role = cmbRole.SelectedIndex == 0 ? "Student" : "Librarian";
 
                 if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(name))
@@ -108,7 +105,6 @@ namespace DBU_LibrarySystem
                         ContactNumber = contact,
                         IDCardImagePath = role == "Student" ? idPath : null,
                         Department = role == "Student" ? department : null,
-                        OfficeNumber = role != "Student" ? officeNumber : null,
                         IsApproved = true // Auto-approved as requested
                     };
 
@@ -134,7 +130,6 @@ namespace DBU_LibrarySystem
             txtEmail.Clear();
             txtIDCardPath.Clear();
             txtDepartment.Clear();
-            txtOfficeNumber.Clear();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

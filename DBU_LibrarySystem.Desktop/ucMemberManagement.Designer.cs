@@ -104,12 +104,6 @@ namespace DBU_LibrarySystem
             txtDepartment.PlaceholderText = "Department";
             txtDepartment.Size = new System.Drawing.Size(150, 27);
             
-            txtOfficeNumber.Font = new System.Drawing.Font("Segoe UI", 11F);
-            txtOfficeNumber.Location = new System.Drawing.Point(430, 85);
-            txtOfficeNumber.PlaceholderText = "Office Number";
-            txtOfficeNumber.Size = new System.Drawing.Size(150, 27);
-            txtOfficeNumber.Visible = false;
-
             btnAdd.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
             btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnAdd.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -119,7 +113,7 @@ namespace DBU_LibrarySystem
             btnAdd.Text = "Register";
             btnAdd.Click += btnAdd_Click;
             
-            panelCreate.Controls.AddRange(new System.Windows.Forms.Control[] { labelSubtitle, cmbRole, txtID, txtName, txtEmail, txtIDCardPath, btnBrowseID, txtDepartment, txtOfficeNumber, btnAdd });
+            panelCreate.Controls.AddRange(new System.Windows.Forms.Control[] { labelSubtitle, cmbRole, txtID, txtName, txtEmail, txtIDCardPath, btnBrowseID, txtDepartment, btnAdd });
 
 
             
@@ -166,7 +160,6 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.TextBox txtIDCardPath;
         private System.Windows.Forms.ComboBox cmbRole;
         private System.Windows.Forms.TextBox txtDepartment;
-        private System.Windows.Forms.TextBox txtOfficeNumber;
         private System.Windows.Forms.Button btnBrowseID;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Panel panelList;
