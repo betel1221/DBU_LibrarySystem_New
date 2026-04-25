@@ -18,12 +18,33 @@ namespace DBU_LibrarySystem
             if (cmbSearchMode.SelectedItem?.ToString() == "Members")
             {
                 cmbFilter.Items.AddRange(new object[] { "By Name", "By Member ID" });
+                btnReserve.Visible = false;
             }
             else
             {
                 cmbFilter.Items.AddRange(new object[] { "By Title", "By Author", "By ISBN", "By Category", "By Year" });
+                btnReserve.Visible = true;
             }
             cmbFilter.SelectedIndex = 0;
+        }
+
+        private void btnReserve_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow == null || cmbSearchMode.SelectedItem?.ToString() != "Books") return;
+            string isbn = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+
+            string studentId = Microsoft.VisualBasic.Interaction.InputBox("Enter Member ID to reserve for:", "Global Reservation", "");
+            if (string.IsNullOrEmpty(studentId)) return;
+
+            try
+            {
+                if (Services.LibraryManager.ReserveBook(studentId, isbn))
+                {
+                    MessageBox.Show("Book reserved successfully!");
+                    btnSearch_Click(null, null);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

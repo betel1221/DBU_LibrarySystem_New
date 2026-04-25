@@ -49,5 +49,24 @@ namespace DBU_LibrarySystem
                 dataGridView1.Rows.Add(b.ISBN, b.Title, b.Author, b.Category, availStatus);
             }
         }
+
+        private void btnReserve_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow == null) return;
+            string isbn = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+
+            string studentId = Microsoft.VisualBasic.Interaction.InputBox("Enter Member ID to reserve for:", "Staff Reservation", "");
+            if (string.IsNullOrEmpty(studentId)) return;
+
+            try
+            {
+                if (DBU_LibrarySystem.Services.LibraryManager.ReserveBook(studentId, isbn))
+                {
+                    MessageBox.Show("Book reserved successfully for the member!");
+                    btnSearch_Click(null, null);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
     }
 }
