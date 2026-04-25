@@ -228,7 +228,7 @@ namespace DBU_LibrarySystem.Migrations
                             Id = 1,
                             CopyId = "1006-C1",
                             ExpiryDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReservationDate = new DateTime(2026, 4, 25, 9, 1, 32, 815, DateTimeKind.Local).AddTicks(2680),
+                            ReservationDate = new DateTime(2026, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "Active",
                             UserId = "std2"
                         });
@@ -281,9 +281,9 @@ namespace DBU_LibrarySystem.Migrations
                         new
                         {
                             Id = 1,
-                            BorrowDate = new DateTime(2026, 3, 16, 9, 1, 32, 812, DateTimeKind.Local).AddTicks(3352),
+                            BorrowDate = new DateTime(2026, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CopyId = "1003-C1",
-                            DueDate = new DateTime(2026, 3, 26, 9, 1, 32, 814, DateTimeKind.Local).AddTicks(2073),
+                            DueDate = new DateTime(2026, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FineAmount = 0m,
                             IsFinePaid = false,
                             Status = "Active",
@@ -292,21 +292,21 @@ namespace DBU_LibrarySystem.Migrations
                         new
                         {
                             Id = 2,
-                            BorrowDate = new DateTime(2026, 4, 10, 9, 1, 32, 814, DateTimeKind.Local).AddTicks(4463),
+                            BorrowDate = new DateTime(2026, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CopyId = "1005-C1",
-                            DueDate = new DateTime(2026, 4, 17, 9, 1, 32, 814, DateTimeKind.Local).AddTicks(4476),
+                            DueDate = new DateTime(2026, 4, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FineAmount = 0m,
                             IsFinePaid = false,
-                            ReturnDate = new DateTime(2026, 4, 17, 9, 1, 32, 814, DateTimeKind.Local).AddTicks(4478),
+                            ReturnDate = new DateTime(2026, 4, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "Returned",
                             UserId = "std2"
                         },
                         new
                         {
                             Id = 3,
-                            BorrowDate = new DateTime(2026, 4, 23, 9, 1, 32, 814, DateTimeKind.Local).AddTicks(7094),
+                            BorrowDate = new DateTime(2026, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CopyId = "1002-C1",
-                            DueDate = new DateTime(2026, 5, 7, 9, 1, 32, 814, DateTimeKind.Local).AddTicks(7103),
+                            DueDate = new DateTime(2026, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FineAmount = 0m,
                             IsFinePaid = false,
                             Status = "Active",
@@ -315,9 +315,9 @@ namespace DBU_LibrarySystem.Migrations
                         new
                         {
                             Id = 4,
-                            BorrowDate = new DateTime(2026, 4, 20, 9, 1, 32, 814, DateTimeKind.Local).AddTicks(7107),
+                            BorrowDate = new DateTime(2026, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CopyId = "1004-C1",
-                            DueDate = new DateTime(2026, 5, 4, 9, 1, 32, 814, DateTimeKind.Local).AddTicks(7109),
+                            DueDate = new DateTime(2026, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FineAmount = 0m,
                             IsFinePaid = false,
                             Status = "Active",
@@ -344,9 +344,6 @@ namespace DBU_LibrarySystem.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OfficeNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")

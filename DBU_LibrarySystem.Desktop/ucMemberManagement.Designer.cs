@@ -25,7 +25,6 @@ namespace DBU_LibrarySystem
             txtIDCardPath = new System.Windows.Forms.TextBox();
             cmbRole = new System.Windows.Forms.ComboBox();
             txtDepartment = new System.Windows.Forms.TextBox();
-            txtOfficeNumber = new System.Windows.Forms.TextBox();
             btnBrowseID = new System.Windows.Forms.Button();
             btnAdd = new System.Windows.Forms.Button();
 
