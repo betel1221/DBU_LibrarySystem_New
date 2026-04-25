@@ -199,6 +199,7 @@ namespace DBU_LibrarySystem
 
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Panel panelList;
+        private System.Windows.Forms.Panel panelSearchBar;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.ComboBox cmbFilter;
         private System.Windows.Forms.Button btnSearch;
