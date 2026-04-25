@@ -12,14 +12,12 @@ namespace DBU_LibrarySystem
             InitializeComponent();
             ThemeHelper.ApplyTheme(this);
             this.Load += ucGlobalSearch_Load;
-            SetupColumns();
+            cmbSearchMode.SelectedIndex = 0; // Trigger initial column setup
         }
 
         private void ucGlobalSearch_Load(object sender, EventArgs e)
         {
-            // Ensure UI panels stack correctly
-            try { panelSearch.BringToFront(); } catch { }
-            // Re-evaluate visibility based on host form (Admin should not be able to issue books here)
+            panelSearch.BringToFront();
             SetupColumns();
         }
 
@@ -27,7 +25,6 @@ namespace DBU_LibrarySystem
         {
             dataGridView1.Columns.Clear();
             string mode = cmbSearchMode.SelectedItem?.ToString();
-
             bool isAdmin = this.FindForm() is MainDashboard;
 
             if (mode == "Members")
@@ -43,9 +40,15 @@ namespace DBU_LibrarySystem
                 dataGridView1.Columns.Add("colISBN", "ISBN");
                 dataGridView1.Columns.Add("colTitle", "Title");
                 dataGridView1.Columns.Add("colAuthor", "Author");
-                dataGridView1.Columns.Add("colAvail", "Availability");
-                // Only show Issue when not hosted inside the Admin dashboard
+                // ENSURE VISIBILITY:
+                var availCol = new DataGridViewTextBoxColumn();
+                availCol.Name = "colAvail";
+                availCol.HeaderText = "Availability";
+                availCol.Visible = true; 
+                dataGridView1.Columns.Add(availCol);
+
                 btnIssue.Visible = !isAdmin;
+                btnIssue.Text = "Issue Book";
             }
         }
 
@@ -63,34 +66,6 @@ namespace DBU_LibrarySystem
             cmbFilter.SelectedIndex = 0;
             SetupColumns();
             dataGridView1.Rows.Clear();
-        }
-
-        private void btnIssue_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.CurrentRow == null || cmbSearchMode.SelectedItem?.ToString() != "Books") return;
-            
-            string isbn = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            
-            // Find an available copy to issue
-            var book = Services.LibraryManager.SearchBooks(isbn: isbn).FirstOrDefault();
-            var copy = book?.Copies?.FirstOrDefault(c => c.Status == "Available");
-            
-            if (copy == null)
-            {
-                MessageBox.Show("No available copies to issue for this book.");
-                return;
-            }
-
-            // Navigate to Borrow screen
-            Form parent = this.FindForm();
-            if (parent is MainDashboard adminDash)
-            {
-                adminDash.NavigateToModule("Borrow", copy.CopyId);
-            }
-            else if (parent is StaffDashboard staffDash)
-            {
-                staffDash.NavigateToModule("Circulation", copy.CopyId);
-            }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -128,8 +103,35 @@ namespace DBU_LibrarySystem
                 {
                     int availableCount = b.Copies?.Count(c => c.Status == "Available") ?? 0;
                     string availStatus = availableCount > 0 ? $"✅ {availableCount} Available" : "❌ Out of Stock";
+                    
+                    // Column index 3 is our availability column
                     dataGridView1.Rows.Add(b.ISBN, b.Title, b.Author, availStatus);
                 }
+            }
+        }
+
+        private void btnIssue_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow == null || cmbSearchMode.SelectedItem?.ToString() != "Books") return;
+            
+            string isbn = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            var book = Services.LibraryManager.SearchBooks(isbn: isbn).FirstOrDefault();
+            var copy = book?.Copies?.FirstOrDefault(c => c.Status == "Available");
+            
+            if (copy == null)
+            {
+                MessageBox.Show("No available copies to issue for this book.", "Library System", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Form parent = this.FindForm();
+            if (parent is MainDashboard adminDash)
+            {
+                adminDash.NavigateToModule("Borrow", copy.CopyId);
+            }
+            else if (parent is StaffDashboard staffDash)
+            {
+                staffDash.NavigateToModule("Circulation", copy.CopyId);
             }
         }
     }
