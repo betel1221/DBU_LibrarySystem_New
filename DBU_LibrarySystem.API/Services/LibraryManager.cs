@@ -359,5 +359,25 @@ namespace DBU_LibrarySystem.Services
                 db.SaveChanges();
             }
         }
+
+        public static void CleanupExpiredReservations()
+        {
+            using (var db = new LibraryContext())
+            {
+                var expired = db.Reservations.Include(r => r.BookCopy)
+                                .Where(r => r.Status == "Ready" && r.ExpiryDate < DateTime.Now)
+                                .ToList();
+
+                foreach (var res in expired)
+                {
+                    res.Status = "Expired";
+                    if (res.BookCopy != null && res.BookCopy.Status == "Reserved")
+                    {
+                        res.BookCopy.Status = "Available";
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
     }
 }

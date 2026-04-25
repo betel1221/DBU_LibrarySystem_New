@@ -50,23 +50,31 @@ namespace DBU_LibrarySystem
             }
         }
 
-        private void btnReserve_Click(object sender, EventArgs e)
+        private void btnIssue_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null) return;
             string isbn = dataGridView1.CurrentRow.Cells[0].Value.ToString();
 
-            string studentId = Microsoft.VisualBasic.Interaction.InputBox("Enter Member ID to reserve for:", "Staff Reservation", "");
-            if (string.IsNullOrEmpty(studentId)) return;
+            // Find an available copy to issue
+            var book = DBU_LibrarySystem.Services.LibraryManager.SearchBooks(isbn: isbn).FirstOrDefault();
+            var copy = book?.Copies?.FirstOrDefault(c => c.Status == "Available");
 
-            try
+            if (copy == null)
             {
-                if (DBU_LibrarySystem.Services.LibraryManager.ReserveBook(studentId, isbn))
-                {
-                    MessageBox.Show("Book reserved successfully for the member!");
-                    btnSearch_Click(null, null);
-                }
+                MessageBox.Show("No available copies to issue for this book.");
+                return;
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            // Navigate to Circulation screen
+            Form parent = this.FindForm();
+            if (parent is StaffDashboard staffDash)
+            {
+                staffDash.NavigateToModule("Circulation", copy.CopyId);
+            }
+            else if (parent is MainDashboard adminDash)
+            {
+                adminDash.NavigateToModule("Borrow", copy.CopyId);
+            }
         }
     }
 }

@@ -17,6 +17,8 @@ namespace DBU_LibrarySystem
             this.Load += (s, e) => {
                 ThemeHelper.ApplyTheme(this);
                 if (lblWelcome != null) lblWelcome.Text = $"Welcome, Admin {_currentUser.Name}";
+                // Cleanup
+                DBU_LibrarySystem.Services.LibraryManager.CleanupExpiredReservations();
                 // Load default
                 LoadUserControl(new ucBookManagement());
                 HighlightButton(button1);

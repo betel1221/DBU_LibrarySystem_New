@@ -22,7 +22,7 @@ namespace DBU_LibrarySystem
             cmbSearchMode = new System.Windows.Forms.ComboBox();
             cmbFilter = new System.Windows.Forms.ComboBox();
             btnSearch = new System.Windows.Forms.Button();
-            btnReserve = new System.Windows.Forms.Button();
+            btnIssue = new System.Windows.Forms.Button();
             lblSearchBy = new System.Windows.Forms.Label();
             panelList = new System.Windows.Forms.Panel();
             dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -60,16 +60,16 @@ namespace DBU_LibrarySystem
             btnSearch.Text = "Search";
             btnSearch.Click += btnSearch_Click;
 
-            // btnReserve
-            btnReserve.BackColor = System.Drawing.Color.FromArgb(39, 174, 96);
-            btnReserve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnReserve.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            btnReserve.ForeColor = System.Drawing.Color.White;
-            btnReserve.Location = new System.Drawing.Point(670, 15);
-            btnReserve.Size = new System.Drawing.Size(150, 40);
-            btnReserve.Text = "Reserve";
-            btnReserve.Click += btnReserve_Click;
-            btnReserve.Visible = true; // Will show/hide based on mode
+            // btnIssue
+            btnIssue.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
+            btnIssue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnIssue.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            btnIssue.ForeColor = System.Drawing.Color.White;
+            btnIssue.Location = new System.Drawing.Point(670, 15);
+            btnIssue.Size = new System.Drawing.Size(150, 40);
+            btnIssue.Text = "Issue Book";
+            btnIssue.Click += btnIssue_Click;
+            btnIssue.Visible = true; // Will show/hide based on mode
 
             // cmbSearchMode
             cmbSearchMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -100,7 +100,7 @@ namespace DBU_LibrarySystem
             panelSearch.Controls.Add(lblSearchBy);
             panelSearch.Controls.Add(cmbFilter);
             panelSearch.Controls.Add(btnSearch);
-            panelSearch.Controls.Add(btnReserve);
+            panelSearch.Controls.Add(btnIssue);
             
             panelList.BackColor = System.Drawing.Color.White;
             panelList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -150,7 +150,7 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.ComboBox cmbFilter;
         private System.Windows.Forms.Label lblSearchBy;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Button btnReserve;
+        private System.Windows.Forms.Button btnIssue;
         private System.Windows.Forms.Panel panelList;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn colType;

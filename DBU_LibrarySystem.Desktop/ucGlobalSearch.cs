@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using DBU_LibrarySystem.Utilities;
 
@@ -10,6 +11,30 @@ namespace DBU_LibrarySystem
         {
             InitializeComponent();
             ThemeHelper.ApplyTheme(this);
+            SetupColumns();
+        }
+
+        private void SetupColumns()
+        {
+            dataGridView1.Columns.Clear();
+            string mode = cmbSearchMode.SelectedItem?.ToString();
+
+            if (mode == "Members")
+            {
+                dataGridView1.Columns.Add("colID", "Member ID");
+                dataGridView1.Columns.Add("colName", "Full Name");
+                dataGridView1.Columns.Add("colDept", "Department/Role");
+                dataGridView1.Columns.Add("colStatus", "Status");
+                btnIssue.Visible = false;
+            }
+            else
+            {
+                dataGridView1.Columns.Add("colISBN", "ISBN");
+                dataGridView1.Columns.Add("colTitle", "Title");
+                dataGridView1.Columns.Add("colAuthor", "Author");
+                dataGridView1.Columns.Add("colAvail", "Availability");
+                btnIssue.Visible = true;
+            }
         }
 
         private void cmbSearchMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -18,33 +43,42 @@ namespace DBU_LibrarySystem
             if (cmbSearchMode.SelectedItem?.ToString() == "Members")
             {
                 cmbFilter.Items.AddRange(new object[] { "By Name", "By Member ID" });
-                btnReserve.Visible = false;
             }
             else
             {
                 cmbFilter.Items.AddRange(new object[] { "By Title", "By Author", "By ISBN", "By Category", "By Year" });
-                btnReserve.Visible = true;
             }
             cmbFilter.SelectedIndex = 0;
+            SetupColumns();
+            dataGridView1.Rows.Clear();
         }
 
-        private void btnReserve_Click(object sender, EventArgs e)
+        private void btnIssue_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null || cmbSearchMode.SelectedItem?.ToString() != "Books") return;
-            string isbn = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-
-            string studentId = Microsoft.VisualBasic.Interaction.InputBox("Enter Member ID to reserve for:", "Global Reservation", "");
-            if (string.IsNullOrEmpty(studentId)) return;
-
-            try
+            
+            string isbn = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            
+            // Find an available copy to issue
+            var book = Services.LibraryManager.SearchBooks(isbn: isbn).FirstOrDefault();
+            var copy = book?.Copies?.FirstOrDefault(c => c.Status == "Available");
+            
+            if (copy == null)
             {
-                if (Services.LibraryManager.ReserveBook(studentId, isbn))
-                {
-                    MessageBox.Show("Book reserved successfully!");
-                    btnSearch_Click(null, null);
-                }
+                MessageBox.Show("No available copies to issue for this book.");
+                return;
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            // Navigate to Borrow screen
+            Form parent = this.FindForm();
+            if (parent is MainDashboard adminDash)
+            {
+                adminDash.NavigateToModule("Borrow", copy.CopyId);
+            }
+            else if (parent is StaffDashboard staffDash)
+            {
+                staffDash.NavigateToModule("Circulation", copy.CopyId);
+            }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -62,7 +96,7 @@ namespace DBU_LibrarySystem
 
                 foreach (var m in members)
                 {
-                    dataGridView1.Rows.Add("Member", m.UserId, m.Name, m.IsApproved ? "Approved" : "Pending");
+                    dataGridView1.Rows.Add(m.UserId, m.Name, m.Department ?? m.Role, m.IsApproved ? "✅ Approved" : "⏳ Pending");
                 }
             }
             else
@@ -81,7 +115,8 @@ namespace DBU_LibrarySystem
                 foreach (var b in books)
                 {
                     int availableCount = b.Copies?.Count(c => c.Status == "Available") ?? 0;
-                    dataGridView1.Rows.Add("Book", b.ISBN, $"{b.Title} ({b.Category})", availableCount > 0 ? "Available" : "Stock Out");
+                    string availStatus = availableCount > 0 ? $"✅ {availableCount} Available" : "❌ Out of Stock";
+                    dataGridView1.Rows.Add(b.ISBN, b.Title, b.Author, availStatus);
                 }
             }
         }

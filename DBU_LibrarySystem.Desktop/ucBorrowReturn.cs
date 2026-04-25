@@ -13,6 +13,12 @@ namespace DBU_LibrarySystem
             btnReturn.Click += btnReturn_Click;
         }
 
+        public void PreFillIssue(string copyId)
+        {
+            txtIssueBook.Text = copyId;
+            txtIssueMember.Focus();
+        }
+
         private void btnIssue_Click(object sender, EventArgs e)
         {
             try

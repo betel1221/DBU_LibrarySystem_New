@@ -15,6 +15,12 @@ namespace DBU_LibrarySystem
             SetupAutoComplete();
         }
 
+        public void PreFillIssue(string copyId)
+        {
+            txtBBook.Text = copyId;
+            txtBMember.Focus();
+        }
+
         private void SetupAutoComplete()
         {
             var members = Services.LibraryManager.GetAllMembers();
