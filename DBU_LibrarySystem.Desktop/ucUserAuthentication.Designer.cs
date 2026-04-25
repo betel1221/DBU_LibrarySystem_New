@@ -20,7 +20,7 @@ namespace DBU_LibrarySystem
             lblNote = new System.Windows.Forms.Label();
             panelCreate = new System.Windows.Forms.Panel();
             lblCreateTitle = new System.Windows.Forms.Label();
-            cmbMember = new System.Windows.Forms.ComboBox();
+            txtMemberID = new System.Windows.Forms.TextBox();
             txtPassword = new System.Windows.Forms.TextBox();
             cmbRole = new System.Windows.Forms.ComboBox();
             btnCreate = new System.Windows.Forms.Button();
