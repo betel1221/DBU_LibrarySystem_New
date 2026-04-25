@@ -25,6 +25,7 @@ namespace DBU_LibrarySystem
             panelBBorrowed = new System.Windows.Forms.Panel();
             lblBBorrowedTitle = new System.Windows.Forms.Label();
             lblBBorrowedNum = new System.Windows.Forms.Label();
+            btnRefresh = new System.Windows.Forms.Button();
             
             panelTBooks.SuspendLayout();
             panelAMembers.SuspendLayout();
@@ -104,7 +105,18 @@ namespace DBU_LibrarySystem
             panelBBorrowed.Controls.Add(lblBBorrowedTitle);
             panelBBorrowed.Controls.Add(lblBBorrowedNum);
             
+            // Refresh Button
+            btnRefresh.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
+            btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnRefresh.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnRefresh.ForeColor = System.Drawing.Color.White;
+            btnRefresh.Location = new System.Drawing.Point(300, 20);
+            btnRefresh.Size = new System.Drawing.Size(120, 35);
+            btnRefresh.Text = "REFRESH";
+            btnRefresh.Click += btnRefresh_Click;
+
             Controls.Add(labelTitle);
+            Controls.Add(btnRefresh);
             Controls.Add(panelTBooks);
             Controls.Add(panelAMembers);
             Controls.Add(panelBBorrowed);
@@ -129,5 +141,6 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.Panel panelBBorrowed;
         private System.Windows.Forms.Label lblBBorrowedTitle;
         private System.Windows.Forms.Label lblBBorrowedNum;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

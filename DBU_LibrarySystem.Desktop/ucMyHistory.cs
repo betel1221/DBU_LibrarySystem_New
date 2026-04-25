@@ -13,20 +13,51 @@ namespace DBU_LibrarySystem
             // Default to empty, should be loaded from Main Form
         }
 
+        private string _currentUserId;
         public void LoadUserHistory(string userId)
         {
+            _currentUserId = userId;
             dataGridView1.Rows.Clear();
+            
+            // 1. Load Borrows
             var history = DBU_LibrarySystem.Services.LibraryManager.GetUserHistory(userId);
             foreach (var t in history)
             {
-                string status = t.Status;
-                if (status == "Active" && DateTime.Now > t.DueDate)
-                    status = "⚠️ OVERDUE";
-                
-                string fine = t.FineAmount > 0 ? $"{t.FineAmount:C}" : "✅ None";
-                
-                dataGridView1.Rows.Add(t.BookCopy.Book.Title, t.BorrowDate.ToShortDateString(), t.ReturnDate?.ToShortDateString() ?? "Not Returned", fine);
+                decimal currentFine = t.Status == "Active" 
+                    ? DBU_LibrarySystem.Services.LibraryManager.CalculateFine(t.DueDate) 
+                    : t.FineAmount;
+
+                string statusText = t.Status;
+                if (t.Status == "Active")
+                {
+                    int daysLeft = (t.DueDate.Date - DateTime.Now.Date).Days;
+                    if (daysLeft > 0) statusText = $"⌛ {daysLeft} Days Left";
+                    else if (daysLeft == 0) statusText = "🚩 DUE TODAY";
+                    else statusText = $"⚠️ {Math.Abs(daysLeft)} DAYS OVERDUE";
+                }
+
+                dataGridView1.Rows.Add(t.BookCopy.Book.Title, t.BorrowDate.ToShortDateString(), t.DueDate.ToShortDateString(), t.ReturnDate?.ToShortDateString() ?? "-", currentFine > 0 ? currentFine.ToString("N2") : "0.00", statusText);
             }
+
+            // 2. Load Reservations
+            var reservations = DBU_LibrarySystem.Services.LibraryManager.GetUserReservations(userId);
+            foreach (var r in reservations)
+            {
+                dataGridView1.Rows.Add(
+                    r.BookCopy.Book.Title,
+                    r.ReservationDate.ToShortDateString(),
+                    "-",
+                    "-",
+                    "0.00",
+                    "⭐ RESERVED"
+                );
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_currentUserId))
+                LoadUserHistory(_currentUserId);
         }
     }
 }

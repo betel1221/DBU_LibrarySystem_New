@@ -16,13 +16,30 @@ namespace DBU_LibrarySystem
         {
             dataGridView1.Rows.Clear();
             string query = txtSearch.Text.Trim();
-            var results = DBU_LibrarySystem.Services.LibraryManager.SearchBooks(query);
+            string filter = cmbFilter.SelectedItem?.ToString();
+
+            System.Collections.Generic.List<DBU_LibrarySystem.Models.Book> results;
+
+            if (filter == "By Author")
+                results = DBU_LibrarySystem.Services.LibraryManager.SearchBooks(author: query);
+            else if (filter == "By ISBN")
+                results = DBU_LibrarySystem.Services.LibraryManager.SearchBooks(isbn: query);
+            else if (filter == "By Category")
+                results = DBU_LibrarySystem.Services.LibraryManager.SearchBooks(category: query);
+            else if (filter == "By Year")
+            {
+                int.TryParse(query, out int year);
+                results = DBU_LibrarySystem.Services.LibraryManager.SearchBooks(year: year > 0 ? year : (int?)null);
+            }
+            else // By Title
+                results = DBU_LibrarySystem.Services.LibraryManager.SearchBooks(title: query);
             
             foreach (var b in results)
             {
                 int availableCount = b.Copies?.Count(c => c.Status == "Available") ?? 0;
-                string status = availableCount > 0 ? "✅ Available" : "❌ All Copies Borrowed";
-                dataGridView1.Rows.Add(b.ISBN, b.Title, b.Author, status);
+                string status = availableCount > 0 ? $"✅ {availableCount} Available" : "❌ Out of Stock";
+                
+                dataGridView1.Rows.Add(b.ISBN, b.Title, b.Author, b.Category, b.YearOfPublication, status);
             }
         }
 

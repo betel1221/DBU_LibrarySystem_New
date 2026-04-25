@@ -19,7 +19,10 @@ namespace DBU_LibrarySystem
             labelTitle = new System.Windows.Forms.Label();
             panelSearch = new System.Windows.Forms.Panel();
             txtSearch = new System.Windows.Forms.TextBox();
+            cmbSearchMode = new System.Windows.Forms.ComboBox();
+            cmbFilter = new System.Windows.Forms.ComboBox();
             btnSearch = new System.Windows.Forms.Button();
+            lblSearchBy = new System.Windows.Forms.Label();
             panelList = new System.Windows.Forms.Panel();
             dataGridView1 = new System.Windows.Forms.DataGridView();
             colType = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,30 +48,57 @@ namespace DBU_LibrarySystem
             panelSearch.BackColor = System.Drawing.Color.White;
             panelSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelSearch.Location = new System.Drawing.Point(34, 80);
-            panelSearch.Size = new System.Drawing.Size(900, 100);
+            panelSearch.Size = new System.Drawing.Size(900, 130);
             panelSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             
-            txtSearch.Font = new System.Drawing.Font("Segoe UI", 14F);
-            txtSearch.Location = new System.Drawing.Point(20, 25);
-            txtSearch.PlaceholderText = "Search for Books (Title/ISBN) or Members (Name/ID)...";
-            txtSearch.Size = new System.Drawing.Size(600, 30);
+            txtSearch.Font = new System.Drawing.Font("Segoe UI", 12F);
+            txtSearch.Location = new System.Drawing.Point(20, 70);
+            txtSearch.PlaceholderText = "Type keywords here...";
+            txtSearch.Size = new System.Drawing.Size(300, 30);
             
             btnSearch.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
             btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnSearch.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             btnSearch.ForeColor = System.Drawing.Color.White;
-            btnSearch.Location = new System.Drawing.Point(640, 25);
-            btnSearch.Size = new System.Drawing.Size(200, 38);
+            btnSearch.Location = new System.Drawing.Point(670, 65);
+            btnSearch.Size = new System.Drawing.Size(150, 40);
             btnSearch.Text = "Search";
             btnSearch.Click += btnSearch_Click;
+
+            // cmbSearchMode
+            cmbSearchMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbSearchMode.Font = new System.Drawing.Font("Segoe UI", 12F);
+            cmbSearchMode.Items.AddRange(new object[] { "Books", "Members" });
+            cmbSearchMode.SelectedIndex = 0;
+            cmbSearchMode.Location = new System.Drawing.Point(20, 25);
+            cmbSearchMode.Size = new System.Drawing.Size(150, 30);
+            cmbSearchMode.SelectedIndexChanged += cmbSearchMode_SelectedIndexChanged;
+
+            // cmbFilter
+            cmbFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbFilter.Font = new System.Drawing.Font("Segoe UI", 12F);
+            cmbFilter.Items.AddRange(new object[] { "By Title", "By Author", "By ISBN", "By Category", "By Year" });
+            cmbFilter.SelectedIndex = 0;
+            cmbFilter.Location = new System.Drawing.Point(340, 70);
+            cmbFilter.Size = new System.Drawing.Size(200, 30);
+
+            // lblSearchBy
+            lblSearchBy.AutoSize = true;
+            lblSearchBy.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            lblSearchBy.ForeColor = System.Drawing.Color.Gray;
+            lblSearchBy.Location = new System.Drawing.Point(340, 45);
+            lblSearchBy.Text = "SELECT SEARCH CRITERIA:";
             
             panelSearch.Controls.Add(txtSearch);
+            panelSearch.Controls.Add(cmbSearchMode);
+            panelSearch.Controls.Add(lblSearchBy);
+            panelSearch.Controls.Add(cmbFilter);
             panelSearch.Controls.Add(btnSearch);
             
             panelList.BackColor = System.Drawing.Color.White;
             panelList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panelList.Location = new System.Drawing.Point(34, 200);
-            panelList.Size = new System.Drawing.Size(900, 400);
+            panelList.Location = new System.Drawing.Point(34, 230);
+            panelList.Size = new System.Drawing.Size(900, 370);
             panelList.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
             
             dataGridView1.AllowUserToAddRows = false;
@@ -109,6 +139,9 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Panel panelSearch;
         private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.ComboBox cmbSearchMode;
+        private System.Windows.Forms.ComboBox cmbFilter;
+        private System.Windows.Forms.Label lblSearchBy;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Panel panelList;
         private System.Windows.Forms.DataGridView dataGridView1;

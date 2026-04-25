@@ -17,9 +17,57 @@ namespace DBU_LibrarySystem.Services
         {
             using (var db = new LibraryContext())
             {
-                if (db.Books.Any(b => b.ISBN == book.ISBN))
-                    throw new Exception("Book with this ISBN already exists.");
                 db.Books.Add(book);
+                db.SaveChanges();
+            }
+        }
+
+        public static void AddOrUpdateBook(Book book)
+        {
+            using (var db = new LibraryContext())
+            {
+                var existing = db.Books.Find(book.ISBN);
+                if (existing != null)
+                {
+                    existing.Title = book.Title;
+                    existing.Author = book.Author;
+                    existing.Category = book.Category;
+                    existing.YearOfPublication = book.YearOfPublication;
+                }
+                else
+                {
+                    db.Books.Add(book);
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public static void UpdateBook(Book book)
+        {
+            using (var db = new LibraryContext())
+            {
+                var existing = db.Books.FirstOrDefault(b => b.ISBN == book.ISBN);
+                if (existing == null) throw new Exception("Book not found.");
+                
+                existing.Title = book.Title;
+                existing.Author = book.Author;
+                existing.Category = book.Category;
+                existing.YearOfPublication = book.YearOfPublication;
+                
+                db.SaveChanges();
+            }
+        }
+
+        public static void DeleteBook(string isbn)
+        {
+            using (var db = new LibraryContext())
+            {
+                var book = db.Books.Include(b => b.Copies).FirstOrDefault(b => b.ISBN == isbn);
+                if (book == null) throw new Exception("Book not found.");
+                
+                // Also remove copies and related data if needed
+                db.BookCopies.RemoveRange(book.Copies);
+                db.Books.Remove(book);
                 db.SaveChanges();
             }
         }
@@ -38,18 +86,62 @@ namespace DBU_LibrarySystem.Services
         }
 
         // --- SEARCH ---
-        public static List<Book> SearchBooks(string query)
+        public static List<Book> SearchBooks(string title = null, string author = null, string category = null, string isbn = null, int? year = null)
         {
             using (var db = new LibraryContext())
             {
-                query = query.ToLower();
-                return db.Books
-                         .Include(b => b.Copies)
-                         .Where(b => b.Title.ToLower().Contains(query) || 
-                                     b.Author.ToLower().Contains(query) || 
-                                     b.Category.ToLower().Contains(query) || 
-                                     b.ISBN.Contains(query))
-                         .ToList();
+                var query = db.Books.Include(b => b.Copies).AsQueryable();
+
+                if (!string.IsNullOrEmpty(title))
+                    query = query.Where(b => b.Title.ToLower().Contains(title.ToLower()));
+                
+                if (!string.IsNullOrEmpty(author))
+                    query = query.Where(b => b.Author.ToLower().Contains(author.ToLower()));
+                
+                if (!string.IsNullOrEmpty(category))
+                    query = query.Where(b => b.Category.ToLower().Contains(category.ToLower()));
+                
+                if (!string.IsNullOrEmpty(isbn))
+                    query = query.Where(b => b.ISBN.Contains(isbn));
+
+                if (year.HasValue)
+                    query = query.Where(b => b.YearOfPublication == year.Value);
+
+                return query.ToList();
+            }
+        }
+        public static List<User> GetAllMembers()
+        {
+            using (var db = new LibraryContext())
+            {
+                return db.Users.Where(u => u.Role == "Student" || u.Role == "Employee").ToList();
+            }
+        }
+
+        public static List<User> SearchMembers(string name = null, string id = null)
+        {
+            using (var db = new LibraryContext())
+            {
+                var query = db.Users.Where(u => u.Role == "Student").AsQueryable();
+
+                if (!string.IsNullOrEmpty(name))
+                    query = query.Where(u => u.Name.ToLower().Contains(name.ToLower()));
+                
+                if (!string.IsNullOrEmpty(id))
+                    query = query.Where(u => u.UserId.Contains(id));
+
+                return query.ToList();
+            }
+        }
+
+        public static (int totalBooks, int activeMembers, int borrowedBooks) GetLibraryStats()
+        {
+            using (var db = new LibraryContext())
+            {
+                int total = db.Books.Count();
+                int members = db.Users.Count(u => u.Role == "Student" && u.IsApproved);
+                int borrowed = db.BookCopies.Count(c => c.Status == "Borrowed");
+                return (total, members, borrowed);
             }
         }
 
@@ -143,6 +235,28 @@ namespace DBU_LibrarySystem.Services
             }
         }
 
+        public static decimal CalculateFine(DateTime dueDate, DateTime? returnDate = null)
+        {
+            DateTime effectiveReturnDate = returnDate ?? DateTime.Now;
+            int lateDays = (effectiveReturnDate.Date - dueDate.Date).Days;
+            return lateDays > 0 ? lateDays * FineRatePerDay : 0m;
+        }
+
+        public static List<Transaction> GetActiveBorrows(string userId = null)
+        {
+            using (var db = new LibraryContext())
+            {
+                var query = db.Transactions.Include(t => t.BookCopy).ThenInclude(c => c.Book)
+                                          .Include(t => t.User)
+                                          .Where(t => t.Status == "Active");
+                
+                if (!string.IsNullOrEmpty(userId))
+                    query = query.Where(t => t.UserId == userId);
+
+                return query.ToList();
+            }
+        }
+
         public static decimal ReturnBook(string copyId)
         {
             using (var db = new LibraryContext())
@@ -159,13 +273,8 @@ namespace DBU_LibrarySystem.Services
                 transaction.Status = "Returned";
                 transaction.ReturnDate = DateTime.Now;
 
-                decimal fine = 0m;
-                int lateDays = (DateTime.Now.Date - transaction.DueDate.Date).Days;
-                if (lateDays > 0)
-                {
-                    fine = lateDays * FineRatePerDay;
-                    transaction.FineAmount = fine;
-                }
+                decimal fine = CalculateFine(transaction.DueDate, transaction.ReturnDate);
+                transaction.FineAmount = fine;
 
                 db.SaveChanges();
                 return fine;
@@ -181,6 +290,29 @@ namespace DBU_LibrarySystem.Services
                           .Where(t => t.UserId == userId)
                           .OrderByDescending(t => t.BorrowDate)
                           .ToList();
+            }
+        }
+        public static List<Reservation> GetUserReservations(string userId)
+        {
+            using (var db = new LibraryContext())
+            {
+                return db.Reservations
+                          .Include(r => r.BookCopy)
+                          .ThenInclude(c => c.Book)
+                          .Where(r => r.UserId == userId && (r.Status == "Active" || r.Status == "Ready" || r.Status == "Pending"))
+                          .ToList();
+            }
+        }
+
+        public static void SettleFine(int transactionId)
+        {
+            using (var db = new LibraryContext())
+            {
+                var transaction = db.Transactions.FirstOrDefault(t => t.Id == transactionId);
+                if (transaction == null) throw new Exception("Transaction not found.");
+                
+                transaction.IsFinePaid = true;
+                db.SaveChanges();
             }
         }
     }

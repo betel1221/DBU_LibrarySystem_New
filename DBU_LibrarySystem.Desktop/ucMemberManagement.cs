@@ -1,4 +1,6 @@
 using System;
+using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 using DBU_LibrarySystem.Utilities;
 
@@ -16,29 +18,25 @@ namespace DBU_LibrarySystem
         private void LoadRealData()
         {
             dataGridView1.Rows.Clear();
-            dataGridViewPending.Rows.Clear();
             
-            // Set up columns for pending if not done
-            if(dataGridViewPending.Columns.Count == 0) {
-                dataGridViewPending.Columns.Add("ID", "ID");
-                dataGridViewPending.Columns.Add("Name", "Name");
-                dataGridViewPending.Columns.Add("Contact", "Contact");
-            }
             if(dataGridView1.Columns.Count == 0) {
-                dataGridView1.Columns.Add("ID", "ID");
-                dataGridView1.Columns.Add("Name", "Name");
+                dataGridView1.Columns.Add("ID", "Member ID");
+                dataGridView1.Columns.Add("Name", "Full Name");
                 dataGridView1.Columns.Add("Contact", "Contact");
+                dataGridView1.Columns.Add("Role", "Role");
             }
 
             using (var db = new DBU_LibrarySystem.Data.LibraryContext())
             {
-                var allUsers = db.Users.Where(u => u.Role == "Student" || u.Role == "Employee").ToList();
-                foreach (var u in allUsers)
+                // All Student/Employee roles are considered 'Members'
+                var members = db.Users
+                    .Where(u => u.Role == "Student" || u.Role == "Employee")
+                    .OrderBy(u => u.Name)
+                    .ToList();
+
+                foreach (var m in members)
                 {
-                    if (u.IsApproved)
-                        dataGridView1.Rows.Add(u.UserId, u.Name, u.ContactNumber ?? "N/A");
-                    else
-                        dataGridViewPending.Rows.Add(u.UserId, u.Name, u.ContactNumber ?? "N/A");
+                    dataGridView1.Rows.Add(m.UserId, m.Name, m.ContactNumber ?? "N/A", m.Role);
                 }
             }
         }
@@ -54,7 +52,7 @@ namespace DBU_LibrarySystem
 
                 if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(name))
                 {
-                    MessageBox.Show("ID and Name are required.");
+                    MessageBox.Show("Member ID and Name are required.");
                     return;
                 }
 
@@ -66,78 +64,48 @@ namespace DBU_LibrarySystem
                         return;
                     }
 
+                    // Automatic User Creation (One-Step Registration)
                     var member = new DBU_LibrarySystem.Models.User
                     {
                         UserId = id,
                         Name = name,
-                        Role = "Student",
-                        Password = "password123",
+                        Role = "Student", // Default to Student
+                        Password = "123456", // Default secure-ish password
                         ContactNumber = contact,
                         IDCardImagePath = idPath,
-                        IsApproved = string.IsNullOrEmpty(idPath) // Auto-approve if no ID path provided (direct admin add)
+                        IsApproved = true // Auto-approved as requested
                     };
 
                     db.Users.Add(member);
                     db.SaveChanges();
                 }
 
-                MessageBox.Show(txtIDCardPath.Text != "" ? "Registration submitted for approval!" : "Member added successfully!");
+                MessageBox.Show($"Member registered successfully!\n\nLogin Username: {id}\nDefault Password: 123456", "Registration Success");
+                
                 LoadRealData();
-                txtID.Clear();
-                txtName.Clear();
-                txtEmail.Clear();
-                txtIDCardPath.Clear();
+                ClearFields();
             }
             catch (Exception ex)
             {
-                string msg = ex.Message;
-                if (ex.InnerException != null) msg += "\nInner: " + ex.InnerException.Message;
-                MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error registering member: " + ex.Message);
             }
         }
 
-        private void btnViewID_Click(object sender, EventArgs e)
+        private void ClearFields()
         {
-            if (dataGridViewPending.CurrentRow == null) return;
-            string userId = dataGridViewPending.CurrentRow.Cells[0].Value.ToString();
-
-            using (var db = new DBU_LibrarySystem.Data.LibraryContext())
-            {
-                var user = db.Users.FirstOrDefault(u => u.UserId == userId);
-                if (user != null && !string.IsNullOrEmpty(user.IDCardImagePath))
-                {
-                    try { System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(user.IDCardImagePath) { UseShellExecute = true }); }
-                    catch { MessageBox.Show("Could not open ID Card image."); }
-                }
-                else MessageBox.Show("No ID Card image uploaded.");
-            }
-        }
-
-        private void btnApprove_Click(object sender, EventArgs e)
-        {
-            if (dataGridViewPending.CurrentRow == null) return;
-            string userId = dataGridViewPending.CurrentRow.Cells[0].Value.ToString();
-
-            try
-            {
-                using (var db = new DBU_LibrarySystem.Data.LibraryContext())
-                {
-                    var user = db.Users.FirstOrDefault(u => u.UserId == userId);
-                    if (user != null)
-                    {
-                        user.IsApproved = true;
-                        db.SaveChanges();
-                        MessageBox.Show($"Student {user.Name} approved successfully!");
-                        LoadRealData();
-                    }
-                }
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            txtID.Clear();
+            txtName.Clear();
+            txtEmail.Clear();
+            txtIDCardPath.Clear();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             LoadRealData();
         }
+
+        // Methods below are kept for compatibility if needed elsewhere, but marked as empty
+        private void btnViewID_Click(object sender, EventArgs e) { }
+        private void btnApprove_Click(object sender, EventArgs e) { }
     }
 }

@@ -20,7 +20,7 @@ namespace DBU_LibrarySystem
             lblNote = new System.Windows.Forms.Label();
             panelCreate = new System.Windows.Forms.Panel();
             lblCreateTitle = new System.Windows.Forms.Label();
-            txtUsername = new System.Windows.Forms.TextBox();
+            cmbMember = new System.Windows.Forms.ComboBox();
             txtPassword = new System.Windows.Forms.TextBox();
             cmbRole = new System.Windows.Forms.ComboBox();
             btnCreate = new System.Windows.Forms.Button();
@@ -69,11 +69,13 @@ namespace DBU_LibrarySystem
             lblCreateTitle.Location = new System.Drawing.Point(20, 15);
             lblCreateTitle.Text = "Create Login Account";
             
-            // txtUsername
-            txtUsername.Font = new System.Drawing.Font("Segoe UI", 12F);
-            txtUsername.Location = new System.Drawing.Point(20, 50);
-            txtUsername.PlaceholderText = "Username";
-            txtUsername.Size = new System.Drawing.Size(250, 30);
+             // cmbMember
+            cmbMember.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbMember.Font = new System.Drawing.Font("Segoe UI", 12F);
+            cmbMember.FormattingEnabled = true;
+            cmbMember.Location = new System.Drawing.Point(20, 50);
+            cmbMember.Size = new System.Drawing.Size(250, 30);
+            cmbMember.TabIndex = 1;
             
             // txtPassword
             txtPassword.Font = new System.Drawing.Font("Segoe UI", 12F);
@@ -102,7 +104,7 @@ namespace DBU_LibrarySystem
             btnCreate.Click += btnCreate_Click;
             
             panelCreate.Controls.Add(lblCreateTitle);
-            panelCreate.Controls.Add(txtUsername);
+            panelCreate.Controls.Add(cmbMember);
             panelCreate.Controls.Add(txtPassword);
             panelCreate.Controls.Add(cmbRole);
             panelCreate.Controls.Add(btnCreate);
@@ -167,7 +169,7 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.Label lblNote;
         private System.Windows.Forms.Panel panelCreate;
         private System.Windows.Forms.Label lblCreateTitle;
-        private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.ComboBox cmbMember;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.ComboBox cmbRole;
         private System.Windows.Forms.Button btnCreate;

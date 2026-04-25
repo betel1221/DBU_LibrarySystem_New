@@ -15,6 +15,7 @@ namespace DBU_LibrarySystem
 
             this.Load += (s, e) => {
                 ThemeHelper.ApplyTheme(this);
+                lblWelcome.Text = $"Welcome, {_currentUser.Name}";
                 // Load default
                 var history = new ucMyHistory();
                 LoadUserControl(history);

@@ -19,9 +19,15 @@ namespace DBU_LibrarySystem
             
             panelStats = new System.Windows.Forms.Panel();
             lblStatsTitle = new System.Windows.Forms.Label();
-            btnTotalInventory = new System.Windows.Forms.Button();
-            btnBooksOnLoan = new System.Windows.Forms.Button();
-            lblStatValue = new System.Windows.Forms.Label();
+            btnRefresh = new System.Windows.Forms.Button();
+            btnSettleBalance = new System.Windows.Forms.Button();
+            dataGridView1 = new System.Windows.Forms.DataGridView();
+            colMember = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colBook = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colDueDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colFine = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colTransID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             
             panelStats.SuspendLayout();
             SuspendLayout();
@@ -47,38 +53,51 @@ namespace DBU_LibrarySystem
             lblStatsTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             lblStatsTitle.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
             lblStatsTitle.Location = new System.Drawing.Point(30, 20);
-            lblStatsTitle.Text = "Library Statistics";
+            lblStatsTitle.Text = "Outstanding Fines & Overdue Books";
             
-            btnTotalInventory.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
-            btnTotalInventory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnTotalInventory.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            btnTotalInventory.ForeColor = System.Drawing.Color.White;
-            btnTotalInventory.Location = new System.Drawing.Point(30, 70);
-            btnTotalInventory.Size = new System.Drawing.Size(150, 40);
-            btnTotalInventory.Text = "Total Inventory";
-            btnTotalInventory.Click += btnTotalInventory_Click;
+            btnRefresh.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
+            btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnRefresh.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnRefresh.ForeColor = System.Drawing.Color.White;
+            btnRefresh.Location = new System.Drawing.Point(30, 60);
+            btnRefresh.Size = new System.Drawing.Size(150, 35);
+            btnRefresh.Text = "Refresh List";
+            btnRefresh.Click += btnRefresh_Click;
+
+            btnSettleBalance.BackColor = System.Drawing.Color.FromArgb(40, 167, 69);
+            btnSettleBalance.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSettleBalance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnSettleBalance.ForeColor = System.Drawing.Color.White;
+            btnSettleBalance.Location = new System.Drawing.Point(190, 60);
+            btnSettleBalance.Size = new System.Drawing.Size(180, 35);
+            btnSettleBalance.Text = "Settle Balance";
+            btnSettleBalance.Enabled = false; // Disabled by default
+            btnSettleBalance.Click += btnSettleBalance_Click;
+
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridView1.ColumnHeadersHeight = 35;
+            dataGridView1.Location = new System.Drawing.Point(30, 110);
+            dataGridView1.Size = new System.Drawing.Size(840, 260);
+            dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
             
-            btnBooksOnLoan.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
-            btnBooksOnLoan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnBooksOnLoan.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            btnBooksOnLoan.ForeColor = System.Drawing.Color.White;
-            btnBooksOnLoan.Location = new System.Drawing.Point(190, 70);
-            btnBooksOnLoan.Size = new System.Drawing.Size(150, 40);
-            btnBooksOnLoan.Text = "Books on Loan";
-            btnBooksOnLoan.Click += btnBooksOnLoan_Click;
-            
-            lblStatValue.AutoSize = true;
-            lblStatValue.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
-            lblStatValue.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
-            lblStatValue.Location = new System.Drawing.Point(30, 150);
-            lblStatValue.Text = "TOTAL BOOKS: 13";
-            lblStatValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            lblStatValue.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            
+            colMember.HeaderText = "Student Name";
+            colBook.HeaderText = "Book Title";
+            colDueDate.HeaderText = "Due Date";
+            colFine.HeaderText = "Accrued Fine ($)";
+            colStatus.HeaderText = "Payment Status";
+            colTransID.Visible = false;
+
+            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colMember, colBook, colDueDate, colFine, colStatus, colTransID });
+
             panelStats.Controls.Add(lblStatsTitle);
-            panelStats.Controls.Add(btnTotalInventory);
-            panelStats.Controls.Add(btnBooksOnLoan);
-            panelStats.Controls.Add(lblStatValue);
+            panelStats.Controls.Add(btnRefresh);
+            panelStats.Controls.Add(btnSettleBalance);
+            panelStats.Controls.Add(dataGridView1);
             
             Controls.Add(labelTitle);
             Controls.Add(panelStats);
@@ -92,8 +111,14 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Panel panelStats;
         private System.Windows.Forms.Label lblStatsTitle;
-        private System.Windows.Forms.Button btnTotalInventory;
-        private System.Windows.Forms.Button btnBooksOnLoan;
-        private System.Windows.Forms.Label lblStatValue;
+        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnSettleBalance;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colMember;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colBook;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDueDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFine;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTransID;
     }
 }

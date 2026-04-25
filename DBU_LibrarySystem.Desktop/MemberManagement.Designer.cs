@@ -49,9 +49,9 @@ namespace DBU_LibrarySystem
             button7 = new Button();
             button8 = new Button();
             dataGridView1 = new DataGridView();
-            ID = new DataGridViewTextBoxColumn();
+            colID = new DataGridViewTextBoxColumn();
             colName = new DataGridViewTextBoxColumn();
-            Email = new DataGridViewTextBoxColumn();
+            colEmail = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -303,7 +303,7 @@ namespace DBU_LibrarySystem
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, colName, Email });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colID, colName, colEmail });
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.Location = new Point(19, 86);
             dataGridView1.Name = "dataGridView1";
@@ -313,12 +313,12 @@ namespace DBU_LibrarySystem
             dataGridView1.TabIndex = 5;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // ID
+            // colID
             // 
-            ID.HeaderText = "ID";
-            ID.MinimumWidth = 8;
-            ID.Name = "ID";
-            ID.ReadOnly = true;
+            colID.HeaderText = "ID";
+            colID.MinimumWidth = 8;
+            colID.Name = "colID";
+            colID.ReadOnly = true;
             // 
             // colName
             // 
@@ -327,12 +327,12 @@ namespace DBU_LibrarySystem
             colName.Name = "colName";
             colName.ReadOnly = true;
             // 
-            // Email
+            // colEmail
             // 
-            Email.HeaderText = "Email";
-            Email.MinimumWidth = 8;
-            Email.Name = "Email";
-            Email.ReadOnly = true;
+            colEmail.HeaderText = "Email";
+            colEmail.MinimumWidth = 8;
+            colEmail.Name = "colEmail";
+            colEmail.ReadOnly = true;
             // 
             // MemberManagement
             // 

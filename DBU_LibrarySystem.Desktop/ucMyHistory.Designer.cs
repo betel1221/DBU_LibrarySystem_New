@@ -22,8 +22,10 @@ namespace DBU_LibrarySystem
             dataGridView1 = new System.Windows.Forms.DataGridView();
             colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colBorrowDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colDueDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colReturnDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colFine = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             
             panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -55,6 +57,7 @@ namespace DBU_LibrarySystem
             btnRefresh.Location = new System.Drawing.Point(20, 20);
             btnRefresh.Size = new System.Drawing.Size(160, 40);
             btnRefresh.Text = "Refresh Records";
+            btnRefresh.Click += btnRefresh_Click;
             
             // DataGridView
             dataGridView1.AllowUserToAddRows = false;
@@ -73,12 +76,13 @@ namespace DBU_LibrarySystem
             dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
             
             colTitle.HeaderText = "Book Title";
-            colBorrowDate.HeaderText = "Borrow Date";
-            colReturnDate.HeaderText = "Return Date";
-            colReturnDate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic);
-            colFine.HeaderText = "Fine Status";
+            colBorrowDate.HeaderText = "Borrowed";
+            colDueDate.HeaderText = "Due Date";
+            colReturnDate.HeaderText = "Returned";
+            colFine.HeaderText = "Fine ($)";
+            colStatus.HeaderText = "Status";
             
-            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colTitle, colBorrowDate, colReturnDate, colFine });
+            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colTitle, colBorrowDate, colDueDate, colReturnDate, colFine, colStatus });
             
             panelList.Controls.Add(btnRefresh);
             panelList.Controls.Add(dataGridView1);
@@ -98,7 +102,9 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBorrowDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDueDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn colReturnDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFine;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
     }
 }
