@@ -19,11 +19,9 @@ namespace DBU_LibrarySystem.Models
         
         public string Password { get; set; }
         
-        // New fields for Student Registration
         public string? ContactNumber { get; set; }
         public string? IDCardImagePath { get; set; }
         public string? Department { get; set; }
-        public string? OfficeNumber { get; set; }
         public bool IsApproved { get; set; } = true;
 
         // For Students: Max 3 books

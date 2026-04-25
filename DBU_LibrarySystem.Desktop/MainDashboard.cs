@@ -17,6 +17,8 @@ namespace DBU_LibrarySystem
             this.Load += (s, e) => {
                 ThemeHelper.ApplyTheme(this);
                 if (lblWelcome != null) lblWelcome.Text = $"Welcome, Admin {_currentUser.Name}";
+                // Cleanup
+                DBU_LibrarySystem.Services.LibraryManager.CleanupExpiredReservations();
                 // Load default
                 LoadUserControl(new ucBookManagement());
                 HighlightButton(button1);
@@ -26,20 +28,28 @@ namespace DBU_LibrarySystem
         private void LoadUserControl(UserControl uc)
         {
             uc.Dock = DockStyle.Fill;
-            
-            // Interaction: Slide-in Transition
-            uc.Left = 50; 
             panelContainer.Controls.Clear();
             panelContainer.Controls.Add(uc);
-            
-            System.Windows.Forms.Timer transitionTimer = new System.Windows.Forms.Timer { Interval = 10 };
-            transitionTimer.Tick += (s, e) => {
-                if (uc.Left > 0)
-                    uc.Left -= 5;
-                else
-                    transitionTimer.Stop();
-            };
-            transitionTimer.Start();
+            // ensure correct position when docked
+            uc.Location = new Point(0, 0);
+        }
+        
+        public void NavigateToModule(string moduleName, object data = null)
+        {
+            switch (moduleName)
+            {
+                case "Books": button1_Click(button1, EventArgs.Empty); break;
+                case "Members": button2_Click(button2, EventArgs.Empty); break;
+                case "Auth": button3_Click(button3, EventArgs.Empty); break;
+                case "Borrow": 
+                    var borrowUc = new ucBorrowReturn();
+                    LoadUserControl(borrowUc);
+                    HighlightButton(button4);
+                    if (data is string copyId) borrowUc.PreFillIssue(copyId);
+                    break;
+                case "Reports": button5_Click(button5, EventArgs.Empty); break;
+                case "Search": button6_Click(button6, EventArgs.Empty); break;
+            }
         }
 
         private void HighlightButton(Button activeBtn)

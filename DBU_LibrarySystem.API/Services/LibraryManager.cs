@@ -163,29 +163,54 @@ namespace DBU_LibrarySystem.Services
                     throw new Exception($"Borrow limit reached! You can only have {MaxBorrowLimit} active books/reservations.");
                 }
 
-                // Find available copy
+                // Find available copy first
                 var availableCopy = db.BookCopies.FirstOrDefault(c => c.ISBN == isbn && c.Status == "Available");
-                if (availableCopy == null) throw new Exception("No copies are currently available for reservation.");
-
-                // Place reservation
-                availableCopy.Status = "Reserved";
-                var reservation = new Reservation
+                
+                if (availableCopy != null)
                 {
-                    UserId = userId,
-                    CopyId = availableCopy.CopyId,
-                    ReservationDate = DateTime.Now,
-                    ExpiryDate = DateTime.Now.AddDays(2), // 48 hrs to pick up
-                    Status = "Ready" 
-                };
-                db.Reservations.Add(reservation);
+                    // Place immediate reservation
+                    availableCopy.Status = "Reserved";
+                    var reservation = new Reservation
+                    {
+                        UserId = userId,
+                        CopyId = availableCopy.CopyId,
+                        ReservationDate = DateTime.Now,
+                        ExpiryDate = DateTime.Now.AddDays(2), // 48 hrs to pick up
+                        Status = "Ready" 
+                    };
+                    db.Reservations.Add(reservation);
 
-                // Send Notification
-                db.Notifications.Add(new Notification {
-                    UserId = userId,
-                    Message = $"Your reservation for '{availableCopy.CopyId}' is ready to pick up.",
-                    Date = DateTime.Now,
-                    Type = "Ready"
-                });
+                    // Send Notification
+                    db.Notifications.Add(new Notification {
+                        UserId = userId,
+                        Message = $"Your reservation for '{availableCopy.CopyId}' is ready to pick up.",
+                        Date = DateTime.Now,
+                        Type = "Ready"
+                    });
+                }
+                else
+                {
+                    // No available copies, place in queue for a borrowed copy
+                    var borrowedCopy = db.BookCopies.FirstOrDefault(c => c.ISBN == isbn && c.Status == "Borrowed");
+                    if (borrowedCopy == null) throw new Exception("No copies of this book exist to reserve.");
+
+                    var reservation = new Reservation
+                    {
+                        UserId = userId,
+                        CopyId = borrowedCopy.CopyId,
+                        ReservationDate = DateTime.Now,
+                        ExpiryDate = DateTime.Now.AddYears(1), // Will be updated when book is returned
+                        Status = "Pending" 
+                    };
+                    db.Reservations.Add(reservation);
+
+                    db.Notifications.Add(new Notification {
+                        UserId = userId,
+                        Message = $"You have been placed in the queue for '{isbn}'. We'll notify you when it's returned.",
+                        Date = DateTime.Now,
+                        Type = "Pending"
+                    });
+                }
 
                 db.SaveChanges();
                 return true;
@@ -267,7 +292,26 @@ namespace DBU_LibrarySystem.Services
                 var copy = db.BookCopies.FirstOrDefault(c => c.CopyId == copyId);
                 if (copy != null)
                 {
-                    copy.Status = "Available";
+                    // Check for pending reservations
+                    var pendingRes = db.Reservations.FirstOrDefault(r => r.CopyId == copyId && r.Status == "Pending");
+                    if (pendingRes != null)
+                    {
+                        copy.Status = "Reserved";
+                        pendingRes.Status = "Ready";
+                        pendingRes.ExpiryDate = DateTime.Now.AddDays(2);
+                        
+                        // Notify reserver
+                        db.Notifications.Add(new Notification {
+                            UserId = pendingRes.UserId,
+                            Message = $"The book you reserved ({copyId}) has been returned and is ready for pick up!",
+                            Date = DateTime.Now,
+                            Type = "Ready"
+                        });
+                    }
+                    else
+                    {
+                        copy.Status = "Available";
+                    }
                 }
 
                 transaction.Status = "Returned";
@@ -312,6 +356,26 @@ namespace DBU_LibrarySystem.Services
                 if (transaction == null) throw new Exception("Transaction not found.");
                 
                 transaction.IsFinePaid = true;
+                db.SaveChanges();
+            }
+        }
+
+        public static void CleanupExpiredReservations()
+        {
+            using (var db = new LibraryContext())
+            {
+                var expired = db.Reservations.Include(r => r.BookCopy)
+                                .Where(r => r.Status == "Ready" && r.ExpiryDate < DateTime.Now)
+                                .ToList();
+
+                foreach (var res in expired)
+                {
+                    res.Status = "Expired";
+                    if (res.BookCopy != null && res.BookCopy.Status == "Reserved")
+                    {
+                        res.BookCopy.Status = "Available";
+                    }
+                }
                 db.SaveChanges();
             }
         }

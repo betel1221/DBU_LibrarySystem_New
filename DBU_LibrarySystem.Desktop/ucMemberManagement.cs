@@ -13,6 +13,33 @@ namespace DBU_LibrarySystem
             InitializeComponent();
             ThemeHelper.ApplyTheme(this);
             LoadRealData();
+            
+            // Set default view
+            cmbRole.SelectedIndex = 0;
+        }
+
+        private void cmbRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool isStudent = cmbRole.SelectedIndex == 0;
+            
+            if (isStudent)
+            {
+                txtID.PlaceholderText = "Student ID";
+                txtEmail.PlaceholderText = "Student Email";
+                txtDepartment.Visible = true;
+                txtIDCardPath.Visible = true;
+                btnBrowseID.Visible = true;
+            }
+            else
+            {
+                txtID.PlaceholderText = "Staff ID";
+                txtEmail.PlaceholderText = "Staff Email/Phone";
+                txtDepartment.Visible = false;
+                
+                // Hide ID card logic for staff, or keep it. Let's hide it for staff.
+                txtIDCardPath.Visible = false;
+                btnBrowseID.Visible = false;
+            }
         }
 
         private void LoadRealData()
@@ -22,21 +49,23 @@ namespace DBU_LibrarySystem
             if(dataGridView1.Columns.Count == 0) {
                 dataGridView1.Columns.Add("ID", "Member ID");
                 dataGridView1.Columns.Add("Name", "Full Name");
-                dataGridView1.Columns.Add("Contact", "Contact");
                 dataGridView1.Columns.Add("Role", "Role");
+                dataGridView1.Columns.Add("Department", "Department");
+                dataGridView1.Columns.Add("Contact", "Contact");
             }
 
             using (var db = new DBU_LibrarySystem.Data.LibraryContext())
             {
                 // All Student/Employee roles are considered 'Members'
                 var members = db.Users
-                    .Where(u => u.Role == "Student" || u.Role == "Employee")
+                    .Where(u => u.Role == "Student" || u.Role == "Employee" || u.Role == "Librarian")
                     .OrderBy(u => u.Name)
                     .ToList();
 
                 foreach (var m in members)
                 {
-                    dataGridView1.Rows.Add(m.UserId, m.Name, m.ContactNumber ?? "N/A", m.Role);
+                    string dept = m.Role == "Student" ? m.Department : "N/A";
+                    dataGridView1.Rows.Add(m.UserId, m.Name, m.Role, dept ?? "N/A", m.ContactNumber ?? "N/A");
                 }
             }
         }
@@ -49,6 +78,8 @@ namespace DBU_LibrarySystem
                 string name = txtName.Text.Trim();
                 string contact = txtEmail.Text.Trim();
                 string idPath = txtIDCardPath.Text.Trim();
+                string department = txtDepartment.Text.Trim();
+                string role = cmbRole.SelectedIndex == 0 ? "Student" : "Librarian";
 
                 if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(name))
                 {
@@ -69,10 +100,11 @@ namespace DBU_LibrarySystem
                     {
                         UserId = id,
                         Name = name,
-                        Role = "Student", // Default to Student
+                        Role = role,
                         Password = "123456", // Default secure-ish password
                         ContactNumber = contact,
-                        IDCardImagePath = idPath,
+                        IDCardImagePath = role == "Student" ? idPath : null,
+                        Department = role == "Student" ? department : null,
                         IsApproved = true // Auto-approved as requested
                     };
 
@@ -97,6 +129,7 @@ namespace DBU_LibrarySystem
             txtName.Clear();
             txtEmail.Clear();
             txtIDCardPath.Clear();
+            txtDepartment.Clear();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

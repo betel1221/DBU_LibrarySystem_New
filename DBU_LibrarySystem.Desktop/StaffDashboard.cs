@@ -16,6 +16,8 @@ namespace DBU_LibrarySystem
             this.Load += (s, e) => {
                 ThemeHelper.ApplyTheme(this);
                 if (lblWelcome != null) lblWelcome.Text = $"Welcome, Librarian {_currentUser.Name}";
+                // Cleanup
+                DBU_LibrarySystem.Services.LibraryManager.CleanupExpiredReservations();
                 // Load default
                 LoadUserControl(new ucStaffCirculation());
                 HighlightButton(button1);
@@ -25,20 +27,31 @@ namespace DBU_LibrarySystem
         private void LoadUserControl(UserControl uc)
         {
             uc.Dock = DockStyle.Fill;
-            
-            // Interaction: Slide-in Transition
             uc.Left = 50; 
             panelContainer.Controls.Clear();
             panelContainer.Controls.Add(uc);
             
             System.Windows.Forms.Timer transitionTimer = new System.Windows.Forms.Timer { Interval = 10 };
             transitionTimer.Tick += (s, e) => {
-                if (uc.Left > 0)
-                    uc.Left -= 5;
-                else
-                    transitionTimer.Stop();
+                if (uc.Left > 0) uc.Left -= 5;
+                else transitionTimer.Stop();
             };
             transitionTimer.Start();
+        }
+
+        public void NavigateToModule(string moduleName, object data = null)
+        {
+            switch (moduleName)
+            {
+                case "Circulation": 
+                    var circUc = new ucStaffCirculation();
+                    LoadUserControl(circUc);
+                    HighlightButton(button1);
+                    if (data is string copyId) circUc.PreFillIssue(copyId);
+                    break;
+                case "Reports": button2_Click(button2, EventArgs.Empty); break;
+                case "Search": button3_Click(button3, EventArgs.Empty); break;
+            }
         }
 
         private void HighlightButton(Button activeBtn)

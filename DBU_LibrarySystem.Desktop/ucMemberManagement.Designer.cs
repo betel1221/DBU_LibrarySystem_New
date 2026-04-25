@@ -25,7 +25,6 @@ namespace DBU_LibrarySystem
             txtIDCardPath = new System.Windows.Forms.TextBox();
             cmbRole = new System.Windows.Forms.ComboBox();
             txtDepartment = new System.Windows.Forms.TextBox();
-            txtOfficeNumber = new System.Windows.Forms.TextBox();
             btnBrowseID = new System.Windows.Forms.Button();
             btnAdd = new System.Windows.Forms.Button();
 
@@ -40,6 +39,7 @@ namespace DBU_LibrarySystem
             
             BackColor = System.Drawing.Color.FromArgb(240, 242, 245);
             Dock = System.Windows.Forms.DockStyle.Fill;
+            AutoScroll = true;
             Font = new System.Drawing.Font("Segoe UI", 10F);
             
             labelTitle.AutoSize = true;
@@ -103,12 +103,6 @@ namespace DBU_LibrarySystem
             txtDepartment.PlaceholderText = "Department";
             txtDepartment.Size = new System.Drawing.Size(150, 27);
             
-            txtOfficeNumber.Font = new System.Drawing.Font("Segoe UI", 11F);
-            txtOfficeNumber.Location = new System.Drawing.Point(430, 85);
-            txtOfficeNumber.PlaceholderText = "Office Number";
-            txtOfficeNumber.Size = new System.Drawing.Size(150, 27);
-            txtOfficeNumber.Visible = false;
-
             btnAdd.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
             btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnAdd.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -118,7 +112,7 @@ namespace DBU_LibrarySystem
             btnAdd.Text = "Register";
             btnAdd.Click += btnAdd_Click;
             
-            panelCreate.Controls.AddRange(new System.Windows.Forms.Control[] { labelSubtitle, cmbRole, txtID, txtName, txtEmail, txtIDCardPath, btnBrowseID, txtDepartment, txtOfficeNumber, btnAdd });
+            panelCreate.Controls.AddRange(new System.Windows.Forms.Control[] { labelSubtitle, cmbRole, txtID, txtName, txtEmail, txtIDCardPath, btnBrowseID, txtDepartment, btnAdd });
 
 
             
@@ -151,6 +145,7 @@ namespace DBU_LibrarySystem
             panelCreate.PerformLayout();
             panelList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Size = new System.Drawing.Size(1000, 700);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -162,6 +157,8 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtIDCardPath;
+        private System.Windows.Forms.ComboBox cmbRole;
+        private System.Windows.Forms.TextBox txtDepartment;
         private System.Windows.Forms.Button btnBrowseID;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Panel panelList;
