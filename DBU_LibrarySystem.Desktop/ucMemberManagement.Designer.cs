@@ -164,6 +164,9 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtIDCardPath;
+        private System.Windows.Forms.ComboBox cmbRole;
+        private System.Windows.Forms.TextBox txtDepartment;
+        private System.Windows.Forms.TextBox txtOfficeNumber;
         private System.Windows.Forms.Button btnBrowseID;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Panel panelList;
