@@ -48,10 +48,13 @@ namespace DBU_LibrarySystem
             if (dataGridView1.CurrentRow == null) return;
             string isbn = dataGridView1.CurrentRow.Cells[0].Value.ToString();
 
-            // Note: In a real app, we'd get this from a Session or Main Form
-            string studentId = Microsoft.VisualBasic.Interaction.InputBox("Enter your Member ID to reserve:", "Reservation", "");
+            string studentId = DBU_LibrarySystem.Services.AuthManager.CurrentUser?.UserId;
             
-            if (string.IsNullOrEmpty(studentId)) return;
+            if (string.IsNullOrEmpty(studentId))
+            {
+                MessageBox.Show("You must be logged in to reserve a book.");
+                return;
+            }
 
             try
             {

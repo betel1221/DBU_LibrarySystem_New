@@ -6,10 +6,7 @@ namespace DBU_LibrarySystem.Data
 {
     public class LibraryContext : DbContext
     {
-        public LibraryContext()
-        {
-            Database.EnsureCreated();
-        }
+
 
         public DbSet<User> Users { get; set; }
         public DbSet<Book> Books { get; set; }
