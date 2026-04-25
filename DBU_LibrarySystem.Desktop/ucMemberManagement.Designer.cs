@@ -40,6 +40,7 @@ namespace DBU_LibrarySystem
             
             BackColor = System.Drawing.Color.FromArgb(240, 242, 245);
             Dock = System.Windows.Forms.DockStyle.Fill;
+            AutoScroll = true;
             Font = new System.Drawing.Font("Segoe UI", 10F);
             
             labelTitle.AutoSize = true;
@@ -151,6 +152,7 @@ namespace DBU_LibrarySystem
             panelCreate.PerformLayout();
             panelList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Size = new System.Drawing.Size(1000, 700);
             ResumeLayout(false);
             PerformLayout();
         }

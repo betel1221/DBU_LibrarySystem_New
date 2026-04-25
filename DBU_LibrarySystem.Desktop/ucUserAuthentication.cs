@@ -20,7 +20,6 @@ namespace DBU_LibrarySystem
         private void LoadRealData()
         {
             dataGridView1.Rows.Clear();
-            cmbMember.Items.Clear();
             
             using (var db = new DBU_LibrarySystem.Data.LibraryContext())
             {
@@ -30,13 +29,6 @@ namespace DBU_LibrarySystem
                 {
                     dataGridView1.Rows.Add(u.UserId, u.UserId, u.Role);
                 }
-
-                // Load all possible Members for the dropdown (to create/update their accounts)
-                _allMembers = db.Users.Where(u => u.Role == "Student" || u.Role == "Employee" || u.Role == "Librarian").ToList();
-                foreach (var m in _allMembers)
-                {
-                    cmbMember.Items.Add($"{m.Name} ({m.UserId})");
-                }
             }
         }
 
@@ -44,15 +36,13 @@ namespace DBU_LibrarySystem
         {
             try
             {
-                if (cmbMember.SelectedIndex == -1)
+                string username = txtMemberID.Text.Trim();
+                
+                if (string.IsNullOrEmpty(username))
                 {
-                    MessageBox.Show("Please select a Member first.");
+                    MessageBox.Show("Please enter a Member ID.");
                     return;
                 }
-
-                string selectedText = cmbMember.SelectedItem.ToString();
-                // Extract UserId from "Name (UserId)"
-                string username = selectedText.Substring(selectedText.LastIndexOf('(') + 1).TrimEnd(')');
                 
                 string password = txtPassword.Text.Trim();
                 string role = cmbRole.SelectedItem?.ToString() ?? "Student";

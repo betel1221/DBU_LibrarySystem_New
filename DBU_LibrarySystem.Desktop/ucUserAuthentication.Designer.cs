@@ -39,6 +39,7 @@ namespace DBU_LibrarySystem
             // ucUserAuthentication
             BackColor = System.Drawing.Color.FromArgb(240, 242, 245);
             Dock = System.Windows.Forms.DockStyle.Fill;
+            AutoScroll = true;
             Font = new System.Drawing.Font("Segoe UI", 10F);
             
             // labelTitle
@@ -69,13 +70,13 @@ namespace DBU_LibrarySystem
             lblCreateTitle.Location = new System.Drawing.Point(20, 15);
             lblCreateTitle.Text = "Create Login Account";
             
-             // cmbMember
-            cmbMember.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cmbMember.Font = new System.Drawing.Font("Segoe UI", 12F);
-            cmbMember.FormattingEnabled = true;
-            cmbMember.Location = new System.Drawing.Point(20, 50);
-            cmbMember.Size = new System.Drawing.Size(250, 30);
-            cmbMember.TabIndex = 1;
+             // txtMemberID
+            txtMemberID = new System.Windows.Forms.TextBox();
+            txtMemberID.Font = new System.Drawing.Font("Segoe UI", 12F);
+            txtMemberID.Location = new System.Drawing.Point(20, 50);
+            txtMemberID.PlaceholderText = "Search/Enter Member ID";
+            txtMemberID.Size = new System.Drawing.Size(250, 30);
+            txtMemberID.TabIndex = 1;
             
             // txtPassword
             txtPassword.Font = new System.Drawing.Font("Segoe UI", 12F);
@@ -104,7 +105,7 @@ namespace DBU_LibrarySystem
             btnCreate.Click += btnCreate_Click;
             
             panelCreate.Controls.Add(lblCreateTitle);
-            panelCreate.Controls.Add(cmbMember);
+            panelCreate.Controls.Add(txtMemberID);
             panelCreate.Controls.Add(txtPassword);
             panelCreate.Controls.Add(cmbRole);
             panelCreate.Controls.Add(btnCreate);
@@ -161,6 +162,7 @@ namespace DBU_LibrarySystem
             panelCreate.PerformLayout();
             panelList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Size = new System.Drawing.Size(1000, 700);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -169,7 +171,7 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.Label lblNote;
         private System.Windows.Forms.Panel panelCreate;
         private System.Windows.Forms.Label lblCreateTitle;
-        private System.Windows.Forms.ComboBox cmbMember;
+        private System.Windows.Forms.TextBox txtMemberID;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.ComboBox cmbRole;
         private System.Windows.Forms.Button btnCreate;
