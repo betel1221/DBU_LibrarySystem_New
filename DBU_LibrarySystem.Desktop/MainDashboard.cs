@@ -28,16 +28,10 @@ namespace DBU_LibrarySystem
         private void LoadUserControl(UserControl uc)
         {
             uc.Dock = DockStyle.Fill;
-            uc.Left = 50; 
             panelContainer.Controls.Clear();
             panelContainer.Controls.Add(uc);
-            
-            System.Windows.Forms.Timer transitionTimer = new System.Windows.Forms.Timer { Interval = 10 };
-            transitionTimer.Tick += (s, e) => {
-                if (uc.Left > 0) uc.Left -= 5;
-                else transitionTimer.Stop();
-            };
-            transitionTimer.Start();
+            // ensure correct position when docked
+            uc.Location = new Point(0, 0);
         }
         
         public void NavigateToModule(string moduleName, object data = null)

@@ -11,6 +11,15 @@ namespace DBU_LibrarySystem
         {
             InitializeComponent();
             ThemeHelper.ApplyTheme(this);
+            this.Load += ucGlobalSearch_Load;
+            SetupColumns();
+        }
+
+        private void ucGlobalSearch_Load(object sender, EventArgs e)
+        {
+            // Ensure UI panels stack correctly
+            try { panelSearch.BringToFront(); } catch { }
+            // Re-evaluate visibility based on host form (Admin should not be able to issue books here)
             SetupColumns();
         }
 
@@ -18,6 +27,8 @@ namespace DBU_LibrarySystem
         {
             dataGridView1.Columns.Clear();
             string mode = cmbSearchMode.SelectedItem?.ToString();
+
+            bool isAdmin = this.FindForm() is MainDashboard;
 
             if (mode == "Members")
             {
@@ -33,7 +44,8 @@ namespace DBU_LibrarySystem
                 dataGridView1.Columns.Add("colTitle", "Title");
                 dataGridView1.Columns.Add("colAuthor", "Author");
                 dataGridView1.Columns.Add("colAvail", "Availability");
-                btnIssue.Visible = true;
+                // Only show Issue when not hosted inside the Admin dashboard
+                btnIssue.Visible = !isAdmin;
             }
         }
 
