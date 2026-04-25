@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using DBU_LibrarySystem.Utilities;
 
@@ -5,6 +8,8 @@ namespace DBU_LibrarySystem
 {
     public partial class ucUserAuthentication : UserControl
     {
+        private List<DBU_LibrarySystem.Models.User> _allMembers = new List<DBU_LibrarySystem.Models.User>();
+
         public ucUserAuthentication()
         {
             InitializeComponent();
@@ -15,12 +20,22 @@ namespace DBU_LibrarySystem
         private void LoadRealData()
         {
             dataGridView1.Rows.Clear();
+            cmbMember.Items.Clear();
+            
             using (var db = new DBU_LibrarySystem.Data.LibraryContext())
             {
+                // Load System Users for the list
                 var users = db.Users.ToList();
                 foreach (var u in users)
                 {
                     dataGridView1.Rows.Add(u.UserId, u.UserId, u.Role);
+                }
+
+                // Load all possible Members for the dropdown (to create/update their accounts)
+                _allMembers = db.Users.Where(u => u.Role == "Student" || u.Role == "Employee" || u.Role == "Librarian").ToList();
+                foreach (var m in _allMembers)
+                {
+                    cmbMember.Items.Add($"{m.Name} ({m.UserId})");
                 }
             }
         }
@@ -29,13 +44,22 @@ namespace DBU_LibrarySystem
         {
             try
             {
-                string username = txtUsername.Text.Trim();
+                if (cmbMember.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Please select a Member first.");
+                    return;
+                }
+
+                string selectedText = cmbMember.SelectedItem.ToString();
+                // Extract UserId from "Name (UserId)"
+                string username = selectedText.Substring(selectedText.LastIndexOf('(') + 1).TrimEnd(')');
+                
                 string password = txtPassword.Text.Trim();
                 string role = cmbRole.SelectedItem?.ToString() ?? "Student";
 
-                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                if (string.IsNullOrEmpty(password))
                 {
-                    MessageBox.Show("Username and password are required.");
+                    MessageBox.Show("Password is required.");
                     return;
                 }
 
@@ -44,37 +68,26 @@ namespace DBU_LibrarySystem
                     var existingUser = db.Users.FirstOrDefault(u => u.UserId == username);
                     if (existingUser != null)
                     {
-                        // Update existing user or error? 
-                        // The note says: "For students, the Username must match their Member ID."
-                        // So if they already exist as a member, we just update their password.
+                        // Update existing user (Member already has an entry, we just update login details)
                         existingUser.Password = password;
                         existingUser.Role = role;
+                        existingUser.IsApproved = true;
+                        db.SaveChanges();
+                        MessageBox.Show($"Account updated for {existingUser.Name}!");
                     }
                     else
                     {
-                        var user = new DBU_LibrarySystem.Models.User
-                        {
-                            UserId = username,
-                            Name = username, // Default name to username if not found
-                            Password = password,
-                            Role = role,
-                            IsApproved = true
-                        };
-                        db.Users.Add(user);
+                        // This case should ideally not happen if they are in the dropdown
+                        MessageBox.Show("Selected member not found in the database.");
                     }
-                    db.SaveChanges();
                 }
 
-                MessageBox.Show("Account created/updated successfully!");
                 LoadRealData();
-                txtUsername.Clear();
                 txtPassword.Clear();
             }
             catch (Exception ex)
             {
-                string msg = ex.Message;
-                if (ex.InnerException != null) msg += "\nInner: " + ex.InnerException.Message;
-                MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
