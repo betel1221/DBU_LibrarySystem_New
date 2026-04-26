@@ -59,9 +59,10 @@ namespace DBU_LibrarySystem
             lblWelcome.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblWelcome.AutoSize = true;
             lblWelcome.ForeColor = System.Drawing.Color.White;
-            lblWelcome.Location = new System.Drawing.Point(920, 20);
+            lblWelcome.Location = new System.Drawing.Point(800, 20);
             lblWelcome.Name = "lblWelcome";
-            lblWelcome.Size = new System.Drawing.Size(140, 20);
+            lblWelcome.Size = new System.Drawing.Size(280, 20);
+            lblWelcome.TextAlign = System.Drawing.ContentAlignment.TopRight;
             lblWelcome.Text = "Welcome, Admin";
             // 
             // label1

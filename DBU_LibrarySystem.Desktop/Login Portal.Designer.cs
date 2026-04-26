@@ -114,7 +114,7 @@ namespace DBU_LibrarySystem
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new System.Drawing.Size(280, 29);
             txtUsername.TabIndex = 2;
-            txtUsername.Text = "admin";
+            txtUsername.Text = "";
             // 
             // label3
             // 

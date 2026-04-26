@@ -163,7 +163,7 @@ namespace DBU_LibrarySystem
             dataGridView1.BackgroundColor = System.Drawing.Color.White;
             dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridView1.Location = new System.Drawing.Point(20, 40);
-            dataGridView1.Size = new System.Drawing.Size(826, 200);
+            dataGridView1.Size = new System.Drawing.Size(826, 180);
             dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
 
             colMember.HeaderText = "Student";

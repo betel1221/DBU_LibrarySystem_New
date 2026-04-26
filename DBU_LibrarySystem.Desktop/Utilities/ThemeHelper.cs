@@ -90,8 +90,8 @@ namespace DBU_LibrarySystem.Utilities
             if (btn.Name.Contains("logout") || btn.Text.ToLower().Contains("logout"))
             {
                 btn.BackColor = Color.Transparent;
-                btn.ForeColor = DangerColor;
-                btn.FlatAppearance.BorderColor = DangerColor;
+                btn.ForeColor = PrimaryColor;
+                btn.FlatAppearance.BorderColor = PrimaryColor;
             }
             else if (btn.Name.Contains("Add") || btn.Name.Contains("Save") || btn.Name.Contains("Create"))
             {
