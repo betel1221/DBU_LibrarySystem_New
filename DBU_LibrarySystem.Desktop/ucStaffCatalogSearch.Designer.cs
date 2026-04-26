@@ -22,7 +22,6 @@ namespace DBU_LibrarySystem
             txtSearch = new System.Windows.Forms.TextBox();
             cmbFilter = new System.Windows.Forms.ComboBox();
             btnSearch = new System.Windows.Forms.Button();
-            btnIssue = new System.Windows.Forms.Button();
             dataGridView1 = new System.Windows.Forms.DataGridView();
             colISBN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -82,21 +81,13 @@ namespace DBU_LibrarySystem
             btnSearch.Text = "Find Books";
             btnSearch.Click += btnSearch_Click;
             
-            btnIssue.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
-            btnIssue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnIssue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            btnIssue.ForeColor = System.Drawing.Color.White;
-            btnIssue.Location = new System.Drawing.Point(570, 115);
-            btnIssue.Size = new System.Drawing.Size(200, 40);
-            btnIssue.Text = "Issue Book";
-            btnIssue.Click += btnIssue_Click;
+            btnSearch.Click += btnSearch_Click;
             
             panelSearch.Controls.Add(lblSearchTitle);
             panelSearch.Controls.Add(txtSearch);
             panelSearch.Controls.Add(lblSearchBy);
             panelSearch.Controls.Add(cmbFilter);
             panelSearch.Controls.Add(btnSearch);
-            panelSearch.Controls.Add(btnIssue);
             
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -146,7 +137,6 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.ComboBox cmbFilter;
         private System.Windows.Forms.Label lblSearchBy;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Button btnIssue;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn colISBN;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
