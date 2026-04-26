@@ -11,13 +11,19 @@ namespace DBU_LibrarySystem
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+            this.FormBorderStyle = FormBorderStyle.None; // Make it full screen and modern
             this.Resize += (s, e) => CenterComponents();
             this.Load += (s, e) => {
-                ThemeHelper.ApplyTheme(this);
+                try {
+                    string bgPath = System.IO.Path.Combine(Application.StartupPath, "Resources", "library_bg.png");
+                    if (System.IO.File.Exists(bgPath)) {
+                        this.BackgroundImage = System.Drawing.Image.FromFile(bgPath);
+                        this.BackgroundImageLayout = ImageLayout.Stretch;
+                    }
+                } catch { }
+                
+                panel1.Visible = false;
                 CenterComponents();
-                // Override panel1 to be the background (darker)
-                this.BackColor = ThemeHelper.BackgroundColor;
-                panel1.Visible = false; // We use the form background instead for a cleaner glass look
             };
         }
 
@@ -27,7 +33,14 @@ namespace DBU_LibrarySystem
             {
                 // Center the login box in the middle of the screen
                 panel2.Left = (this.ClientSize.Width - panel2.Width) / 2;
-                panel2.Top = (this.ClientSize.Height - panel2.Height) / 2;
+                panel2.Top = (this.ClientSize.Height - panel2.Height) / 2 + 50;
+            }
+
+            if (label1 != null)
+            {
+                // Center the title at the top
+                label1.Left = (this.ClientSize.Width - label1.Width) / 2;
+                label1.Top = 100;
             }
         }
 
