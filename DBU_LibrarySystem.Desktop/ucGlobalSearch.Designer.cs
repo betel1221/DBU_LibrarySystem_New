@@ -67,12 +67,12 @@ namespace DBU_LibrarySystem
             lblSearchBy.AutoSize = true;
             lblSearchBy.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             lblSearchBy.ForeColor = System.Drawing.Color.Gray;
-            lblSearchBy.Location = new System.Drawing.Point(340, 45);
+            lblSearchBy.Location = new System.Drawing.Point(340, 40);
             lblSearchBy.Text = "SELECT SEARCH CRITERIA:";
 
             // cmbFilter
             cmbFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cmbFilter.Location = new System.Drawing.Point(340, 70);
+            cmbFilter.Location = new System.Drawing.Point(340, 75);
             cmbFilter.Size = new System.Drawing.Size(200, 30);
 
             // UPDATED: btnSearch (Moved to right of filter)

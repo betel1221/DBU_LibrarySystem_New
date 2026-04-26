@@ -77,7 +77,7 @@ namespace DBU_LibrarySystem
             cmbFilter.Font = new System.Drawing.Font("Segoe UI", 11F);
             cmbFilter.Items.AddRange(new object[] { "By Title", "By Author", "By ISBN", "By Category", "By Year" });
             cmbFilter.SelectedIndex = 0;
-            cmbFilter.Location = new System.Drawing.Point(270, 30);
+            cmbFilter.Location = new System.Drawing.Point(270, 35);
             cmbFilter.Size = new System.Drawing.Size(160, 30);
             cmbFilter.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left;
             
@@ -85,7 +85,7 @@ namespace DBU_LibrarySystem
             lblSearchBy.AutoSize = true;
             lblSearchBy.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             lblSearchBy.ForeColor = System.Drawing.Color.FromArgb(0, 212, 255);
-            lblSearchBy.Location = new System.Drawing.Point(270, 8);
+            lblSearchBy.Location = new System.Drawing.Point(270, 10);
             lblSearchBy.Text = "SELECT SEARCH CRITERIA:";
             
             // Search Button
@@ -94,7 +94,7 @@ namespace DBU_LibrarySystem
             btnSearch.FlatAppearance.BorderSize = 0;
             btnSearch.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnSearch.ForeColor = System.Drawing.Color.White;
-            btnSearch.Location = new System.Drawing.Point(450, 25);
+            btnSearch.Location = new System.Drawing.Point(450, 28);
             btnSearch.Size = new System.Drawing.Size(130, 40);
             btnSearch.Text = "🔍 Search";
             btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -106,7 +106,7 @@ namespace DBU_LibrarySystem
             btnReserve.FlatAppearance.BorderSize = 0;
             btnReserve.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnReserve.ForeColor = System.Drawing.Color.White;
-            btnReserve.Location = new System.Drawing.Point(595, 25);
+            btnReserve.Location = new System.Drawing.Point(600, 28);
             btnReserve.Size = new System.Drawing.Size(150, 40);
             btnReserve.Text = "📋 Reserve Now";
             btnReserve.Cursor = System.Windows.Forms.Cursors.Hand;

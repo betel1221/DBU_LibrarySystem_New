@@ -256,6 +256,21 @@ namespace DBU_LibrarySystem.Services
                 };
 
                 db.Transactions.Add(transaction);
+
+                // --- Task 2: Notification Management ---
+                // 1. Delete existing reservation notifications for this user/copy
+                var oldNotifications = db.Notifications.Where(n => n.UserId == userId && n.Message.Contains(copyId)).ToList();
+                db.Notifications.RemoveRange(oldNotifications);
+
+                // 2. Add new borrow notification
+                db.Notifications.Add(new Notification
+                {
+                    UserId = userId,
+                    Message = $"You borrowed '{copyId}'. Due date: {transaction.DueDate.ToShortDateString()}.",
+                    Date = DateTime.Now,
+                    Type = "Reminder"
+                });
+
                 db.SaveChanges();
             }
         }
