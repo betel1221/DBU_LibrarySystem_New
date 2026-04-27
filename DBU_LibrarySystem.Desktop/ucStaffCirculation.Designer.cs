@@ -22,13 +22,16 @@ namespace DBU_LibrarySystem
             panelBorrow = new System.Windows.Forms.Panel();
             lblBorrowTitle = new System.Windows.Forms.Label();
             txtBMember = new System.Windows.Forms.TextBox();
+            lblBMemberID = new System.Windows.Forms.Label();
             lblMemberName = new System.Windows.Forms.Label();
             txtBBook = new System.Windows.Forms.TextBox();
+            lblBBookID = new System.Windows.Forms.Label();
             btnBorrow = new System.Windows.Forms.Button();
 
             panelReturn = new System.Windows.Forms.Panel();
             lblReturnTitle = new System.Windows.Forms.Label();
             txtRBook = new System.Windows.Forms.TextBox();
+            lblRBookID = new System.Windows.Forms.Label();
 
             panelList = new System.Windows.Forms.Panel();
             lblListTitle = new System.Windows.Forms.Label();
@@ -56,7 +59,7 @@ namespace DBU_LibrarySystem
             panelBorrow.BackColor = System.Drawing.Color.White;
             panelBorrow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelBorrow.Location = new System.Drawing.Point(34, 80);
-            panelBorrow.Size = new System.Drawing.Size(420, 220);
+            panelBorrow.Size = new System.Drawing.Size(420, 250);
             
             lblBorrowTitle.AutoSize = true;
             lblBorrowTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
@@ -64,33 +67,45 @@ namespace DBU_LibrarySystem
             lblBorrowTitle.Location = new System.Drawing.Point(30, 20);
             lblBorrowTitle.Text = "Borrow Book";
             
-            txtBMember.Location = new System.Drawing.Point(30, 60);
-            txtBMember.PlaceholderText = "Member ID";
+            lblBMemberID.AutoSize = true;
+            lblBMemberID.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            lblBMemberID.Location = new System.Drawing.Point(30, 50);
+            lblBMemberID.Text = "Member ID:";
+
+            txtBMember.Location = new System.Drawing.Point(30, 70);
+            txtBMember.PlaceholderText = "Enter Student ID";
             txtBMember.Size = new System.Drawing.Size(350, 30);
 
             lblMemberName.AutoSize = true;
             lblMemberName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
             lblMemberName.ForeColor = System.Drawing.Color.Gray;
-            lblMemberName.Location = new System.Drawing.Point(30, 95);
+            lblMemberName.Location = new System.Drawing.Point(30, 105);
             lblMemberName.Text = "Enter valid ID...";
             
+            lblBBookID.AutoSize = true;
+            lblBBookID.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            lblBBookID.Location = new System.Drawing.Point(30, 125);
+            lblBBookID.Text = "Book Copy ID:";
+
             txtBBook.Font = new System.Drawing.Font("Segoe UI", 12F);
-            txtBBook.Location = new System.Drawing.Point(30, 110);
-            txtBBook.PlaceholderText = "Copy ID (e.g. 1001-C1)";
+            txtBBook.Location = new System.Drawing.Point(30, 145);
+            txtBBook.PlaceholderText = "e.g. 1001-C1";
             txtBBook.Size = new System.Drawing.Size(350, 30);
             
             btnBorrow.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
             btnBorrow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnBorrow.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnBorrow.ForeColor = System.Drawing.Color.White;
-            btnBorrow.Location = new System.Drawing.Point(30, 160);
+            btnBorrow.Location = new System.Drawing.Point(30, 190);
             btnBorrow.Size = new System.Drawing.Size(350, 40);
-            btnBorrow.Text = "Issue Book (14 Days)";
+            btnBorrow.Text = "Issue Book (3 Days)";
             btnBorrow.Click += btnBorrow_Click;
             
             panelBorrow.Controls.Add(lblBorrowTitle);
+            panelBorrow.Controls.Add(lblBMemberID);
             panelBorrow.Controls.Add(txtBMember);
             panelBorrow.Controls.Add(lblMemberName);
+            panelBorrow.Controls.Add(lblBBookID);
             panelBorrow.Controls.Add(txtBBook);
             panelBorrow.Controls.Add(btnBorrow);
 
@@ -98,7 +113,7 @@ namespace DBU_LibrarySystem
             panelReturn.BackColor = System.Drawing.Color.White;
             panelReturn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelReturn.Location = new System.Drawing.Point(480, 80);
-            panelReturn.Size = new System.Drawing.Size(420, 220);
+            panelReturn.Size = new System.Drawing.Size(420, 250);
             
             lblReturnTitle.AutoSize = true;
             lblReturnTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
@@ -106,29 +121,35 @@ namespace DBU_LibrarySystem
             lblReturnTitle.Location = new System.Drawing.Point(30, 20);
             lblReturnTitle.Text = "Return Book";
             
+            lblRBookID.AutoSize = true;
+            lblRBookID.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            lblRBookID.Location = new System.Drawing.Point(30, 55);
+            lblRBookID.Text = "Book Copy ID:";
+
             txtRBook.Font = new System.Drawing.Font("Segoe UI", 12F);
-            txtRBook.Location = new System.Drawing.Point(30, 70);
-            txtRBook.PlaceholderText = "Copy ID to Return";
+            txtRBook.Location = new System.Drawing.Point(30, 75);
+            txtRBook.PlaceholderText = "Enter Copy ID";
             txtRBook.Size = new System.Drawing.Size(350, 30);
             
             btnReturn.BackColor = System.Drawing.Color.FromArgb(25, 135, 84);
             btnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnReturn.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnReturn.ForeColor = System.Drawing.Color.White;
-            btnReturn.Location = new System.Drawing.Point(30, 120);
+            btnReturn.Location = new System.Drawing.Point(30, 130);
             btnReturn.Size = new System.Drawing.Size(350, 40);
             btnReturn.Text = "Process Return";
             btnReturn.Click += btnReturn_Click;
             
             panelReturn.Controls.Add(lblReturnTitle);
+            panelReturn.Controls.Add(lblRBookID);
             panelReturn.Controls.Add(txtRBook);
             panelReturn.Controls.Add(btnReturn);
 
             // LIST PANEL
             panelList.BackColor = System.Drawing.Color.White;
             panelList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panelList.Location = new System.Drawing.Point(34, 320);
-            panelList.Size = new System.Drawing.Size(866, 260);
+            panelList.Location = new System.Drawing.Point(34, 350);
+            panelList.Size = new System.Drawing.Size(866, 230);
             panelList.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
 
             lblListTitle.AutoSize = true;
@@ -142,7 +163,7 @@ namespace DBU_LibrarySystem
             dataGridView1.BackgroundColor = System.Drawing.Color.White;
             dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridView1.Location = new System.Drawing.Point(20, 40);
-            dataGridView1.Size = new System.Drawing.Size(826, 200);
+            dataGridView1.Size = new System.Drawing.Size(826, 180);
             dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
 
             colMember.HeaderText = "Student";
@@ -168,6 +189,9 @@ namespace DBU_LibrarySystem
             PerformLayout();
         }
 
+        private System.Windows.Forms.Label lblBMemberID;
+        private System.Windows.Forms.Label lblBBookID;
+        private System.Windows.Forms.Label lblRBookID;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Panel panelBorrow;
         private System.Windows.Forms.Label lblBorrowTitle;

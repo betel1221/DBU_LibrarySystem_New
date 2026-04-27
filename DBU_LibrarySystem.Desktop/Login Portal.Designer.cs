@@ -43,27 +43,29 @@ namespace DBU_LibrarySystem
             // panel1
             // 
             panel1.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
-            panel1.Controls.Add(label1);
             panel1.Dock = System.Windows.Forms.DockStyle.Top;
             panel1.Location = new System.Drawing.Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(584, 80);
             panel1.TabIndex = 0;
+            panel1.Visible = false;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            label1.ForeColor = System.Drawing.Color.White;
-            label1.Location = new System.Drawing.Point(160, 25);
+            label1.BackColor = System.Drawing.Color.Transparent;
+            label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            label1.ForeColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            label1.Location = new System.Drawing.Point(50, 40);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(256, 32);
+            label1.Size = new System.Drawing.Size(560, 45);
             label1.TabIndex = 0;
-            label1.Text = "DBU Library System";
+            label1.Text = "DBU LIBRARY MANAGEMENT SYSTEM";
+            label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
-            panel2.BackColor = System.Drawing.Color.White;
+            panel2.BackColor = System.Drawing.Color.FromArgb(200, 28, 30, 38);
             panel2.Controls.Add(btnLogin);
             panel2.Controls.Add(txtPassword);
             panel2.Controls.Add(txtUsername);
@@ -71,28 +73,32 @@ namespace DBU_LibrarySystem
             panel2.Controls.Add(label2);
             panel2.Location = new System.Drawing.Point(120, 120);
             panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(344, 250);
+            panel2.Size = new System.Drawing.Size(350, 350);
             panel2.TabIndex = 1;
             // 
             // btnLogin
             // 
-            btnLogin.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
+            btnLogin.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             btnLogin.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnLogin.FlatAppearance.BorderSize = 0;
             btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnLogin.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             btnLogin.ForeColor = System.Drawing.Color.White;
-            btnLogin.Location = new System.Drawing.Point(30, 180);
+            btnLogin.Location = new System.Drawing.Point(35, 260);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new System.Drawing.Size(280, 40);
+            btnLogin.Size = new System.Drawing.Size(280, 35);
             btnLogin.TabIndex = 4;
-            btnLogin.Text = "LOGIN";
+            btnLogin.Text = "SIGN IN";
             btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
             // txtPassword
             // 
+            txtPassword.BackColor = System.Drawing.Color.FromArgb(35, 38, 48);
+            txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txtPassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            txtPassword.Location = new System.Drawing.Point(30, 130);
+            txtPassword.ForeColor = System.Drawing.Color.White;
+            txtPassword.Location = new System.Drawing.Point(35, 170);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
             txtPassword.Size = new System.Drawing.Size(280, 29);
@@ -100,19 +106,22 @@ namespace DBU_LibrarySystem
             // 
             // txtUsername
             // 
+            txtUsername.BackColor = System.Drawing.Color.FromArgb(35, 38, 48);
+            txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txtUsername.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            txtUsername.Location = new System.Drawing.Point(30, 60);
+            txtUsername.ForeColor = System.Drawing.Color.White;
+            txtUsername.Location = new System.Drawing.Point(35, 80);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new System.Drawing.Size(280, 29);
             txtUsername.TabIndex = 2;
-            txtUsername.Text = "admin";
+            txtUsername.Text = "";
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            label3.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            label3.Location = new System.Drawing.Point(30, 100);
+            label3.ForeColor = System.Drawing.Color.White;
+            label3.Location = new System.Drawing.Point(35, 140);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(73, 19);
             label3.TabIndex = 1;
@@ -122,8 +131,8 @@ namespace DBU_LibrarySystem
             // 
             label2.AutoSize = true;
             label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            label2.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            label2.Location = new System.Drawing.Point(30, 30);
+            label2.ForeColor = System.Drawing.Color.White;
+            label2.Location = new System.Drawing.Point(35, 50);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(76, 19);
             label2.TabIndex = 0;
@@ -133,8 +142,9 @@ namespace DBU_LibrarySystem
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.Color.FromArgb(240, 242, 245);
+            BackColor = System.Drawing.Color.FromArgb(28, 30, 38);
             ClientSize = new System.Drawing.Size(584, 421);
+            Controls.Add(label1);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "Form1";

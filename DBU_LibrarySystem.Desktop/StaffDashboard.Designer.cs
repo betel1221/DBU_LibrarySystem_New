@@ -45,20 +45,26 @@ namespace DBU_LibrarySystem
             // btnLogout
             btnLogout.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnLogout.ForeColor = System.Drawing.Color.White;
-            btnLogout.Location = new System.Drawing.Point(1090, 15);
+            btnLogout.FlatAppearance.BorderSize = 1;
+            btnLogout.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            btnLogout.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            btnLogout.ForeColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            btnLogout.Location = new System.Drawing.Point(1095, 15);
             btnLogout.Size = new System.Drawing.Size(85, 30);
             btnLogout.Text = "Logout";
             btnLogout.Cursor = System.Windows.Forms.Cursors.Hand;
             btnLogout.Click += btnLogout_Click;
+            btnLogout.MouseEnter += (s, e) => { btnLogout.BackColor = System.Drawing.Color.FromArgb(52, 152, 219); btnLogout.ForeColor = System.Drawing.Color.White; };
+            btnLogout.MouseLeave += (s, e) => { btnLogout.BackColor = System.Drawing.Color.Transparent; btnLogout.ForeColor = System.Drawing.Color.FromArgb(52, 152, 219); };
             
             // lblWelcome
             lblWelcome.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblWelcome.AutoSize = true;
             lblWelcome.ForeColor = System.Drawing.Color.White;
-            lblWelcome.Location = new System.Drawing.Point(920, 20);
+            lblWelcome.Location = new System.Drawing.Point(950, 20);
             lblWelcome.Size = new System.Drawing.Size(140, 20);
-            lblWelcome.Text = "Welcome, Staff";
+            lblWelcome.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            lblWelcome.Text = "Welcome Librarian";
             
             // label1
             label1.AutoSize = true;

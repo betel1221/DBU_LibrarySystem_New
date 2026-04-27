@@ -22,11 +22,19 @@ namespace DBU_LibrarySystem
             txtISBN = new TextBox();
             txtTitle = new TextBox();
             txtAuthor = new TextBox();
-            cmbCategory = new ComboBox();
+            cmbFaculty = new ComboBox();
+            cmbSubject = new ComboBox();
             txtYear = new TextBox();
             txtQty = new TextBox();
             btnAdd = new Button();
             btnClear = new Button();
+            lblISBN = new Label();
+            lblTitle = new Label();
+            lblAuthor = new Label();
+            lblFaculty = new Label();
+            lblSubject = new Label();
+            lblYear = new Label();
+            lblQty = new Label();
             panelList = new Panel();
             btnRefresh = new Button();
             lblSearch = new Label();
@@ -47,142 +55,154 @@ namespace DBU_LibrarySystem
             // 
             // labelTitle
             // 
+            // labelTitle
+            // labelTitle
             labelTitle.AutoSize = true;
             labelTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            labelTitle.ForeColor = Color.FromArgb(44, 127, 184);
-            labelTitle.Location = new Point(30, 20);
-            labelTitle.Name = "labelTitle";
-            labelTitle.Size = new Size(230, 32);
-            labelTitle.TabIndex = 0;
-            labelTitle.Text = "Book Management";
-            // 
-            // panelCreate
-            // 
-            panelCreate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            panelCreate.BackColor = Color.White;
-            panelCreate.BorderStyle = BorderStyle.FixedSingle;
-            panelCreate.Controls.Add(labelSubtitle);
-            panelCreate.Controls.Add(txtISBN);
-            panelCreate.Controls.Add(txtTitle);
-            panelCreate.Controls.Add(txtAuthor);
-            panelCreate.Controls.Add(cmbCategory);
-            panelCreate.Controls.Add(txtYear);
-            panelCreate.Controls.Add(txtQty);
-            panelCreate.Controls.Add(btnAdd);
-            panelCreate.Controls.Add(btnClear);
-            panelCreate.Location = new Point(34, 80);
-            panelCreate.Name = "panelCreate";
-            panelCreate.Size = new Size(2155, 200);
+            labelTitle.ForeColor = Color.Cyan;
+            labelTitle.Location = new Point(30, 10);
+            labelTitle.Text = "Book Inventory Management";
+
+            // panelCreate (Sleek Dashboard Card)
+            panelCreate.BackColor = Color.FromArgb(24, 24, 26);
+            panelCreate.Location = new Point(34, 65);
+            panelCreate.Size = new Size(820, 380);
+            panelCreate.BorderStyle = BorderStyle.None;
+            panelCreate.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             panelCreate.TabIndex = 1;
             // 
             // labelSubtitle
             // 
-            labelSubtitle.AutoSize = true;
-            labelSubtitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            labelSubtitle.ForeColor = Color.FromArgb(44, 127, 184);
+            labelSubtitle.Text = "ADD NEW BOOK";
+            labelSubtitle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            labelSubtitle.ForeColor = Color.FromArgb(100, 100, 100);
             labelSubtitle.Location = new Point(20, 15);
-            labelSubtitle.Name = "labelSubtitle";
-            labelSubtitle.Size = new Size(123, 21);
-            labelSubtitle.TabIndex = 0;
-            labelSubtitle.Text = "Add New Book";
-            // 
-            // txtISBN
-            // 
-            txtISBN.Font = new Font("Segoe UI", 12F);
-            txtISBN.Location = new Point(20, 50);
-            txtISBN.Name = "txtISBN";
-            txtISBN.PlaceholderText = "ISBN";
-            txtISBN.Size = new Size(150, 29);
-            txtISBN.TabIndex = 1;
-            // 
-            // txtTitle
-            // 
-            txtTitle.Font = new Font("Segoe UI", 12F);
-            txtTitle.Location = new Point(190, 50);
-            txtTitle.Name = "txtTitle";
-            txtTitle.PlaceholderText = "Title";
-            txtTitle.Size = new Size(300, 29);
-            txtTitle.TabIndex = 2;
-            // 
-            // txtAuthor
-            // 
-            txtAuthor.Font = new Font("Segoe UI", 12F);
-            txtAuthor.Location = new Point(510, 50);
-            txtAuthor.Name = "txtAuthor";
-            txtAuthor.PlaceholderText = "Author";
-            txtAuthor.Size = new Size(180, 29);
-            txtAuthor.TabIndex = 3;
-            // 
-            // cmbCategory
-            // 
-            cmbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbCategory.Font = new Font("Segoe UI", 12F);
-            cmbCategory.Items.AddRange(new object[] { "Programming", "Science", "Literature", "Mathematics", "Engineering", "Other" });
-            cmbCategory.Location = new Point(710, 50);
-            cmbCategory.Name = "cmbCategory";
-            cmbCategory.Size = new Size(150, 29);
-            cmbCategory.TabIndex = 4;
-            // 
-            // txtYear
-            // 
-            txtYear.Font = new Font("Segoe UI", 12F);
-            txtYear.Location = new Point(20, 100);
-            txtYear.Name = "txtYear";
+            labelSubtitle.AutoSize = true;
+
+            int col1X = 30;
+            int col2X = 420;
+            int startY = 70;
+            int rowHeight = 90;
+
+            // --- Column 1 ---
+            // ISBN
+            lblISBN.Text = "🔢 ISBN";
+            lblISBN.Location = new Point(col1X + 5, startY - 18);
+            lblISBN.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblISBN.BackColor = Color.FromArgb(24, 24, 26);
+            lblISBN.ForeColor = Color.Teal;
+            txtISBN.Location = new Point(col1X, startY);
+            txtISBN.Size = new Size(350, 35);
+            txtISBN.PlaceholderText = "Enter ISBN";
+
+            // Title
+            lblTitle.Text = "📖 BOOK TITLE";
+            lblTitle.Location = new Point(col1X + 5, startY + rowHeight - 18);
+            lblTitle.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblTitle.BackColor = Color.FromArgb(24, 24, 26);
+            lblTitle.ForeColor = Color.Teal;
+            txtTitle.Location = new Point(col1X, startY + rowHeight);
+            txtTitle.Size = new Size(350, 35);
+            txtTitle.PlaceholderText = "Full Book Title";
+
+            // Author
+            lblAuthor.Text = "✍️ AUTHOR";
+            lblAuthor.Location = new Point(col1X + 5, startY + (rowHeight * 2) - 18);
+            lblAuthor.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblAuthor.BackColor = Color.FromArgb(24, 24, 26);
+            lblAuthor.ForeColor = Color.Teal;
+            txtAuthor.Location = new Point(col1X, startY + (rowHeight * 2));
+            txtAuthor.Size = new Size(350, 35);
+            txtAuthor.PlaceholderText = "Author Name";
+
+            // --- Column 2 ---
+            // Faculty
+            lblFaculty.Text = "🏫 FACULTY";
+            lblFaculty.Location = new Point(col2X + 5, startY - 18);
+            lblFaculty.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblFaculty.BackColor = Color.FromArgb(24, 24, 26);
+            lblFaculty.ForeColor = Color.Teal;
+            cmbFaculty.Location = new Point(col2X, startY);
+            cmbFaculty.Size = new Size(350, 35);
+            cmbFaculty.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbFaculty.SelectedIndexChanged += cmbFaculty_SelectedIndexChanged;
+
+            // Subject
+            lblSubject.Text = "📘 SUBJECT";
+            lblSubject.Location = new Point(col2X + 5, startY + rowHeight - 18);
+            lblSubject.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblSubject.BackColor = Color.FromArgb(24, 24, 26);
+            lblSubject.ForeColor = Color.Teal;
+            cmbSubject.Location = new Point(col2X, startY + rowHeight);
+            cmbSubject.Size = new Size(350, 35);
+            cmbSubject.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            // Year & Qty (Shared Row)
+            lblYear.Text = "📅 YEAR";
+            lblYear.Location = new Point(col2X + 5, startY + (rowHeight * 2) - 18);
+            lblYear.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblYear.BackColor = Color.FromArgb(24, 24, 26);
+            lblYear.ForeColor = Color.Teal;
+            txtYear.Location = new Point(col2X, startY + (rowHeight * 2));
+            txtYear.Size = new Size(165, 35);
             txtYear.PlaceholderText = "Year";
-            txtYear.Size = new Size(100, 29);
-            txtYear.TabIndex = 5;
-            // 
-            // txtQty
-            // 
-            txtQty.Font = new Font("Segoe UI", 12F);
-            txtQty.Location = new Point(140, 100);
-            txtQty.Name = "txtQty";
+
+            lblQty.Text = "📦 QTY";
+            lblQty.Location = new Point(col2X + 190, startY + (rowHeight * 2) - 18);
+            lblQty.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblQty.BackColor = Color.FromArgb(24, 24, 26);
+            lblQty.ForeColor = Color.Teal;
+            txtQty.Location = new Point(col2X + 185, startY + (rowHeight * 2));
+            txtQty.Size = new Size(165, 35);
             txtQty.PlaceholderText = "Qty";
-            txtQty.Size = new Size(100, 29);
-            txtQty.TabIndex = 6;
-            // 
-            // btnAdd
-            // 
-            btnAdd.BackColor = Color.FromArgb(44, 127, 184);
-            btnAdd.FlatStyle = FlatStyle.Flat;
-            btnAdd.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+
+            // Add Button (Large Teal)
+            btnAdd.Text = "SAVE BOOK TO INVENTORY";
+            btnAdd.Location = new Point(col1X, 310);
+            btnAdd.Size = new Size(740, 45);
+            btnAdd.BackColor = Color.Teal;
             btnAdd.ForeColor = Color.White;
-            btnAdd.Location = new Point(260, 100);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(200, 40);
-            btnAdd.TabIndex = 7;
-            btnAdd.Text = "Save Book";
-            btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.FlatStyle = FlatStyle.Flat;
+            btnAdd.FlatAppearance.BorderSize = 0;
+            btnAdd.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnAdd.Click += btnAdd_Click;
-            // 
-            // btnClear
-            // 
-            btnClear.BackColor = Color.FromArgb(108, 117, 125);
-            btnClear.FlatStyle = FlatStyle.Flat;
-            btnClear.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnClear.ForeColor = Color.White;
-            btnClear.Location = new Point(480, 100);
-            btnClear.Name = "btnClear";
-            btnClear.Size = new Size(200, 40);
-            btnClear.TabIndex = 8;
-            btnClear.Text = "Clear Fields";
-            btnClear.UseVisualStyleBackColor = false;
-            btnClear.Click += btnClear_Click;
-            // 
-            // panelList
-            // 
+            
+            btnClear.Visible = false; 
+
+            panelCreate.Controls.Clear();
+            panelCreate.Controls.AddRange(new Control[] { 
+                labelSubtitle,
+                lblISBN, txtISBN, lblTitle, txtTitle, lblAuthor, txtAuthor,
+                lblFaculty, cmbFaculty, lblSubject, cmbSubject,
+                lblYear, txtYear, lblQty, txtQty, btnAdd 
+            });
+            // List Panel Adjustment
+            panelList.Location = new Point(34, 480);
+            panelList.Size = new Size(1250, 350);
+            panelList.BackColor = Color.FromArgb(24, 24, 26);
+            panelList.BorderStyle = BorderStyle.None;
             panelList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panelList.BackColor = Color.White;
-            panelList.BorderStyle = BorderStyle.FixedSingle;
-            panelList.Controls.Add(btnRefresh);
-            panelList.Controls.Add(lblSearch);
-            panelList.Controls.Add(txtSearch);
-            panelList.Controls.Add(dataGridView1);
-            panelList.Location = new Point(34, 300);
-            panelList.Name = "panelList";
-            panelList.Padding = new Padding(10, 60, 10, 10);
-            panelList.Size = new Size(2225, 739);
-            panelList.TabIndex = 2;
+            panelList.Controls.Clear();
+            panelList.Controls.AddRange(new Control[] { btnRefresh, lblSearch, txtSearch, dataGridView1 });
+
+            btnRefresh.BackColor = Color.Teal;
+            btnRefresh.ForeColor = Color.White;
+            btnRefresh.FlatStyle = FlatStyle.Flat;
+            btnRefresh.FlatAppearance.BorderSize = 0;
+            btnRefresh.Location = new Point(20, 15);
+            btnRefresh.Size = new Size(120, 35);
+            btnRefresh.Click += btnRefresh_Click;
+
+            lblSearch.ForeColor = Color.LightGray;
+            lblSearch.Location = new Point(160, 20);
+            lblSearch.Text = "Quick Search:";
+
+            txtSearch.BackColor = Color.FromArgb(30, 30, 32);
+            txtSearch.ForeColor = Color.White;
+            txtSearch.BorderStyle = BorderStyle.FixedSingle;
+            txtSearch.Location = new Point(260, 18);
+            txtSearch.Size = new Size(300, 25);
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // btnRefresh
             // 
@@ -310,7 +330,8 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.TextBox txtISBN;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.TextBox txtAuthor;
-        private System.Windows.Forms.ComboBox cmbCategory;
+        private System.Windows.Forms.ComboBox cmbFaculty;
+        private System.Windows.Forms.ComboBox cmbSubject;
         private System.Windows.Forms.TextBox txtYear;
         private System.Windows.Forms.TextBox txtQty;
         private System.Windows.Forms.Button btnAdd;
@@ -328,5 +349,12 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.DataGridViewButtonColumn colDelete;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.Label lblISBN;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Label lblAuthor;
+        private System.Windows.Forms.Label lblFaculty;
+        private System.Windows.Forms.Label lblSubject;
+        private System.Windows.Forms.Label lblYear;
+        private System.Windows.Forms.Label lblQty;
     }
 }

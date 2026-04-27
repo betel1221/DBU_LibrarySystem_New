@@ -15,7 +15,7 @@ namespace DBU_LibrarySystem
 
             this.Load += (s, e) => {
                 ThemeHelper.ApplyTheme(this);
-                if (lblWelcome != null) lblWelcome.Text = $"Welcome, Librarian {_currentUser.Name}";
+                if (lblWelcome != null) lblWelcome.Text = "Welcome Librarian";
                 // Cleanup
                 DBU_LibrarySystem.Services.LibraryManager.CleanupExpiredReservations();
                 // Load default

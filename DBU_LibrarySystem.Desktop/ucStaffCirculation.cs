@@ -74,7 +74,7 @@ namespace DBU_LibrarySystem
                     return;
                 }
 
-                Services.LibraryManager.IssueBook(userId, copyId, 14); // Default 14 days
+                Services.LibraryManager.IssueBook(userId, copyId, 3); // Default 3 days
                 MessageBox.Show($"Book {copyId} issued successfully to {userId}!");
                 
                 txtBMember.Clear();

@@ -19,8 +19,8 @@ namespace DBU_LibrarySystem
             _currentUserId = userId;
             dataGridView1.Rows.Clear();
             
-            // 1. Load Borrows
-            var history = DBU_LibrarySystem.Services.LibraryManager.GetUserHistory(userId);
+            // 1. Load Borrows (Only 5 most recent)
+            var history = DBU_LibrarySystem.Services.LibraryManager.GetUserHistory(userId).Take(5).ToList();
             foreach (var t in history)
             {
                 decimal currentFine = t.Status == "Active" 

@@ -49,32 +49,5 @@ namespace DBU_LibrarySystem
                 dataGridView1.Rows.Add(b.ISBN, b.Title, b.Author, b.Category, availStatus);
             }
         }
-
-        private void btnIssue_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.CurrentRow == null) return;
-            string isbn = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-
-            // Find an available copy to issue
-            var book = DBU_LibrarySystem.Services.LibraryManager.SearchBooks(isbn: isbn).FirstOrDefault();
-            var copy = book?.Copies?.FirstOrDefault(c => c.Status == "Available");
-
-            if (copy == null)
-            {
-                MessageBox.Show("No available copies to issue for this book.");
-                return;
-            }
-
-            // Navigate to Circulation screen
-            Form parent = this.FindForm();
-            if (parent is StaffDashboard staffDash)
-            {
-                staffDash.NavigateToModule("Circulation", copy.CopyId);
-            }
-            else if (parent is MainDashboard adminDash)
-            {
-                adminDash.NavigateToModule("Borrow", copy.CopyId);
-            }
-        }
     }
 }

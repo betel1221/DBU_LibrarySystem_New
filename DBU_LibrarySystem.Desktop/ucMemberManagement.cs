@@ -87,6 +87,12 @@ namespace DBU_LibrarySystem
                     return;
                 }
 
+                if (!System.Text.RegularExpressions.Regex.IsMatch(contact, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                {
+                    MessageBox.Show("Please enter a valid email address.");
+                    return;
+                }
+
                 using (var db = new DBU_LibrarySystem.Data.LibraryContext())
                 {
                     if (db.Users.Any(u => u.UserId == id))
@@ -101,18 +107,18 @@ namespace DBU_LibrarySystem
                         UserId = id,
                         Name = name,
                         Role = role,
-                        Password = "123456", // Default secure-ish password
+                        Password = "dbu" + id, 
                         ContactNumber = contact,
                         IDCardImagePath = role == "Student" ? idPath : null,
                         Department = role == "Student" ? department : null,
-                        IsApproved = true // Auto-approved as requested
+                        IsApproved = true 
                     };
 
                     db.Users.Add(member);
                     db.SaveChanges();
                 }
 
-                MessageBox.Show($"Member registered successfully!\n\nLogin Username: {id}\nDefault Password: 123456", "Registration Success");
+                MessageBox.Show($"Member registered successfully!\n\nLogin Username: {id}\nDefault Password: dbu{id}", "Registration Success");
                 
                 LoadRealData();
                 ClearFields();
