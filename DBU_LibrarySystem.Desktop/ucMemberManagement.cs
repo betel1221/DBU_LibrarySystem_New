@@ -3,7 +3,8 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using DBU_LibrarySystem.Utilities;
-
+using Microsoft.EntityFrameworkCore;
+using System.IO;
 namespace DBU_LibrarySystem
 {
     public partial class ucMemberManagement : UserControl
@@ -29,44 +30,52 @@ namespace DBU_LibrarySystem
                 txtDepartment.Visible = true;
                 txtIDCardPath.Visible = true;
                 btnBrowseID.Visible = true;
+                lblDepartment.Visible = true;
+                lblIDCard.Visible = true;
             }
             else
             {
                 txtID.PlaceholderText = "Staff ID";
                 txtEmail.PlaceholderText = "Staff Email/Phone";
                 txtDepartment.Visible = false;
-                
-                // Hide ID card logic for staff, or keep it. Let's hide it for staff.
                 txtIDCardPath.Visible = false;
                 btnBrowseID.Visible = false;
+                lblDepartment.Visible = false;
+                lblIDCard.Visible = false;
             }
         }
 
         private void LoadRealData()
         {
-            dataGridView1.Rows.Clear();
-            
-            if(dataGridView1.Columns.Count == 0) {
-                dataGridView1.Columns.Add("ID", "Member ID");
-                dataGridView1.Columns.Add("Name", "Full Name");
-                dataGridView1.Columns.Add("Role", "Role");
-                dataGridView1.Columns.Add("Department", "Department");
-                dataGridView1.Columns.Add("Contact", "Contact");
-            }
-
-            using (var db = new DBU_LibrarySystem.Data.LibraryContext())
+            try
             {
-                // All Student/Employee roles are considered 'Members'
-                var members = db.Users
-                    .Where(u => u.Role == "Student" || u.Role == "Employee" || u.Role == "Librarian")
-                    .OrderBy(u => u.Name)
-                    .ToList();
-
-                foreach (var m in members)
-                {
-                    string dept = m.Role == "Student" ? m.Department : "N/A";
-                    dataGridView1.Rows.Add(m.UserId, m.Name, m.Role, dept ?? "N/A", m.ContactNumber ?? "N/A");
+                dataGridView1.Rows.Clear();
+                
+                if(dataGridView1.Columns.Count == 0) {
+                    dataGridView1.Columns.Add("ID", "Member ID");
+                    dataGridView1.Columns.Add("Name", "Full Name");
+                    dataGridView1.Columns.Add("Role", "Role");
+                    dataGridView1.Columns.Add("Department", "Department");
+                    dataGridView1.Columns.Add("Contact", "Contact");
                 }
+
+                using (var db = new DBU_LibrarySystem.Data.LibraryContext())
+                {
+                    var members = db.Users
+                        .Where(u => u.Role == "Student" || u.Role == "Employee" || u.Role == "Librarian")
+                        .OrderBy(u => u.Name)
+                        .ToList();
+
+                    foreach (var m in members)
+                    {
+                        string dept = m.Role == "Student" ? m.Department : "N/A";
+                        dataGridView1.Rows.Add(m.UserId, m.Name, m.Role, dept ?? "N/A", m.ContactNumber ?? "N/A");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Silent catch or simple log
             }
         }
 
@@ -87,12 +96,6 @@ namespace DBU_LibrarySystem
                     return;
                 }
 
-                if (!System.Text.RegularExpressions.Regex.IsMatch(contact, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                {
-                    MessageBox.Show("Please enter a valid email address.");
-                    return;
-                }
-
                 using (var db = new DBU_LibrarySystem.Data.LibraryContext())
                 {
                     if (db.Users.Any(u => u.UserId == id))
@@ -101,7 +104,6 @@ namespace DBU_LibrarySystem
                         return;
                     }
 
-                    // Automatic User Creation (One-Step Registration)
                     var member = new DBU_LibrarySystem.Models.User
                     {
                         UserId = id,
@@ -118,7 +120,7 @@ namespace DBU_LibrarySystem
                     db.SaveChanges();
                 }
 
-                MessageBox.Show($"Member registered successfully!\n\nLogin Username: {id}\nDefault Password: dbu{id}", "Registration Success");
+                MessageBox.Show($"Member registered successfully!\n\nLogin Username: {name}\nDefault Password: dbu{id}", "Registration Success");
                 
                 LoadRealData();
                 ClearFields();
@@ -138,13 +140,20 @@ namespace DBU_LibrarySystem
             txtDepartment.Clear();
         }
 
+        private void btnCaptureID_Click(object sender, EventArgs e)
+        {
+            using (var cam = new CameraCaptureForm())
+            {
+                if (cam.ShowDialog() == DialogResult.OK)
+                {
+                    txtIDCardPath.Text = cam.CapturedFilePath;
+                }
+            }
+        }
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             LoadRealData();
         }
-
-        // Methods below are kept for compatibility if needed elsewhere, but marked as empty
-        private void btnViewID_Click(object sender, EventArgs e) { }
-        private void btnApprove_Click(object sender, EventArgs e) { }
     }
 }

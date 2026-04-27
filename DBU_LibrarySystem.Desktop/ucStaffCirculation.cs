@@ -101,7 +101,7 @@ namespace DBU_LibrarySystem
                 decimal fine = Services.LibraryManager.ReturnBook(copyId);
                 if (fine > 0)
                 {
-                    MessageBox.Show($"Book returned. A fine of ${fine:N2} was calculated for late return.", "Return Processed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Book returned. A fine of {fine:N2} Birr was calculated for late return.", "Return Processed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {

@@ -60,7 +60,7 @@ namespace DBU_LibrarySystem
             panelSearchBar.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
             
             // Search Box
-            txtSearch.BackColor = System.Drawing.Color.FromArgb(55, 58, 62);
+            txtSearch.BackColor = Color.FromArgb(45, 45, 48);
             txtSearch.ForeColor = System.Drawing.Color.White;
             txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txtSearch.Font = new System.Drawing.Font("Segoe UI", 12F);

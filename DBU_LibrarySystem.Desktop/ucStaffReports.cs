@@ -65,7 +65,7 @@ namespace DBU_LibrarySystem
                 string amount = row.Cells[3].Value.ToString();
                 int transId = (int)row.Cells[5].Value;
 
-                var res = MessageBox.Show($"Confirm payment of ${amount} for {student}?", "Confirm Settlement", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var res = MessageBox.Show($"Confirm payment of {amount} Birr for {student}?", "Confirm Settlement", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (res == DialogResult.Yes)
                 {
                     try

@@ -65,7 +65,7 @@ namespace DBU_LibrarySystem
             
             // lblSearchBy
             lblSearchBy.AutoSize = true;
-            lblSearchBy.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            lblSearchBy.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             lblSearchBy.ForeColor = System.Drawing.Color.Gray;
             lblSearchBy.Location = new System.Drawing.Point(340, 40);
             lblSearchBy.Text = "SELECT SEARCH CRITERIA:";

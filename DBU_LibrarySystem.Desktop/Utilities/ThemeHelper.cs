@@ -13,7 +13,7 @@ namespace DBU_LibrarySystem.Utilities
         public static Color SurfaceColor = Color.FromArgb(28, 28, 30);     // Slightly lighter
         public static Color CardColor = Color.FromArgb(24, 24, 26);        // Glass-like dark
         public static Color PrimaryColor = Color.FromArgb(0, 150, 255);    // Electric Blue
-        public static Color AccentColor = Color.FromArgb(0, 255, 242);     // Vibrant Cyan
+        public static Color AccentColor = Color.FromArgb(0, 150, 255);     // Electric Blue (Titles)
         public static Color TextPrimary = Color.FromArgb(240, 240, 245);   // High Contrast White
         public static Color TextSecondary = Color.FromArgb(140, 140, 160); // Muted Minimalist
         public static Color DangerColor = Color.FromArgb(255, 45, 85);
@@ -61,9 +61,20 @@ namespace DBU_LibrarySystem.Utilities
             else if (c is Label lbl)
             {
                 if (lbl.Font.Size > 14) { lbl.Font = AppHeaderFont; lbl.ForeColor = AccentColor; }
-                else if (lbl.Font.Bold) { lbl.Font = CardHeaderFont; lbl.ForeColor = TextPrimary; }
                 else { lbl.ForeColor = TextSecondary; }
                 lbl.BackColor = Color.Transparent;
+            }
+            else if (c is ComboBox cmb)
+            {
+                cmb.BackColor = Color.FromArgb(45, 45, 48);
+                cmb.ForeColor = TextPrimary;
+                cmb.FlatStyle = FlatStyle.Flat;
+            }
+            else if (c is CheckBox chk)
+            {
+                chk.ForeColor = TextPrimary;
+                chk.BackColor = Color.FromArgb(44, 127, 184); // Electric Blue background for checkboxes
+                chk.FlatStyle = FlatStyle.Flat;
             }
             else if (c is DataGridView grid)
             {
