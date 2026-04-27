@@ -33,7 +33,7 @@ namespace DBU_LibrarySystem
             {
                 // Center the login box in the middle of the screen
                 panel2.Left = (this.ClientSize.Width - panel2.Width) / 2;
-                panel2.Top = (this.ClientSize.Height - panel2.Height) / 2 + 50;
+                panel2.Top = 180;
             }
 
             if (label1 != null)

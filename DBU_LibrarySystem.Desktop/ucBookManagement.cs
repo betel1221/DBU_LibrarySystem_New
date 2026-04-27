@@ -16,8 +16,69 @@ namespace DBU_LibrarySystem
         {
             InitializeComponent();
             ThemeHelper.ApplyTheme(this);
-            SetupGridAtRuntime(); // FORCE REBUILD
+            SetupGridAtRuntime();
+            InitializeCategories();
             LoadRealData();
+        }
+
+        private void InitializeCategories()
+        {
+            cmbFaculty.Items.Clear();
+            cmbFaculty.Items.AddRange(new object[] {
+                "Computer Science / Software Engineering",
+                "Electrical Engineering",
+                "Civil Engineering",
+                "Medicine / Health Sciences",
+                "Business & Economics",
+                "Natural Sciences",
+                "Social Sciences",
+                "Law",
+                "Education",
+                "Other"
+            });
+            cmbFaculty.SelectedIndex = 0;
+        }
+
+        private void cmbFaculty_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbSubject.Items.Clear();
+            string faculty = cmbFaculty.SelectedItem?.ToString();
+
+            switch (faculty)
+            {
+                case "Computer Science / Software Engineering":
+                    cmbSubject.Items.AddRange(new object[] { "Programming", "Data Structures & Algorithms", "Database Systems", "Operating Systems", "Networking" });
+                    break;
+                case "Electrical Engineering":
+                    cmbSubject.Items.AddRange(new object[] { "Circuits", "Digital Systems", "Control Systems", "Telecommunications" });
+                    break;
+                case "Civil Engineering":
+                    cmbSubject.Items.AddRange(new object[] { "Structural Engineering", "Geotechnical", "Transportation", "Surveying" });
+                    break;
+                case "Medicine / Health Sciences":
+                    cmbSubject.Items.AddRange(new object[] { "Anatomy", "Physiology", "Pharmacology", "Pathology" });
+                    break;
+                case "Business & Economics":
+                    cmbSubject.Items.AddRange(new object[] { "Accounting", "Finance", "Management", "Marketing", "Economics" });
+                    break;
+                case "Natural Sciences":
+                    cmbSubject.Items.AddRange(new object[] { "Physics", "Chemistry", "Biology", "Mathematics" });
+                    break;
+                case "Social Sciences":
+                    cmbSubject.Items.AddRange(new object[] { "Psychology", "Sociology", "History", "Geography" });
+                    break;
+                case "Law":
+                    cmbSubject.Items.AddRange(new object[] { "Constitutional Law", "Criminal Law", "International Law" });
+                    break;
+                case "Education":
+                    cmbSubject.Items.AddRange(new object[] { "Curriculum Development", "Educational Psychology", "Teaching Methods" });
+                    break;
+                default:
+                    cmbSubject.Items.Add("General");
+                    break;
+            }
+
+            if (cmbSubject.Items.Count > 0) cmbSubject.SelectedIndex = 0;
         }
 
         private void SetupGridAtRuntime()
@@ -72,7 +133,8 @@ namespace DBU_LibrarySystem
             try
             {
                 _allBooks = LibraryManager.SearchBooks();
-                DisplayBooks(_allBooks);
+                // Initially don't list them (empty grid)
+                dataGridView1.Rows.Clear();
             }
             catch (Exception ex) { MessageBox.Show("Error loading data: " + ex.Message); }
         }
@@ -88,7 +150,13 @@ namespace DBU_LibrarySystem
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            string q = txtSearch.Text.ToLower();
+            string q = txtSearch.Text.Trim().ToLower();
+            if (string.IsNullOrEmpty(q))
+            {
+                dataGridView1.Rows.Clear();
+                return;
+            }
+
             var filtered = _allBooks.Where(b => b.Title.ToLower().Contains(q) || b.ISBN.Contains(q)).ToList();
             DisplayBooks(filtered);
         }
@@ -102,7 +170,7 @@ namespace DBU_LibrarySystem
                     ISBN = txtISBN.Text.Trim(),
                     Title = txtTitle.Text.Trim(),
                     Author = txtAuthor.Text.Trim(),
-                    Category = cmbCategory.SelectedItem?.ToString() ?? "Other",
+                    Category = $"{cmbFaculty.SelectedItem} | {cmbSubject.SelectedItem}",
                     YearOfPublication = int.Parse(txtYear.Text)
                 };
 
@@ -136,7 +204,15 @@ namespace DBU_LibrarySystem
                 txtISBN.Text = isbn;
                 txtTitle.Text = title;
                 txtAuthor.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
-                cmbCategory.SelectedItem = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                
+                string fullCategory = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                if (fullCategory.Contains("|"))
+                {
+                    var parts = fullCategory.Split('|');
+                    cmbFaculty.SelectedItem = parts[0].Trim();
+                    cmbSubject.SelectedItem = parts[1].Trim();
+                }
+
                 txtYear.Text = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
                 txtQty.Text = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
 
@@ -166,7 +242,7 @@ namespace DBU_LibrarySystem
             txtISBN.Clear();
             txtTitle.Clear();
             txtAuthor.Clear();
-            cmbCategory.SelectedIndex = 0;
+            cmbFaculty.SelectedIndex = 0;
             txtYear.Clear();
             txtQty.Clear();
             txtISBN.ReadOnly = false;

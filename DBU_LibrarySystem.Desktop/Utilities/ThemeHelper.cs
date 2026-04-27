@@ -8,16 +8,16 @@ namespace DBU_LibrarySystem.Utilities
 {
     public static class ThemeHelper
     {
-        // --- DEEP SPACE PALETTE ---
-        public static Color BackgroundColor = Color.FromArgb(10, 10, 12);  // Near Black
-        public static Color SurfaceColor = Color.FromArgb(22, 22, 26);     // Dark Gray/Blue
-        public static Color CardColor = Color.FromArgb(30, 30, 38);        // Slightly lighter surface
-        public static Color PrimaryColor = Color.FromArgb(44, 127, 184);   // Professional Blue
-        public static Color AccentColor = Color.FromArgb(0, 242, 255);     // Neon Teal
-        public static Color TextPrimary = Color.FromArgb(245, 245, 255);   // Off-white
-        public static Color TextSecondary = Color.FromArgb(160, 160, 180); // Muted blue-gray
-        public static Color DangerColor = Color.FromArgb(255, 60, 100);    // Neon Pink/Red
-        public static Color SuccessColor = Color.FromArgb(46, 213, 115);
+        // --- MODERN SAAS PALETTE ---
+        public static Color BackgroundColor = Color.FromArgb(18, 18, 18);  // Deep Charcoal #121212
+        public static Color SurfaceColor = Color.FromArgb(28, 28, 30);     // Slightly lighter
+        public static Color CardColor = Color.FromArgb(24, 24, 26);        // Glass-like dark
+        public static Color PrimaryColor = Color.FromArgb(0, 150, 255);    // Electric Blue
+        public static Color AccentColor = Color.FromArgb(0, 255, 242);     // Vibrant Cyan
+        public static Color TextPrimary = Color.FromArgb(240, 240, 245);   // High Contrast White
+        public static Color TextSecondary = Color.FromArgb(140, 140, 160); // Muted Minimalist
+        public static Color DangerColor = Color.FromArgb(255, 45, 85);
+        public static Color SuccessColor = Color.FromArgb(50, 215, 75);
 
         public static Font AppHeaderFont = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
         public static Font CardHeaderFont = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
@@ -56,10 +56,7 @@ namespace DBU_LibrarySystem.Utilities
             }
             else if (c is TextBox txt)
             {
-                txt.BackColor = SurfaceColor;
-                txt.ForeColor = TextPrimary;
-                txt.BorderStyle = BorderStyle.FixedSingle;
-                txt.Font = new Font("Segoe UI", 11F);
+                StyleModernInput(txt);
             }
             else if (c is Label lbl)
             {
@@ -80,33 +77,47 @@ namespace DBU_LibrarySystem.Utilities
             }
         }
 
+        public static void StyleModernInput(TextBox txt)
+        {
+            txt.BackColor = Color.FromArgb(40, 40, 45); // Semi-transparent effect
+            txt.ForeColor = TextPrimary;
+            txt.BorderStyle = BorderStyle.FixedSingle;
+            txt.Font = new Font("Inter", 11F); // SaaS Font choice
+
+            txt.Enter += (s, e) => { txt.BackColor = Color.FromArgb(50, 50, 60); };
+            txt.Leave += (s, e) => { txt.BackColor = Color.FromArgb(40, 40, 45); };
+        }
+
         private static void StyleButton(Button btn)
         {
             btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderSize = 1;
-            btn.FlatAppearance.BorderColor = PrimaryColor;
+            btn.FlatAppearance.BorderSize = 0; // Modern minimalist
             btn.Cursor = Cursors.Hand;
+            btn.Font = new Font("Inter", 10F, FontStyle.Bold);
 
-            if (btn.Name.Contains("logout") || btn.Text.ToLower().Contains("logout"))
+            if (btn.Name.Contains("Register") || btn.Text.ToLower().Contains("register"))
+            {
+                // Glassmorphism / Gradient effect simulated with colors
+                btn.BackColor = PrimaryColor;
+                btn.ForeColor = Color.White;
+                SetupButtonAnimation(btn, true);
+            }
+            else if (btn.Name.Contains("logout") || btn.Text.ToLower().Contains("logout"))
             {
                 btn.BackColor = Color.Transparent;
                 btn.ForeColor = PrimaryColor;
+                btn.FlatAppearance.BorderSize = 1;
                 btn.FlatAppearance.BorderColor = PrimaryColor;
-            }
-            else if (btn.Name.Contains("Add") || btn.Name.Contains("Save") || btn.Name.Contains("Create"))
-            {
-                btn.BackColor = SuccessColor;
-                btn.ForeColor = BackgroundColor;
-                btn.FlatAppearance.BorderColor = SuccessColor;
+                SetupButtonAnimation(btn, false);
             }
             else
             {
-                btn.BackColor = PrimaryColor;
-                btn.ForeColor = Color.White;
-                btn.FlatAppearance.BorderColor = PrimaryColor;
+                btn.BackColor = SurfaceColor;
+                btn.ForeColor = TextPrimary;
+                btn.FlatAppearance.BorderSize = 1;
+                btn.FlatAppearance.BorderColor = Color.FromArgb(60, 60, 70);
+                SetupButtonAnimation(btn, false);
             }
-
-            SetupButtonAnimation(btn);
         }
 
         private static void StyleGrid(DataGridView grid)
@@ -134,14 +145,22 @@ namespace DBU_LibrarySystem.Utilities
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
-        private static void SetupButtonAnimation(Button btn)
+        private static void SetupButtonAnimation(Button btn, bool isRegister)
         {
             Color originalColor = btn.BackColor;
             Color originalFore = btn.ForeColor;
             
             btn.MouseEnter += (s, e) => {
-                btn.BackColor = AccentColor;
-                btn.ForeColor = BackgroundColor;
+                if (isRegister)
+                {
+                    btn.BackColor = AccentColor;
+                    btn.ForeColor = BackgroundColor;
+                    // Simulate glow with focus border if needed (skipped for simplicity in WinForms)
+                }
+                else
+                {
+                    btn.BackColor = Color.FromArgb(50, 50, 60);
+                }
             };
             
             btn.MouseLeave += (s, e) => {
