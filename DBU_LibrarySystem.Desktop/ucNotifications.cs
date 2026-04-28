@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 using DBU_LibrarySystem.Utilities;
 using System.Linq;
@@ -15,6 +15,7 @@ namespace DBU_LibrarySystem
         public ucNotifications()
         {
             InitializeComponent();
+            this.AutoScroll = true;
             // Apply global theme first
             ThemeHelper.ApplyTheme(this);
             this.Dock = DockStyle.Fill;

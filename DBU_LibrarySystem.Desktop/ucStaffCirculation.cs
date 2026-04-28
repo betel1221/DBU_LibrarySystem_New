@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 using DBU_LibrarySystem.Utilities;
 using System.Linq;
@@ -10,6 +10,7 @@ namespace DBU_LibrarySystem
         public ucStaffCirculation()
         {
             InitializeComponent();
+            this.AutoScroll = true;
             ThemeHelper.ApplyTheme(this);
             LoadActiveLoans();
             SetupAutoComplete();
@@ -38,7 +39,7 @@ namespace DBU_LibrarySystem
                 var member = members.FirstOrDefault(m => m.UserId.Equals(txtBMember.Text, StringComparison.OrdinalIgnoreCase));
                 if (member != null)
                 {
-                    lblMemberName.Text = "👤 " + member.Name;
+                    lblMemberName.Text = "ðŸ‘¤ " + member.Name;
                     lblMemberName.ForeColor = System.Drawing.Color.FromArgb(40, 167, 69); // Green
                 }
                 else

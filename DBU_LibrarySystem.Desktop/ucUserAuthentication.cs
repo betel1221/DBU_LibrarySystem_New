@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -11,6 +11,7 @@ namespace DBU_LibrarySystem
         public ucUserAuthentication()
         {
             InitializeComponent();
+            this.AutoScroll = true;
             ThemeHelper.ApplyTheme(this);
             LoadRealData();
         }

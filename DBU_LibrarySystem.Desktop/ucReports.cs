@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -15,6 +15,7 @@ namespace DBU_LibrarySystem
         public ucReports()
         {
             InitializeComponent();
+            this.AutoScroll = true;
             ThemeHelper.ApplyTheme(this);
             
             // Wire up the paint event for the graph

@@ -27,6 +27,7 @@ namespace DBU_LibrarySystem
 
         private void LoadUserControl(UserControl uc)
         {
+            uc.MinimumSize = new Size(1100, 700);
             uc.Dock = DockStyle.Fill;
             panelContainer.Controls.Clear();
             panelContainer.Controls.Add(uc);

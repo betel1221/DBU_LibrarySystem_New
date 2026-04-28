@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,6 +12,7 @@ namespace DBU_LibrarySystem
         public ucMemberManagement()
         {
             InitializeComponent();
+            this.AutoScroll = true;
             ThemeHelper.ApplyTheme(this);
             LoadRealData();
             
