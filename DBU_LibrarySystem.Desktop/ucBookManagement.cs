@@ -133,8 +133,7 @@ namespace DBU_LibrarySystem
             try
             {
                 _allBooks = LibraryManager.SearchBooks();
-                // Initially don't list them (empty grid)
-                dataGridView1.Rows.Clear();
+                DisplayBooks(_allBooks);
             }
             catch (Exception ex) { MessageBox.Show("Error loading data: " + ex.Message); }
         }

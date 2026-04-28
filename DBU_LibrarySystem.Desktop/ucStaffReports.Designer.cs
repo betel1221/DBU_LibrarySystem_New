@@ -1,4 +1,4 @@
-namespace DBU_LibrarySystem
+﻿namespace DBU_LibrarySystem
 {
     partial class ucStaffReports
     {
@@ -88,7 +88,7 @@ namespace DBU_LibrarySystem
             colMember.HeaderText = "Student Name";
             colBook.HeaderText = "Book Title";
             colDueDate.HeaderText = "Due Date";
-            colFine.HeaderText = "Accrued Fine ($)";
+            colFine.HeaderText = "Accrued Fine (ETB)";
             colStatus.HeaderText = "Payment Status";
             colTransID.Visible = false;
 

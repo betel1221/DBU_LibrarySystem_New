@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,27 +8,38 @@ namespace DBU_LibrarySystem
 {
     public partial class ucUserAuthentication : UserControl
     {
-        private List<DBU_LibrarySystem.Models.User> _allMembers = new List<DBU_LibrarySystem.Models.User>();
-
         public ucUserAuthentication()
         {
             InitializeComponent();
+            this.AutoScroll = true;
             ThemeHelper.ApplyTheme(this);
             LoadRealData();
         }
 
         private void LoadRealData()
         {
-            dataGridView1.Rows.Clear();
-            
-            using (var db = new DBU_LibrarySystem.Data.LibraryContext())
+            try
             {
-                // Load System Users for the list
-                var users = db.Users.ToList();
-                foreach (var u in users)
-                {
-                    dataGridView1.Rows.Add(u.UserId, u.UserId, u.Role);
+                dataGridView1.Rows.Clear();
+                
+                if(dataGridView1.Columns.Count == 0) {
+                    dataGridView1.Columns.Add("ID", "User ID");
+                    dataGridView1.Columns.Add("Username", "Username");
+                    dataGridView1.Columns.Add("Role", "Role");
                 }
+
+                using (var db = new DBU_LibrarySystem.Data.LibraryContext())
+                {
+                    var users = db.Users.ToList();
+                    foreach (var u in users)
+                    {
+                        dataGridView1.Rows.Add(u.UserId, u.UserId, u.Role);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Silent
             }
         }
 
@@ -58,7 +69,6 @@ namespace DBU_LibrarySystem
                     var existingUser = db.Users.FirstOrDefault(u => u.UserId == username);
                     if (existingUser != null)
                     {
-                        // Update existing user (Member already has an entry, we just update login details)
                         existingUser.Password = password;
                         existingUser.Role = role;
                         existingUser.IsApproved = true;
@@ -67,7 +77,6 @@ namespace DBU_LibrarySystem
                     }
                     else
                     {
-                        // This case should ideally not happen if they are in the dropdown
                         MessageBox.Show("Selected member not found in the database.");
                     }
                 }

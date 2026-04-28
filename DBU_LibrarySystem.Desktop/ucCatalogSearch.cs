@@ -60,7 +60,12 @@ namespace DBU_LibrarySystem
             {
                 if (DBU_LibrarySystem.Services.LibraryManager.ReserveBook(studentId, isbn))
                 {
-                    MessageBox.Show("Book reserved successfully! Please collect it within 24 hours.");
+                    string status = dataGridView1.CurrentRow.Cells[5].Value.ToString();
+                    if (status.Contains("Available"))
+                        MessageBox.Show("Book reserved successfully! It is ready for pickup. Please collect it within 24 hours.", "Reservation Ready", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show("You have been added to the reservation queue. We will notify you as soon as the book is returned!", "Queue Joined", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
                     btnSearch_Click(null, null);
                 }
                 else

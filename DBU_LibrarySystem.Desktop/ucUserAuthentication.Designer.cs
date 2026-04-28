@@ -1,4 +1,4 @@
-namespace DBU_LibrarySystem
+﻿namespace DBU_LibrarySystem
 {
     partial class ucUserAuthentication
     {
@@ -15,162 +15,163 @@ namespace DBU_LibrarySystem
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle cellStyle = new System.Windows.Forms.DataGridViewCellStyle();
             labelTitle = new System.Windows.Forms.Label();
-            lblNote = new System.Windows.Forms.Label();
             panelCreate = new System.Windows.Forms.Panel();
-            lblCreateTitle = new System.Windows.Forms.Label();
+            labelSubtitle = new System.Windows.Forms.Label();
             txtMemberID = new System.Windows.Forms.TextBox();
             txtPassword = new System.Windows.Forms.TextBox();
             cmbRole = new System.Windows.Forms.ComboBox();
             btnCreate = new System.Windows.Forms.Button();
+            
+            lblMemberID = new System.Windows.Forms.Label();
+            lblPassword = new System.Windows.Forms.Label();
+            lblRole = new System.Windows.Forms.Label();
+
             panelList = new System.Windows.Forms.Panel();
             btnRefresh = new System.Windows.Forms.Button();
             dataGridView1 = new System.Windows.Forms.DataGridView();
-            colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            colUsername = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            colRole = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            
+
             panelCreate.SuspendLayout();
             panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
-            
-            // ucUserAuthentication
-            BackColor = System.Drawing.Color.FromArgb(240, 242, 245);
-            Dock = System.Windows.Forms.DockStyle.Fill;
-            AutoScroll = true;
-            Font = new System.Drawing.Font("Segoe UI", 10F);
-            
+
+            // Main Control
+            BackColor = System.Drawing.Color.FromArgb(0, 150, 255);
+            this.Size = new System.Drawing.Size(1400, 1000);
+
             // labelTitle
             labelTitle.AutoSize = true;
             labelTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             labelTitle.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
-            labelTitle.Location = new System.Drawing.Point(30, 20);
-            labelTitle.Text = "User Authentication Management";
+            labelTitle.Location = new System.Drawing.Point(30, 10);
+            labelTitle.Text = "User Account & Authentication Management";
+
+            // panelCreate (Premium Dashboard Card)
+            panelCreate.BackColor = System.Drawing.Color.FromArgb(24, 24, 26);
+            panelCreate.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            panelCreate.Location = new System.Drawing.Point(34, 65);
+            panelCreate.Size = new System.Drawing.Size(820, 320);
+            panelCreate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left;
+
+            // labelSubtitle
+            labelSubtitle.Text = "CREATE OR UPDATE LOGIN ACCOUNT";
+            labelSubtitle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            labelSubtitle.ForeColor = System.Drawing.Color.FromArgb(100, 100, 100);
+            labelSubtitle.Location = new System.Drawing.Point(20, 15);
+            labelSubtitle.AutoSize = true;
+
+            int col1X = 30;
+            int col2X = 420;
+            int startY = 70;
+            int rowHeight = 90;
+
+            // --- Column 1 ---
+            lblMemberID.Text = "MEMBER ID";
+            lblMemberID.Location = new System.Drawing.Point(col1X, startY - 25);
+            lblMemberID.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            lblMemberID.BackColor = System.Drawing.Color.FromArgb(24, 24, 26);
+            lblMemberID.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
+            lblMemberID.AutoSize = true;
             
-            // lblNote
-            lblNote.AutoSize = true;
-            lblNote.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic);
-            lblNote.ForeColor = System.Drawing.Color.FromArgb(100, 100, 100);
-            lblNote.Location = new System.Drawing.Point(30, 65);
-            lblNote.Text = "Note: Use this section to create Login Accounts so Students and Employees can log in to their portals. For students, the Username must match their Member ID.";
-            
-            // panelCreate
-            panelCreate.BackColor = System.Drawing.Color.White;
-            panelCreate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panelCreate.Location = new System.Drawing.Point(34, 120);
-            panelCreate.Size = new System.Drawing.Size(900, 160);
-            panelCreate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            
-            // lblCreateTitle
-            lblCreateTitle.AutoSize = true;
-            lblCreateTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            lblCreateTitle.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
-            lblCreateTitle.Location = new System.Drawing.Point(20, 15);
-            lblCreateTitle.Text = "Create Login Account";
-            
-             // txtMemberID
-            txtMemberID = new System.Windows.Forms.TextBox();
-            txtMemberID.Font = new System.Drawing.Font("Segoe UI", 12F);
-            txtMemberID.Location = new System.Drawing.Point(20, 50);
+            txtMemberID.Location = new System.Drawing.Point(col1X, startY);
+            txtMemberID.Size = new System.Drawing.Size(350, 35);
             txtMemberID.PlaceholderText = "Search/Enter Member ID";
-            txtMemberID.Size = new System.Drawing.Size(250, 30);
-            txtMemberID.TabIndex = 1;
-            
-            // txtPassword
-            txtPassword.Font = new System.Drawing.Font("Segoe UI", 12F);
-            txtPassword.Location = new System.Drawing.Point(290, 50);
-            txtPassword.PlaceholderText = "Password";
-            txtPassword.Size = new System.Drawing.Size(250, 30);
-            
-            // cmbRole
+            txtMemberID.BackColor = Color.FromArgb(45, 45, 48);
+            txtMemberID.ForeColor = System.Drawing.Color.White;
+            txtMemberID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+
+            lblPassword.Text = "PASSWORD";
+            lblPassword.Location = new System.Drawing.Point(col1X, startY + rowHeight - 25);
+            lblPassword.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            lblPassword.BackColor = System.Drawing.Color.FromArgb(24, 24, 26);
+            lblPassword.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
+            lblPassword.AutoSize = true;
+
+            txtPassword.Location = new System.Drawing.Point(col1X, startY + rowHeight);
+            txtPassword.Size = new System.Drawing.Size(350, 35);
+            txtPassword.PlaceholderText = "Enter Secure Password";
+            txtPassword.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
+            txtPassword.ForeColor = System.Drawing.Color.White;
+            txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtPassword.UseSystemPasswordChar = true;
+
+            // --- Column 2 ---
+            lblRole.Text = "USER ROLE";
+            lblRole.Location = new System.Drawing.Point(col2X, startY - 25);
+            lblRole.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            lblRole.BackColor = System.Drawing.Color.FromArgb(24, 24, 26);
+            lblRole.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
+            lblRole.AutoSize = true;
+
+            cmbRole.Location = new System.Drawing.Point(col2X, startY);
+            cmbRole.Size = new System.Drawing.Size(350, 35);
             cmbRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cmbRole.Font = new System.Drawing.Font("Segoe UI", 12F);
-            cmbRole.FormattingEnabled = true;
+            cmbRole.BackColor = Color.FromArgb(45, 45, 48);
+            cmbRole.ForeColor = System.Drawing.Color.White;
+            cmbRole.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            cmbRole.Items.Clear();
             cmbRole.Items.AddRange(new object[] { "Employee", "Student" });
-            cmbRole.Location = new System.Drawing.Point(560, 50);
-            cmbRole.Size = new System.Drawing.Size(250, 30);
             cmbRole.SelectedIndex = 0;
-            
-            // btnCreate
+
+            // Create Button (Large Teal)
+            btnCreate.Text = "CONFIRM AND CREATE ACCOUNT";
+            btnCreate.Location = new System.Drawing.Point(col1X, 220);
+            btnCreate.Size = new System.Drawing.Size(740, 45);
             btnCreate.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
-            btnCreate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnCreate.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnCreate.ForeColor = System.Drawing.Color.White;
-            btnCreate.Location = new System.Drawing.Point(20, 100);
-            btnCreate.Size = new System.Drawing.Size(250, 40);
-            btnCreate.Text = "Create Account";
-            btnCreate.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnCreate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCreate.FlatAppearance.BorderSize = 0;
+            btnCreate.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnCreate.Click += btnCreate_Click;
-            
-            panelCreate.Controls.Add(lblCreateTitle);
-            panelCreate.Controls.Add(txtMemberID);
-            panelCreate.Controls.Add(txtPassword);
-            panelCreate.Controls.Add(cmbRole);
-            panelCreate.Controls.Add(btnCreate);
-            
-            // panelList
-            panelList.BackColor = System.Drawing.Color.White;
-            panelList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panelList.Location = new System.Drawing.Point(34, 300);
-            panelList.Size = new System.Drawing.Size(900, 300);
+
+            panelCreate.Controls.AddRange(new System.Windows.Forms.Control[] { 
+                labelSubtitle, lblMemberID, txtMemberID, lblPassword, txtPassword, lblRole, cmbRole, btnCreate 
+            });
+
+            // List Panel
+            panelList.BackColor = System.Drawing.Color.FromArgb(24, 24, 26);
+            panelList.Location = new System.Drawing.Point(34, 420);
+            panelList.Size = new System.Drawing.Size(1250, 500);
             panelList.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
             
-            // btnRefresh
             btnRefresh.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
             btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnRefresh.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            btnRefresh.FlatAppearance.BorderSize = 0;
+            btnRefresh.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnRefresh.ForeColor = System.Drawing.Color.White;
             btnRefresh.Location = new System.Drawing.Point(20, 15);
-            btnRefresh.Size = new System.Drawing.Size(200, 40);
+            btnRefresh.Size = new System.Drawing.Size(200, 35);
             btnRefresh.Text = "Refresh User List";
-            btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
             btnRefresh.Click += btnRefresh_Click;
             
-            // dataGridView1
+            dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(24, 24, 26);
+            dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridView1.Location = new System.Drawing.Point(10, 60);
+            dataGridView1.Size = new System.Drawing.Size(1230, 420);
+            dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            cellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            cellStyle.BackColor = System.Drawing.Color.LightGray;
-            cellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            cellStyle.ForeColor = System.Drawing.Color.Black;
-            dataGridView1.ColumnHeadersDefaultCellStyle = cellStyle;
-            dataGridView1.ColumnHeadersHeight = 40;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
             dataGridView1.EnableHeadersVisualStyles = false;
-            dataGridView1.Location = new System.Drawing.Point(20, 70);
-            dataGridView1.Size = new System.Drawing.Size(860, 210);
-            dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
             
-            colID.HeaderText = "ID";
-            colUsername.HeaderText = "Username";
-            colRole.HeaderText = "Role";
-            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colID, colUsername, colRole });
-            
-            panelList.Controls.Add(btnRefresh);
-            panelList.Controls.Add(dataGridView1);
-            
-            // Add Controls
-            Controls.Add(labelTitle);
-            Controls.Add(lblNote);
-            Controls.Add(panelCreate);
-            Controls.Add(panelList);
-            
+            panelList.Controls.AddRange(new System.Windows.Forms.Control[] { btnRefresh, dataGridView1 });
+
+            this.Controls.Clear();
+            this.Controls.AddRange(new System.Windows.Forms.Control[] { labelTitle, panelCreate, panelList });
+
             panelCreate.ResumeLayout(false);
             panelCreate.PerformLayout();
             panelList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            Size = new System.Drawing.Size(1000, 700);
             ResumeLayout(false);
             PerformLayout();
         }
 
         private System.Windows.Forms.Label labelTitle;
-        private System.Windows.Forms.Label lblNote;
         private System.Windows.Forms.Panel panelCreate;
-        private System.Windows.Forms.Label lblCreateTitle;
+        private System.Windows.Forms.Label labelSubtitle;
         private System.Windows.Forms.TextBox txtMemberID;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.ComboBox cmbRole;
@@ -178,8 +179,9 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.Panel panelList;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colUsername;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colRole;
+
+        private System.Windows.Forms.Label lblMemberID;
+        private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.Label lblRole;
     }
 }

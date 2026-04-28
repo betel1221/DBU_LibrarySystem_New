@@ -25,7 +25,7 @@ namespace DBU_LibrarySystem.Services
                     db.SaveChanges();
                 }
 
-                var user = db.Users.FirstOrDefault(u => u.UserId.ToLower() == userId.ToLower() && u.Password == password);
+                var user = db.Users.FirstOrDefault(u => (u.UserId.ToLower() == userId.ToLower() || u.Name.ToLower() == userId.ToLower()) && u.Password == password);
                 if (user != null)
                 {
                     if (user.Role == "Student" && !user.IsApproved)

@@ -9,7 +9,7 @@ namespace DBU_LibrarySystem.Services
 {
     public static class LibraryManager
     {
-        public const decimal FineRatePerDay = 5.0m;
+        public const decimal FineRatePerDay = 15.0m;
         public const int MaxBorrowLimit = 3;
 
         // --- BOOK MANAGEMENT ---
@@ -145,6 +145,29 @@ namespace DBU_LibrarySystem.Services
             }
         }
 
+        public static Dictionary<string, int> GetMonthlyBorrowingStats()
+        {
+            using (var db = new LibraryContext())
+            {
+                var stats = new Dictionary<string, int>();
+                var sixMonthsAgo = DateTime.Now.AddMonths(-5);
+                sixMonthsAgo = new DateTime(sixMonthsAgo.Year, sixMonthsAgo.Month, 1);
+
+                var transactions = db.Transactions
+                    .Where(t => t.BorrowDate >= sixMonthsAgo)
+                    .ToList();
+
+                for (int i = 0; i < 6; i++)
+                {
+                    var date = sixMonthsAgo.AddMonths(i);
+                    string monthName = date.ToString("MMM");
+                    int count = transactions.Count(t => t.BorrowDate.Year == date.Year && t.BorrowDate.Month == date.Month);
+                    stats.Add(monthName, count);
+                }
+                return stats;
+            }
+        }
+
         // --- RESERVATION ---
         public static bool ReserveBook(string userId, string isbn)
         {
@@ -161,6 +184,18 @@ namespace DBU_LibrarySystem.Services
                 if (activeCount + reservedCount >= MaxBorrowLimit)
                 {
                     throw new Exception($"Borrow limit reached! You can only have {MaxBorrowLimit} active books/reservations.");
+                }
+
+                // Check if already reserved this book
+                if (db.Reservations.Any(r => r.UserId == userId && r.BookCopy.ISBN == isbn && (r.Status == "Pending" || r.Status == "Ready")))
+                {
+                    throw new Exception("You have already reserved this book.");
+                }
+                
+                // Check if already borrowed this book
+                if (db.Transactions.Any(t => t.UserId == userId && t.CopyId.StartsWith(isbn) && t.Status == "Active"))
+                {
+                     throw new Exception("You currently have this book borrowed.");
                 }
 
                 // Find available copy first
@@ -313,12 +348,12 @@ namespace DBU_LibrarySystem.Services
                     {
                         copy.Status = "Reserved";
                         pendingRes.Status = "Ready";
-                        pendingRes.ExpiryDate = DateTime.Now.AddDays(2);
+                        pendingRes.ExpiryDate = DateTime.Now.AddDays(1);
                         
                         // Notify reserver
                         db.Notifications.Add(new Notification {
                             UserId = pendingRes.UserId,
-                            Message = $"The book you reserved ({copyId}) has been returned and is ready for pick up!",
+                            Message = $"The book you reserved ({copyId}) has been returned! You have 24 hours to collect it.",
                             Date = DateTime.Now,
                             Type = "Ready"
                         });

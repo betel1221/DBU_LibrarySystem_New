@@ -58,8 +58,8 @@ namespace DBU_LibrarySystem
             // labelTitle
             // labelTitle
             labelTitle.AutoSize = true;
-            labelTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            labelTitle.ForeColor = Color.Cyan;
+            labelTitle.Font = new Font("Segoe UI", 18F, FontStyle.Regular);
+            labelTitle.ForeColor = Color.FromArgb(44, 127, 184);
             labelTitle.Location = new Point(30, 10);
             labelTitle.Text = "Book Inventory Management";
 
@@ -86,72 +86,78 @@ namespace DBU_LibrarySystem
 
             // --- Column 1 ---
             // ISBN
-            lblISBN.Text = "🔢 ISBN";
-            lblISBN.Location = new Point(col1X + 5, startY - 18);
-            lblISBN.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblISBN.Text = "ISBN";
+            lblISBN.Location = new Point(col1X, startY - 25);
+            lblISBN.Font = new Font("Segoe UI", 8F, FontStyle.Regular);
             lblISBN.BackColor = Color.FromArgb(24, 24, 26);
-            lblISBN.ForeColor = Color.Teal;
+            lblISBN.ForeColor = Color.FromArgb(44, 127, 184);
             txtISBN.Location = new Point(col1X, startY);
             txtISBN.Size = new Size(350, 35);
             txtISBN.PlaceholderText = "Enter ISBN";
 
             // Title
-            lblTitle.Text = "📖 BOOK TITLE";
-            lblTitle.Location = new Point(col1X + 5, startY + rowHeight - 18);
-            lblTitle.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblTitle.Text = "BOOK TITLE";
+            lblTitle.Location = new Point(col1X, startY + rowHeight - 25);
+            lblTitle.Font = new Font("Segoe UI", 8F, FontStyle.Regular);
             lblTitle.BackColor = Color.FromArgb(24, 24, 26);
-            lblTitle.ForeColor = Color.Teal;
+            lblTitle.ForeColor = Color.FromArgb(44, 127, 184);
             txtTitle.Location = new Point(col1X, startY + rowHeight);
             txtTitle.Size = new Size(350, 35);
             txtTitle.PlaceholderText = "Full Book Title";
 
             // Author
-            lblAuthor.Text = "✍️ AUTHOR";
-            lblAuthor.Location = new Point(col1X + 5, startY + (rowHeight * 2) - 18);
-            lblAuthor.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblAuthor.Text = "AUTHOR";
+            lblAuthor.Location = new Point(col1X, startY + (rowHeight * 2) - 25);
+            lblAuthor.Font = new Font("Segoe UI", 8F, FontStyle.Regular);
             lblAuthor.BackColor = Color.FromArgb(24, 24, 26);
-            lblAuthor.ForeColor = Color.Teal;
+            lblAuthor.ForeColor = Color.FromArgb(44, 127, 184);
             txtAuthor.Location = new Point(col1X, startY + (rowHeight * 2));
             txtAuthor.Size = new Size(350, 35);
             txtAuthor.PlaceholderText = "Author Name";
 
             // --- Column 2 ---
             // Faculty
-            lblFaculty.Text = "🏫 FACULTY";
-            lblFaculty.Location = new Point(col2X + 5, startY - 18);
-            lblFaculty.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblFaculty.Text = "FACULTY";
+            lblFaculty.Location = new Point(col2X, startY - 25);
+            lblFaculty.Font = new Font("Segoe UI", 8F, FontStyle.Regular);
             lblFaculty.BackColor = Color.FromArgb(24, 24, 26);
-            lblFaculty.ForeColor = Color.Teal;
+            lblFaculty.ForeColor = Color.FromArgb(44, 127, 184);
             cmbFaculty.Location = new Point(col2X, startY);
             cmbFaculty.Size = new Size(350, 35);
+            cmbFaculty.BackColor = Color.FromArgb(45, 45, 48);
+            cmbFaculty.ForeColor = Color.White;
+            cmbFaculty.FlatStyle = FlatStyle.Flat;
             cmbFaculty.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbFaculty.SelectedIndexChanged += cmbFaculty_SelectedIndexChanged;
 
             // Subject
-            lblSubject.Text = "📘 SUBJECT";
-            lblSubject.Location = new Point(col2X + 5, startY + rowHeight - 18);
-            lblSubject.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblSubject.Text = "SUBJECT";
+            lblSubject.Location = new Point(col2X, startY + rowHeight - 25);
+            lblSubject.Font = new Font("Segoe UI", 8F, FontStyle.Regular);
             lblSubject.BackColor = Color.FromArgb(24, 24, 26);
-            lblSubject.ForeColor = Color.Teal;
+            lblSubject.ForeColor = Color.FromArgb(44, 127, 184);
             cmbSubject.Location = new Point(col2X, startY + rowHeight);
             cmbSubject.Size = new Size(350, 35);
+            cmbSubject.BackColor = Color.FromArgb(45, 45, 48);
+            cmbSubject.ForeColor = Color.White;
+            cmbSubject.FlatStyle = FlatStyle.Flat;
             cmbSubject.DropDownStyle = ComboBoxStyle.DropDownList;
 
             // Year & Qty (Shared Row)
-            lblYear.Text = "📅 YEAR";
-            lblYear.Location = new Point(col2X + 5, startY + (rowHeight * 2) - 18);
-            lblYear.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblYear.Text = "YEAR";
+            lblYear.Location = new Point(col2X, startY + (rowHeight * 2) - 25);
+            lblYear.Font = new Font("Segoe UI", 8F, FontStyle.Regular);
             lblYear.BackColor = Color.FromArgb(24, 24, 26);
-            lblYear.ForeColor = Color.Teal;
+            lblYear.ForeColor = Color.FromArgb(44, 127, 184);
             txtYear.Location = new Point(col2X, startY + (rowHeight * 2));
             txtYear.Size = new Size(165, 35);
             txtYear.PlaceholderText = "Year";
 
-            lblQty.Text = "📦 QTY";
-            lblQty.Location = new Point(col2X + 190, startY + (rowHeight * 2) - 18);
-            lblQty.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblQty.Text = "QTY";
+            lblQty.Location = new Point(col2X + 185, startY + (rowHeight * 2) - 25);
+            lblQty.Font = new Font("Segoe UI", 8F, FontStyle.Regular);
             lblQty.BackColor = Color.FromArgb(24, 24, 26);
-            lblQty.ForeColor = Color.Teal;
+            lblQty.ForeColor = Color.FromArgb(44, 127, 184);
             txtQty.Location = new Point(col2X + 185, startY + (rowHeight * 2));
             txtQty.Size = new Size(165, 35);
             txtQty.PlaceholderText = "Qty";
@@ -160,7 +166,7 @@ namespace DBU_LibrarySystem
             btnAdd.Text = "SAVE BOOK TO INVENTORY";
             btnAdd.Location = new Point(col1X, 310);
             btnAdd.Size = new Size(740, 45);
-            btnAdd.BackColor = Color.Teal;
+            btnAdd.BackColor = Color.FromArgb(44, 127, 184);
             btnAdd.ForeColor = Color.White;
             btnAdd.FlatStyle = FlatStyle.Flat;
             btnAdd.FlatAppearance.BorderSize = 0;
@@ -178,14 +184,14 @@ namespace DBU_LibrarySystem
             });
             // List Panel Adjustment
             panelList.Location = new Point(34, 480);
-            panelList.Size = new Size(1250, 350);
+            panelList.Size = new Size(1250, 500);
             panelList.BackColor = Color.FromArgb(24, 24, 26);
             panelList.BorderStyle = BorderStyle.None;
             panelList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panelList.Controls.Clear();
             panelList.Controls.AddRange(new Control[] { btnRefresh, lblSearch, txtSearch, dataGridView1 });
 
-            btnRefresh.BackColor = Color.Teal;
+            btnRefresh.BackColor = Color.FromArgb(44, 127, 184);
             btnRefresh.ForeColor = Color.White;
             btnRefresh.FlatStyle = FlatStyle.Flat;
             btnRefresh.FlatAppearance.BorderSize = 0;
@@ -197,7 +203,7 @@ namespace DBU_LibrarySystem
             lblSearch.Location = new Point(160, 20);
             lblSearch.Text = "Quick Search:";
 
-            txtSearch.BackColor = Color.FromArgb(30, 30, 32);
+            txtSearch.BackColor = Color.FromArgb(45, 45, 48);
             txtSearch.ForeColor = Color.White;
             txtSearch.BorderStyle = BorderStyle.FixedSingle;
             txtSearch.Location = new Point(260, 18);
@@ -249,7 +255,9 @@ namespace DBU_LibrarySystem
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeight = 40;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colISBN, colTitle, colAuthor, colCategory, colYear, colQty, colEdit, colDelete });
-            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Dock = DockStyle.None;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+            dataGridView1.Size = new Size(1230, 420);
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.Location = new Point(10, 60);
             dataGridView1.MultiSelect = false;
@@ -308,7 +316,7 @@ namespace DBU_LibrarySystem
             // 
             // ucBookManagement
             // 
-            BackColor = Color.FromArgb(240, 242, 245);
+            BackColor = System.Drawing.Color.FromArgb(0, 150, 255);
             Controls.Add(labelTitle);
             Controls.Add(panelCreate);
             Controls.Add(panelList);

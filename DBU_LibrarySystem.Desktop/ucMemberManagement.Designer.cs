@@ -15,7 +15,6 @@ namespace DBU_LibrarySystem
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle cellStyle = new System.Windows.Forms.DataGridViewCellStyle();
             labelTitle = new System.Windows.Forms.Label();
             panelCreate = new System.Windows.Forms.Panel();
             labelSubtitle = new System.Windows.Forms.Label();
@@ -33,31 +32,31 @@ namespace DBU_LibrarySystem
             lblID = new System.Windows.Forms.Label();
             lblDepartment = new System.Windows.Forms.Label();
             lblIDCard = new System.Windows.Forms.Label();
-
+            
             panelList = new System.Windows.Forms.Panel();
             btnRefresh = new System.Windows.Forms.Button();
             dataGridView1 = new System.Windows.Forms.DataGridView();
-            
+
             panelCreate.SuspendLayout();
-             panelList.SuspendLayout();
+            panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             
-            BackColor = System.Drawing.Color.FromArgb(18, 18, 18);
+            BackColor = System.Drawing.Color.FromArgb(0, 150, 255);
             Dock = System.Windows.Forms.DockStyle.Fill;
             AutoScroll = true;
             Font = new System.Drawing.Font("Segoe UI", 10F);
             
             labelTitle.AutoSize = true;
             labelTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            labelTitle.ForeColor = System.Drawing.Color.Cyan;
+            labelTitle.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
             labelTitle.Location = new System.Drawing.Point(30, 10);
             labelTitle.Text = "Member & Registration Management";
             
             panelCreate.BackColor = System.Drawing.Color.FromArgb(24, 24, 26);
             panelCreate.BorderStyle = System.Windows.Forms.BorderStyle.None;
             panelCreate.Location = new System.Drawing.Point(34, 65);
-            panelCreate.Size = new System.Drawing.Size(820, 320);
+            panelCreate.Size = new System.Drawing.Size(900, 380);
             panelCreate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left;
 
             labelSubtitle.Text = "ADD NEW MEMBER";
@@ -72,110 +71,127 @@ namespace DBU_LibrarySystem
             int rowHeight = 90;
 
             // --- Column 1 ---
-            // Role
-            lblRole.Text = "👤 ROLE";
-            lblRole.Location = new System.Drawing.Point(col1X + 5, startY - 18);
+            lblRole.Text = "ROLE";
+            lblRole.Location = new System.Drawing.Point(col1X, startY - 25);
             lblRole.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
             lblRole.BackColor = System.Drawing.Color.FromArgb(24, 24, 26);
-            lblRole.ForeColor = System.Drawing.Color.Teal;
+            lblRole.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
             cmbRole.Location = new System.Drawing.Point(col1X, startY);
             cmbRole.Size = new System.Drawing.Size(350, 35);
+            cmbRole.BackColor = Color.FromArgb(45, 45, 48);
+            cmbRole.ForeColor = System.Drawing.Color.White;
+            cmbRole.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             cmbRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             cmbRole.Items.Clear();
             cmbRole.Items.AddRange(new object[] { "Student", "Librarian/Employee" });
             cmbRole.SelectedIndex = 0;
             cmbRole.SelectedIndexChanged += cmbRole_SelectedIndexChanged;
 
-            // Name
-            lblName.Text = "📛 FULL NAME";
-            lblName.Location = new System.Drawing.Point(col1X + 5, startY + rowHeight - 18);
+            lblName.Text = "FULL NAME";
+            lblName.Location = new System.Drawing.Point(col1X, startY + rowHeight - 25);
             lblName.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
             lblName.BackColor = System.Drawing.Color.FromArgb(24, 24, 26);
-            lblName.ForeColor = System.Drawing.Color.Teal;
+            lblName.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
             txtName.Location = new System.Drawing.Point(col1X, startY + rowHeight);
             txtName.Size = new System.Drawing.Size(350, 35);
             txtName.PlaceholderText = "Full Name";
+            txtName.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
+            txtName.ForeColor = System.Drawing.Color.White;
+            txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 
-            // Email
-            lblEmail.Text = "📧 EMAIL ADDRESS";
-            lblEmail.Location = new System.Drawing.Point(col1X + 5, startY + (rowHeight * 2) - 18);
+            lblEmail.Text = "EMAIL ADDRESS";
+            lblEmail.Location = new System.Drawing.Point(col1X, startY + (rowHeight * 2) - 25);
             lblEmail.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
             lblEmail.BackColor = System.Drawing.Color.FromArgb(24, 24, 26);
-            lblEmail.ForeColor = System.Drawing.Color.Teal;
+            lblEmail.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
             txtEmail.Location = new System.Drawing.Point(col1X, startY + (rowHeight * 2));
             txtEmail.Size = new System.Drawing.Size(350, 35);
             txtEmail.PlaceholderText = "Email Address";
+            txtEmail.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
+            txtEmail.ForeColor = System.Drawing.Color.White;
+            txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 
             // --- Column 2 ---
-            // ID
-            lblID.Text = "🆔 STUDENT/STAFF ID";
-            lblID.Location = new System.Drawing.Point(col2X + 5, startY - 18);
+            lblID.Text = "STUDENT/STAFF ID";
+            lblID.Location = new System.Drawing.Point(col2X, startY - 25);
             lblID.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
             lblID.BackColor = System.Drawing.Color.FromArgb(24, 24, 26);
-            lblID.ForeColor = System.Drawing.Color.Teal;
+            lblID.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
             txtID.Location = new System.Drawing.Point(col2X, startY);
             txtID.Size = new System.Drawing.Size(350, 35);
             txtID.PlaceholderText = "Member ID";
+            txtID.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
+            txtID.ForeColor = System.Drawing.Color.White;
+            txtID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 
-            // Department
-            lblDepartment.Text = "🏢 DEPARTMENT";
-            lblDepartment.Location = new System.Drawing.Point(col2X + 5, startY + rowHeight - 18);
+            lblDepartment.Text = "DEPARTMENT";
+            lblDepartment.Location = new System.Drawing.Point(col2X, startY + rowHeight - 25);
             lblDepartment.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
             lblDepartment.BackColor = System.Drawing.Color.FromArgb(24, 24, 26);
-            lblDepartment.ForeColor = System.Drawing.Color.Teal;
+            lblDepartment.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
             txtDepartment.Location = new System.Drawing.Point(col2X, startY + rowHeight);
             txtDepartment.Size = new System.Drawing.Size(350, 35);
             txtDepartment.PlaceholderText = "Department/Faculty";
+            txtDepartment.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
+            txtDepartment.ForeColor = System.Drawing.Color.White;
+            txtDepartment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 
-            // ID Card Path
-            lblIDCard.Text = "🖼️ ID CARD IMAGE";
-            lblIDCard.Location = new System.Drawing.Point(col2X + 5, startY + (rowHeight * 2) - 12);
+            lblIDCard.Text = "ID CARD IMAGE";
+            lblIDCard.Location = new System.Drawing.Point(col2X, startY + (rowHeight * 2) - 25);
             lblIDCard.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
             lblIDCard.BackColor = System.Drawing.Color.FromArgb(24, 24, 26);
-            lblIDCard.ForeColor = System.Drawing.Color.Teal;
+            lblIDCard.ForeColor = System.Drawing.Color.FromArgb(44, 127, 184);
             txtIDCardPath.Location = new System.Drawing.Point(col2X, startY + (rowHeight * 2));
             txtIDCardPath.Size = new System.Drawing.Size(260, 35);
             txtIDCardPath.PlaceholderText = "ID Image Path";
+            txtIDCardPath.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
+            txtIDCardPath.ForeColor = System.Drawing.Color.White;
+            txtIDCardPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 
             btnBrowseID.Text = "📁";
             btnBrowseID.Location = new System.Drawing.Point(col2X + 265, startY + (rowHeight * 2));
             btnBrowseID.Size = new System.Drawing.Size(85, 35);
-            btnBrowseID.BackColor = System.Drawing.Color.Teal;
+            btnBrowseID.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
             btnBrowseID.ForeColor = System.Drawing.Color.White;
             btnBrowseID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnBrowseID.FlatAppearance.BorderSize = 0;
             btnBrowseID.Click += (s, e) => {
-                using(OpenFileDialog ofd = new OpenFileDialog()) {
-                    if(ofd.ShowDialog() == DialogResult.OK) txtIDCardPath.Text = ofd.FileName;
+                using(System.Windows.Forms.OpenFileDialog ofd = new System.Windows.Forms.OpenFileDialog()) {
+                    if(ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) txtIDCardPath.Text = ofd.FileName;
                 }
             };
+            // Capture button
+            btnCaptureID = new System.Windows.Forms.Button();
+            btnCaptureID.Text = "Capture";
+            btnCaptureID.Location = new System.Drawing.Point(col2X + 265 + 90, startY + (rowHeight * 2));
+            btnCaptureID.Size = new System.Drawing.Size(85, 35);
+            btnCaptureID.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
+            btnCaptureID.ForeColor = System.Drawing.Color.White;
+            btnCaptureID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCaptureID.FlatAppearance.BorderSize = 0;
+            btnCaptureID.Click += btnCaptureID_Click;
 
-            // Register Button
             btnAdd.Text = "REGISTER NEW MEMBER";
-            btnAdd.Location = new System.Drawing.Point(col1X, 260);
-            btnAdd.Size = new System.Drawing.Size(740, 45);
-            btnAdd.BackColor = System.Drawing.Color.Teal;
+            btnAdd.Location = new System.Drawing.Point(col1X, 310);
+            btnAdd.Size = new System.Drawing.Size(830, 45);
+            btnAdd.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
             btnAdd.ForeColor = System.Drawing.Color.White;
             btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnAdd.FlatAppearance.BorderSize = 0;
-            btnAdd.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnAdd.Click += btnAdd_Click;
-            
-            panelCreate.Controls.Clear();
-            panelCreate.Controls.AddRange(new System.Windows.Forms.Control[] { 
+
+            panelCreate.Controls.AddRange(new System.Windows.Forms.Control[] {
                 labelSubtitle, lblRole, cmbRole, lblName, txtName, lblEmail, txtEmail,
-                lblID, txtID, lblDepartment, txtDepartment, lblIDCard, txtIDCardPath, btnBrowseID, btnAdd 
+                lblID, txtID, lblDepartment, txtDepartment, lblIDCard, txtIDCardPath, btnBrowseID, btnCaptureID, btnAdd
             });
 
-
-            
+            // List Panel
             panelList.BackColor = System.Drawing.Color.FromArgb(24, 24, 26);
-            panelList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            panelList.Location = new System.Drawing.Point(34, 400);
-            panelList.Size = new System.Drawing.Size(1250, 400);
+            panelList.Location = new System.Drawing.Point(34, 480);
+            panelList.Size = new System.Drawing.Size(1250, 500);
             panelList.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
             
-            btnRefresh.BackColor = System.Drawing.Color.Teal;
+            btnRefresh.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
             btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnRefresh.FlatAppearance.BorderSize = 0;
             btnRefresh.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
@@ -187,15 +203,15 @@ namespace DBU_LibrarySystem
             
             dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(24, 24, 26);
             dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            dataGridView1.Height = 330;
+            dataGridView1.Location = new System.Drawing.Point(10, 60);
+            dataGridView1.Size = new System.Drawing.Size(1230, 420);
+            dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
             dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.Teal;
-            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(44, 127, 184);
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
             dataGridView1.EnableHeadersVisualStyles = false;
             
-            panelList.Controls.Clear();
             panelList.Controls.AddRange(new System.Windows.Forms.Control[] { btnRefresh, dataGridView1 });
             
             this.Controls.Clear();
@@ -205,7 +221,7 @@ namespace DBU_LibrarySystem
             panelCreate.PerformLayout();
             panelList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            Size = new System.Drawing.Size(1400, 850);
+            Size = new System.Drawing.Size(1400, 1000);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -220,6 +236,7 @@ namespace DBU_LibrarySystem
         private System.Windows.Forms.ComboBox cmbRole;
         private System.Windows.Forms.TextBox txtDepartment;
         private System.Windows.Forms.Button btnBrowseID;
+private System.Windows.Forms.Button btnCaptureID;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Panel panelList;
         private System.Windows.Forms.Button btnRefresh;
